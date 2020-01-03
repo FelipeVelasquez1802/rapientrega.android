@@ -11,14 +11,14 @@
         android:theme="@style/AppTheme">
         <activity android:name=".views.RestorePasswordActivity"></activity>
         <activity android:name=".views.RegisterActivity" />
-        <activity android:name=".views.LoginActivity">
+        <activity android:name=".views.LoginActivity"></activity>
+        <activity android:name=".views.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".views.MainActivity" />
     </application>
 
 </manifest>

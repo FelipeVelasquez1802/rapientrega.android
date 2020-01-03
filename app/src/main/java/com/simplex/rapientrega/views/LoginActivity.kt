@@ -47,7 +47,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 } else {
                     password.error = null
                 }
-                intent = Intent(this, RegisterActivity::class.java)
+                intent = Intent(this, MainActivity::class.java)
             }
         }
         startActivity(intent)
