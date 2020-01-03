@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:fillViewport="true"
+    tools:context=".views.RegisterActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilUsername"
+                style="@style/TextInputLayoutTheme">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/EditTextTheme"
+                    android:drawableLeft="@drawable/ic_person_white"
+                    android:hint="@string/username"
+                    android:inputType="textCapWords" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilEmail"
+                style="@style/TextInputLayoutTheme">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/EditTextTheme"
+                    android:drawableLeft="@drawable/ic_email_white"
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilPassword"
+                style="@style/TextInputLayoutTheme">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/EditTextTheme"
+                    android:drawableLeft="@drawable/ic_lock_white"
+                    android:hint="@string/password"
+                    android:inputType="textPassword" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilRepeatPassword"
+                style="@style/TextInputLayoutTheme">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/EditTextTheme"
+                    android:drawableLeft="@drawable/ic_lock_white"
+                    android:hint="@string/repeat_password"
+                    android:inputType="textPassword" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btCreateAccount"
+            style="@style/ButtonTheme"
+            android:layout_weight="0"
+            android:onClick="onClick"
+            android:text="@string/send" />
+
+    </LinearLayout>
+
+
+</ScrollView>
