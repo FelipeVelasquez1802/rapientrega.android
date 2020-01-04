@@ -8,13 +8,15 @@ class CategoryTest {
         categories.add(
             Category(
                 "Restaurante",
-                "https://gmediac.com/files/2017/11/mejores-paginas-web-para-restaurante.jpg"
+                "https://gmediac.com/files/2017/11/mejores-paginas-web-para-restaurante.jpg",
+                ProviderTest().providersList()
             )
         )
         categories.add(
             Category(
                 "Drogueria",
-                "http://www.centenariocc.com/wp-content/uploads/2019/06/gal-drogueria-comfandi-01.jpg"
+                "http://www.centenariocc.com/wp-content/uploads/2019/06/gal-drogueria-comfandi-01.jpg",
+                ProviderTest().providersList2()
             )
         )
         return categories

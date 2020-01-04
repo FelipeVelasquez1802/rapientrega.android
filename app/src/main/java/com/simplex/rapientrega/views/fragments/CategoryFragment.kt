@@ -14,6 +14,8 @@ import com.simplex.rapientrega.R
 import com.simplex.rapientrega.views.adapters.CategoryAdapter
 import com.simplex.rapientrega.objects.Category
 import com.simplex.rapientrega.tests.CategoryTest
+import com.simplex.rapientrega.tools.GSON
+import com.simplex.rapientrega.tools.PROVIDER
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -120,7 +122,12 @@ class CategoryFragment :
     }
 
     override fun onItemClick(category: Category) {
-        fragmentManager?.beginTransaction()?.replace(R.id.frame_layout_main, ProviderFragment())
+        var fragment: Fragment = ProviderFragment()
+        var bundle: Bundle = Bundle()
+        bundle.putSerializable(PROVIDER, GSON.toJson(category.providers))
+        fragment.arguments = bundle
+
+        fragmentManager?.beginTransaction()?.replace(R.id.frame_layout_main, fragment)
             ?.addToBackStack(null)?.commit()
     }
 }

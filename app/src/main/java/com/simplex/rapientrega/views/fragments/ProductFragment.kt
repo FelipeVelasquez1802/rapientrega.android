@@ -7,19 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.reflect.TypeToken
 
 import com.simplex.rapientrega.R
-import com.simplex.rapientrega.objects.Provider
-import com.simplex.rapientrega.tests.ProviderTest
-import com.simplex.rapientrega.tools.GSON
-import com.simplex.rapientrega.tools.PROVIDER
-import com.simplex.rapientrega.tools.PROVIDER_TYPE
-import com.simplex.rapientrega.tools.toListProvider
-import com.simplex.rapientrega.views.adapters.ProviderAdapter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,21 +18,16 @@ private const val ARG_PARAM2 = "param2"
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [ProviderFragment.OnFragmentInteractionListener] interface
+ * [ProductFragment.OnFragmentInteractionListener] interface
  * to handle interaction events.
- * Use the [ProviderFragment.newInstance] factory method to
+ * Use the [ProductFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ProviderFragment :
-    Fragment(),
-    ProviderAdapter.OnItemClickListener {
+class ProductFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
-
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: ProviderAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,22 +42,7 @@ class ProviderFragment :
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view: View = inflater.inflate(R.layout.fragment_provider, container, false)
-        initialElements(view)
-        return view
-    }
-
-    private fun initialElements(view: View) {
-        var stringProvider: String? = arguments?.getString(PROVIDER, null)
-        // Validar cuando llegue null
-
-        var providers: ArrayList<Provider>? = stringProvider?.let { toListProvider(it) }
-
-        recyclerView = view.findViewById(R.id.recycler_view)
-        recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = providers?.let { ProviderAdapter(it, this) }!!
-        recyclerView.adapter = adapter
+        return inflater.inflate(R.layout.fragment_product, container, false)
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -118,21 +87,16 @@ class ProviderFragment :
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment ProviderFragment.
+         * @return A new instance of fragment ProductFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            ProviderFragment().apply {
+            ProductFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
                 }
             }
-    }
-
-    override fun onItemClick(provider: Provider) {
-        fragmentManager?.beginTransaction()?.replace(R.id.frame_layout_main, SubCategoryFragment())
-            ?.addToBackStack(null)?.commit()
     }
 }

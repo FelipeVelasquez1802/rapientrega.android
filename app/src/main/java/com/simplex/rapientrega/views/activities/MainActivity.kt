@@ -12,7 +12,8 @@ class MainActivity :
     ProfileFragment.OnFragmentInteractionListener,
     MainFragment.OnFragmentInteractionListener,
     OrdersFragment.OnFragmentInteractionListener,
-    ProviderFragment.OnFragmentInteractionListener {
+    ProviderFragment.OnFragmentInteractionListener,
+    SubCategoryFragment.OnFragmentInteractionListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
