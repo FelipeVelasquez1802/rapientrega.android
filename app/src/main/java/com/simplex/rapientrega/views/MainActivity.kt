@@ -6,9 +6,14 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.simplex.rapientrega.R
 import com.simplex.rapientrega.fragments.CategoryFragment
+import com.simplex.rapientrega.fragments.MainFragment
+import com.simplex.rapientrega.fragments.OrdersFragment
+import com.simplex.rapientrega.fragments.ProfileFragment
 
 class MainActivity :
-    AppCompatActivity(), CategoryFragment.OnFragmentInteractionListener {
+    AppCompatActivity(), CategoryFragment.OnFragmentInteractionListener,
+    ProfileFragment.OnFragmentInteractionListener, MainFragment.OnFragmentInteractionListener,
+    OrdersFragment.OnFragmentInteractionListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,9 +22,10 @@ class MainActivity :
     }
 
     private fun initialElements() {
-        var fragment: Fragment = CategoryFragment()
+        var fragment: Fragment = MainFragment()
         fragment.arguments = intent.extras
-        supportFragmentManager.beginTransaction().add(R.id.frame_layout, fragment).commit()
+        supportFragmentManager.beginTransaction()?.replace(R.id.frame_layout_main, fragment)
+            ?.addToBackStack(null)?.commit()
     }
 
     override fun onFragmentInteraction(uri: Uri) {
