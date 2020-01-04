@@ -1,19 +1,20 @@
-package com.simplex.rapientrega.fragments
+package com.simplex.rapientrega.views.fragments
 
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.viewpager.widget.ViewPager
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 import com.simplex.rapientrega.R
-import com.simplex.rapientrega.adapters.MyPagerAdapter
+import com.simplex.rapientrega.objects.Provider
+import com.simplex.rapientrega.tests.ProviderTest
+import com.simplex.rapientrega.views.adapters.ProviderAdapter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,22 +24,21 @@ private const val ARG_PARAM2 = "param2"
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [CategoryFragment.OnFragmentInteractionListener] interface
+ * [ProviderFragment.OnFragmentInteractionListener] interface
  * to handle interaction events.
- * Use the [CategoryFragment.newInstance] factory method to
+ * Use the [ProviderFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MainFragment :
-    Fragment(), BottomNavigationView.OnNavigationItemSelectedListener,
-    ViewPager.OnPageChangeListener {
-
-    private lateinit var bottomNavigationView: BottomNavigationView
-    private lateinit var viewPager: ViewPager
-
+class ProviderFragment :
+    Fragment(),
+    ProviderAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: ProviderAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,15 +52,18 @@ class MainFragment :
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var view = inflater.inflate(R.layout.fragment_main, container, false)
-
-        viewPager = view.findViewById(R.id.view_pager)
-        viewPager.adapter = fragmentManager?.let { MyPagerAdapter(it) }
-        viewPager.addOnPageChangeListener(this)
-
-        bottomNavigationView = view.findViewById(R.id.bottom_navigation)
-        bottomNavigationView.setOnNavigationItemSelectedListener(this)
+        // Inflate the layout for this fragment
+        var view: View = inflater.inflate(R.layout.fragment_provider, container, false)
+        initialElements(view)
         return view
+    }
+
+    private fun initialElements(view: View) {
+        recyclerView = view.findViewById(R.id.recycler_view)
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        adapter = ProviderAdapter(ProviderTest().providersList(), this)
+        recyclerView.adapter = adapter
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -105,12 +108,12 @@ class MainFragment :
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment CategoryFragment.
+         * @return A new instance of fragment ProviderFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            CategoryFragment().apply {
+            ProviderFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
@@ -118,53 +121,7 @@ class MainFragment :
             }
     }
 
-    override fun onNavigationItemSelected(p0: MenuItem): Boolean {
-        return when (p0.itemId) {
-            R.id.item_category -> {
-                viewPagerItem(0)
-                true
-            }
-            R.id.item_shopping_basket -> {
-                viewPagerItem(1)
-                true
-            }
-            R.id.item_profile -> {
-                viewPagerItem(2)
-                true
-            }
-            else -> {
-                viewPagerItem(0)
-                true
-            }
-        }
-    }
-
-    private fun viewPagerItem(position: Int) {
-        viewPager.currentItem = position
-    }
-
-    override fun onPageScrollStateChanged(state: Int) {
-    }
-
-    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-
-    }
-
-    override fun onPageSelected(position: Int) {
-        when (position) {
-            0 -> {
-                bottomNavigationViewItem(R.id.item_category)
-            }
-            1 -> {
-                bottomNavigationViewItem(R.id.item_shopping_basket)
-            }
-            2 -> {
-                bottomNavigationViewItem(R.id.item_profile)
-            }
-        }
-    }
-
-    private fun bottomNavigationViewItem(id: Int) {
-        bottomNavigationView.selectedItemId = id
+    override fun onItemClick(provider: Provider) {
+        Toast.makeText(context, "Provider: " + provider.name, Toast.LENGTH_LONG).show()
     }
 }

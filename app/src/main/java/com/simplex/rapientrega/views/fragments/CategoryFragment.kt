@@ -1,4 +1,4 @@
-package com.simplex.rapientrega.fragments
+package com.simplex.rapientrega.views.fragments
 
 import android.content.Context
 import android.net.Uri
@@ -7,8 +7,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 import com.simplex.rapientrega.R
+import com.simplex.rapientrega.views.adapters.CategoryAdapter
+import com.simplex.rapientrega.objects.Category
+import com.simplex.rapientrega.tests.CategoryTest
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -18,16 +23,20 @@ private const val ARG_PARAM2 = "param2"
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [OrdersFragment.OnFragmentInteractionListener] interface
+ * [CategoryFragment.OnFragmentInteractionListener] interface
  * to handle interaction events.
- * Use the [OrdersFragment.newInstance] factory method to
+ * Use the [CategoryFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class OrdersFragment : Fragment() {
+class CategoryFragment :
+    Fragment(), CategoryAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: CategoryAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +51,15 @@ class OrdersFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_orders, container, false)
+        var view: View = inflater.inflate(R.layout.fragment_category, container, false)
+
+        recyclerView = view.findViewById(R.id.recycler_view)
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        adapter = CategoryAdapter(CategoryTest().categoriesList(), this)
+        recyclerView.adapter = adapter
+
+        return view
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -81,7 +98,7 @@ class OrdersFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(): OrdersFragment = OrdersFragment()
+        fun newInstance(): CategoryFragment = CategoryFragment()
 
         /**
          * Use this factory method to create a new instance of
@@ -89,16 +106,21 @@ class OrdersFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment OrdersFragment.
+         * @return A new instance of fragment CategoryFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            OrdersFragment().apply {
+            CategoryFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun onItemClick(category: Category) {
+        fragmentManager?.beginTransaction()?.replace(R.id.frame_layout_main, ProviderFragment())
+            ?.addToBackStack(null)?.commit()
     }
 }

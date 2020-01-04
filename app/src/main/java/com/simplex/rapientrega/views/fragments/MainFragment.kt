@@ -1,14 +1,18 @@
-package com.simplex.rapientrega.fragments
+package com.simplex.rapientrega.views.fragments
 
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 import com.simplex.rapientrega.R
+import com.simplex.rapientrega.views.adapters.MyPagerAdapter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,7 +27,13 @@ private const val ARG_PARAM2 = "param2"
  * Use the [CategoryFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class CategoryFragment : Fragment() {
+class MainFragment :
+    Fragment(), BottomNavigationView.OnNavigationItemSelectedListener,
+    ViewPager.OnPageChangeListener {
+
+    private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var viewPager: ViewPager
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -41,8 +51,15 @@ class CategoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_category, container, false)
+        var view = inflater.inflate(R.layout.fragment_main, container, false)
+
+        viewPager = view.findViewById(R.id.view_pager)
+        viewPager.adapter = fragmentManager?.let { MyPagerAdapter(it) }
+        viewPager.addOnPageChangeListener(this)
+
+        bottomNavigationView = view.findViewById(R.id.bottom_navigation)
+        bottomNavigationView.setOnNavigationItemSelectedListener(this)
+        return view
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -81,8 +98,6 @@ class CategoryFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(): CategoryFragment = CategoryFragment()
-
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -100,5 +115,58 @@ class CategoryFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun onNavigationItemSelected(p0: MenuItem): Boolean {
+        return when (p0.itemId) {
+            R.id.item_category -> {
+                viewPagerItem(0)
+                true
+            }
+            R.id.item_shopping_basket -> {
+                viewPagerItem(1)
+                true
+            }
+            R.id.item_profile -> {
+                viewPagerItem(2)
+                true
+            }
+            else -> {
+                viewPagerItem(0)
+                true
+            }
+        }
+    }
+
+    private fun viewPagerItem(position: Int) {
+        viewPager.currentItem = position
+    }
+
+    override fun onPageScrollStateChanged(state: Int) {
+    }
+
+    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+
+    }
+
+    override fun onPageSelected(position: Int) {
+        when (position) {
+            0 -> {
+                bottomNavigationViewItem(R.id.item_category)
+            }
+            1 -> {
+                bottomNavigationViewItem(R.id.item_shopping_basket)
+            }
+            2 -> {
+                bottomNavigationViewItem(R.id.item_profile)
+            }
+            else -> {
+                bottomNavigationViewItem(R.id.item_category)
+            }
+        }
+    }
+
+    private fun bottomNavigationViewItem(id: Int) {
+        bottomNavigationView.selectedItemId = id
     }
 }

@@ -1,11 +1,11 @@
-package com.simplex.rapientrega.adapters
+package com.simplex.rapientrega.views.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.fragment.app.FragmentManager
-import com.simplex.rapientrega.fragments.CategoryFragment
-import com.simplex.rapientrega.fragments.OrdersFragment
-import com.simplex.rapientrega.fragments.ProfileFragment
+import com.simplex.rapientrega.views.fragments.CategoryFragment
+import com.simplex.rapientrega.views.fragments.OrdersFragment
+import com.simplex.rapientrega.views.fragments.ProfileFragment
 
 class MyPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     override fun getItem(position: Int): Fragment {

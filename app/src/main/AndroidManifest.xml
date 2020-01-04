@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.simplex.rapientrega">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,10 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.RestorePasswordActivity"></activity>
-        <activity android:name=".views.RegisterActivity" />
-        <activity android:name=".views.LoginActivity"></activity>
-        <activity android:name=".views.MainActivity">
+        <activity android:name=".views.activities.RestorePasswordActivity"></activity>
+        <activity android:name=".views.activities.RegisterActivity" />
+        <activity android:name=".views.activities.LoginActivity"></activity>
+        <activity android:name=".views.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

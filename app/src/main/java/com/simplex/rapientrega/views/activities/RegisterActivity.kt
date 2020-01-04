@@ -1,16 +1,15 @@
-package com.simplex.rapientrega.views
+package com.simplex.rapientrega.views.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.simplex.rapientrega.R
 
-class RestorePasswordActivity :
-    AppCompatActivity(), View.OnClickListener {
+class RegisterActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_restore_password)
+        setContentView(R.layout.activity_register)
     }
 
     override fun onClick(v: View?) {

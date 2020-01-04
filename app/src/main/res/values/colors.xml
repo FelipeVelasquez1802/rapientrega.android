@@ -8,5 +8,8 @@
     <color name="colorSecondaryDark">#b63300</color>
     <color name="colorSecondaryLight">#ff9552</color>
     <color name="colorAccent">@android:color/white</color>
-    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">@android:color/white</color>
+    <color name="colorTransparent">#80ED382F</color>
+    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">
+        @android:color/white
+    </color>
 </resources>
