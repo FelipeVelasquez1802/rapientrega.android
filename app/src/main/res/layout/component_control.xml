@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/btLess"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/th_button_less"
+        android:text="-"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/tvCount"
+        style="@style/TextViewTheme.Title"
+        android:layout_width="wrap_content"
+        android:text="0"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary" />
+
+    <Button
+        android:id="@+id/btMore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/th_button_more"
+        android:text="+"
+        android:textColor="@android:color/white" />
+
+</LinearLayout>

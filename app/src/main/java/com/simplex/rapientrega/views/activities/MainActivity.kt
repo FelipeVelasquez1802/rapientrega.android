@@ -11,9 +11,11 @@ class MainActivity :
     AppCompatActivity(), CategoryFragment.OnFragmentInteractionListener,
     ProfileFragment.OnFragmentInteractionListener,
     MainFragment.OnFragmentInteractionListener,
-    OrdersFragment.OnFragmentInteractionListener,
+    OrderFragment.OnFragmentInteractionListener,
     ProviderFragment.OnFragmentInteractionListener,
-    SubCategoryFragment.OnFragmentInteractionListener {
+    SubCategoryFragment.OnFragmentInteractionListener,
+    ProductFragment.OnFragmentInteractionListener,
+    ProductDetailFragment.OnFragmentInteractionListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,8 +26,8 @@ class MainActivity :
     private fun initialElements() {
         var fragment: Fragment = MainFragment()
         fragment.arguments = intent.extras
-        supportFragmentManager.beginTransaction()?.replace(R.id.frame_layout_main, fragment)
-            ?.addToBackStack(null)?.commit()
+        supportFragmentManager.beginTransaction().replace(R.id.frame_layout_main, fragment)
+            .addToBackStack(null).commit()
     }
 
     override fun onFragmentInteraction(uri: Uri) {

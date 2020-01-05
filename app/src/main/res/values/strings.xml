@@ -41,5 +41,8 @@
     <string name="closed">Cerrado</string>
     <string name="minimum_order">Pedido mínimo</string>
     <string name="shipping_cost">Costo de envio</string>
+    <string name="description">Description</string>
+    <string name="date">Fecha</string>
+    <string name="total">Total</string>
 
 </resources>

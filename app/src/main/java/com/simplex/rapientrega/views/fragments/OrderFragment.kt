@@ -8,13 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.simplex.rapientrega.R
-import com.simplex.rapientrega.objects.Product
-import com.simplex.rapientrega.tests.ProductTest
-import com.simplex.rapientrega.views.adapters.ProductAdapter
+import com.simplex.rapientrega.objects.Order
+import com.simplex.rapientrega.tests.OrderTest
+import com.simplex.rapientrega.views.adapters.OrderAdapter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,21 +24,20 @@ private const val ARG_PARAM2 = "param2"
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [ProductFragment.OnFragmentInteractionListener] interface
+ * [OrderFragment.OnFragmentInteractionListener] interface
  * to handle interaction events.
- * Use the [ProductFragment.newInstance] factory method to
+ * Use the [OrderFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ProductFragment :
-    Fragment(),
-    ProductAdapter.OnItemClickListener {
+class OrderFragment :
+    Fragment(), OrderAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: ProductAdapter
+    private lateinit var adapter: OrderAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,20 +52,19 @@ class ProductFragment :
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view: View = inflater.inflate(R.layout.fragment_product, container, false)
+        var view: View = inflater.inflate(R.layout.fragment_order, container, false)
         initialElements(view)
         return view
     }
 
     private fun initialElements(view: View) {
-        adapter = ProductAdapter(ProductTest().productList(), this)
-
+        adapter = OrderAdapter(OrderTest().ordersList(), this)
         recyclerView = view.findViewById(R.id.recycler_view)
         recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = GridLayoutManager(context, 2)
+        recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
-
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     fun onButtonPressed(uri: Uri) {
@@ -104,18 +102,20 @@ class ProductFragment :
     }
 
     companion object {
+        fun newInstance(): OrderFragment = OrderFragment()
+
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment ProductFragment.
+         * @return A new instance of fragment OrdersFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            ProductFragment().apply {
+            OrderFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
@@ -123,9 +123,7 @@ class ProductFragment :
             }
     }
 
-    override fun onItemClick(product: Product) {
-        fragmentManager?.beginTransaction()
-            ?.replace(R.id.frame_layout_main, ProductDetailFragment())?.addToBackStack(null)
-            ?.commit()
+    override fun onItemClick(order: Order) {
+        Toast.makeText(context, "Order: " + order.date, Toast.LENGTH_LONG).show()
     }
 }

@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.fragment.app.FragmentManager
 import com.simplex.rapientrega.views.fragments.CategoryFragment
-import com.simplex.rapientrega.views.fragments.OrdersFragment
+import com.simplex.rapientrega.views.fragments.OrderFragment
 import com.simplex.rapientrega.views.fragments.ProfileFragment
 
 class MyPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
@@ -14,7 +14,7 @@ class MyPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
                 CategoryFragment.newInstance()
             }
             1->{
-                OrdersFragment.newInstance()
+                OrderFragment.newInstance()
             }
             2 -> {
                 ProfileFragment.newInstance()
