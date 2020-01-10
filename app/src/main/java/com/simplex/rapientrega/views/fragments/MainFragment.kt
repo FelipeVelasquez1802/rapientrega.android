@@ -51,11 +51,13 @@ class MainFragment :
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var view = inflater.inflate(R.layout.fragment_main, container, false)
+        val view = inflater.inflate(R.layout.fragment_main, container, false)
 
         viewPager = view.findViewById(R.id.view_pager)
-        viewPager.adapter = fragmentManager?.let { MyPagerAdapter(it) }
+        val adapter: MyPagerAdapter = MyPagerAdapter(fragmentManager)
+        viewPager.adapter = adapter
         viewPager.addOnPageChangeListener(this)
+        adapter.notifyDataSetChanged()
 
         bottomNavigationView = view.findViewById(R.id.bottom_navigation)
         bottomNavigationView.setOnNavigationItemSelectedListener(this)
@@ -169,4 +171,6 @@ class MainFragment :
     private fun bottomNavigationViewItem(id: Int) {
         bottomNavigationView.selectedItemId = id
     }
+
+
 }
