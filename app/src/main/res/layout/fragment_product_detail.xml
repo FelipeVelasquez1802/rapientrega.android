@@ -63,6 +63,11 @@
                 android:layout_gravity="center" />
         </LinearLayout>
 
+        <Button
+            android:id="@+id/btPay"
+            android:text="@string/pay"
+            style="@style/ButtonTheme" />
+
     </LinearLayout>
 
 </ScrollView>

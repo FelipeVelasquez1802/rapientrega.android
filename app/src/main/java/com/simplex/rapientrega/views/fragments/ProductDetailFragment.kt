@@ -7,8 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import com.bumptech.glide.Glide
 
 import com.simplex.rapientrega.R
@@ -32,7 +34,8 @@ private const val ARG_PARAM2 = "param2"
  */
 class ProductDetailFragment :
     Fragment(),
-    ImageListener {
+    ImageListener,
+    View.OnClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -41,6 +44,7 @@ class ProductDetailFragment :
     private lateinit var name: TextView
     private lateinit var description: TextView
     private lateinit var carouselView: CarouselView
+    private lateinit var pay: Button
 
     private lateinit var product: Product
 
@@ -77,6 +81,9 @@ class ProductDetailFragment :
 
         description = view.findViewById(R.id.tvDescription)
         description.text = product.description
+
+        pay = view.findViewById(R.id.btPay)
+        pay.setOnClickListener(this)
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -137,6 +144,14 @@ class ProductDetailFragment :
     override fun setImageForPosition(position: Int, imageView: ImageView?) {
         if (imageView != null) {
             context?.let { Glide.with(it).load(product.photos?.get(position)).into(imageView) }
+        }
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.btPay -> {
+                Toast.makeText(context, "Comprar", Toast.LENGTH_LONG).show()
+            }
         }
     }
 }
