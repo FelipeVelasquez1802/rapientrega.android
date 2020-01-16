@@ -45,6 +45,9 @@ class ProductDetailFragment :
     private lateinit var description: TextView
     private lateinit var carouselView: CarouselView
     private lateinit var pay: Button
+    private lateinit var count: TextView
+    private lateinit var less: Button
+    private lateinit var right: Button
 
     private lateinit var product: Product
 
@@ -84,6 +87,14 @@ class ProductDetailFragment :
 
         pay = view.findViewById(R.id.btPay)
         pay.setOnClickListener(this)
+
+        count = view.findViewById(R.id.tvCount)
+
+        less = view.findViewById(R.id.btLess)
+        less.setOnClickListener(this)
+
+        right = view.findViewById(R.id.btMore)
+        right.setOnClickListener(this)
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -151,6 +162,16 @@ class ProductDetailFragment :
         when (v?.id) {
             R.id.btPay -> {
                 Toast.makeText(context, "Comprar", Toast.LENGTH_LONG).show()
+            }
+            R.id.btLess -> {
+                val count = this.count.text.toString().toInt() - 1
+                if (count >= 0) {
+                    this.count.text = "$count"
+                }
+            }
+            R.id.btMore -> {
+                val count = this.count.text.toString().toInt() + 1
+                this.count.text = "$count"
             }
         }
     }

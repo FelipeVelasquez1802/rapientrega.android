@@ -1,5 +1,6 @@
 package com.simplex.rapientrega.views.activities
 
+import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -21,7 +22,8 @@ class MainActivity :
     ProviderFragment.OnFragmentInteractionListener,
     SubCategoryFragment.OnFragmentInteractionListener,
     ProductFragment.OnFragmentInteractionListener,
-    ProductDetailFragment.OnFragmentInteractionListener {
+    ProductDetailFragment.OnFragmentInteractionListener,
+    MapFragment.OnFragmentInteractionListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +33,7 @@ class MainActivity :
 
     private fun initialElements() {
         var fragment: Fragment = MainFragment()
+//        var fragment: Fragment = MapFragment()
         fragment.arguments = intent.extras
         supportFragmentManager.beginTransaction().replace(R.id.frame_layout_main, fragment)
             .addToBackStack(null).commit()
@@ -44,6 +47,10 @@ class MainActivity :
         when (v?.id) {
             R.id.ivBack -> {
                 onBackPressed()
+            }
+            R.id.ivShoppingCart -> {
+                var intent = Intent(this, ShoppingCartActivity::class.java)
+                startActivity(intent)
             }
         }
     }

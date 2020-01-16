@@ -19,6 +19,13 @@ class CategoryTest {
                 ProviderTest().providersList2()
             )
         )
+        categories.add(
+            Category(
+                "Mapa",
+                "https://www.muypymes.com/wp-content/uploads/2018/03/googlemaps-googledevelopers1-660x330.png",
+                true
+            )
+        )
         return categories
     }
 }

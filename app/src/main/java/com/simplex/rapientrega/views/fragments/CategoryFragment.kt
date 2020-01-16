@@ -124,9 +124,12 @@ class CategoryFragment :
     override fun onItemClick(category: Category) {
         var fragment: Fragment = ProviderFragment()
         var bundle: Bundle = Bundle()
-        bundle.putSerializable(PROVIDER, GSON.toJson(category.providers))
-        fragment.arguments = bundle
-
+        if (!category.flag) {
+            bundle.putSerializable(PROVIDER, GSON.toJson(category.providers))
+            fragment.arguments = bundle
+        } else {
+            fragment = MapFragment()
+        }
         fragmentManager?.beginTransaction()?.replace(R.id.frame_layout_main, fragment)
             ?.addToBackStack(null)?.commit()
     }

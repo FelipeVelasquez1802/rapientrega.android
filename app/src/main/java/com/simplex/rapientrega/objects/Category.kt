@@ -4,7 +4,8 @@ class Category {
 
     var name: String
     var photo: String
-    lateinit var providers:List<Provider>
+    lateinit var providers: List<Provider>
+    var flag: Boolean = false
 
     constructor(name: String, photo: String) {
         this.name = name
@@ -15,6 +16,12 @@ class Category {
         this.name = name
         this.photo = photo
         this.providers = providers
+    }
+
+    constructor(name: String, photo: String, flag: Boolean) {
+        this.name = name
+        this.photo = photo
+        this.flag = flag
     }
 
 }

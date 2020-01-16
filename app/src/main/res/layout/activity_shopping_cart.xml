@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.activities.MainActivity">
+    tools:context=".views.activities.ShoppingCartActivity">
 
     <include
-        android:id="@+id/includeShoppingCart"
+        android:id="@+id/include"
         layout="@layout/component_action_bar" />
 
-    <FrameLayout
-        android:id="@+id/frame_layout_main"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/includeShoppingCart" />
+        android:layout_below="@id/include" />
 
 </RelativeLayout>

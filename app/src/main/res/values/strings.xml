@@ -47,4 +47,7 @@
     <string name="pay">Comprar</string>
     <string name="shoping_cart">Carrito de compras</string>
 
+    <string name="mapbox_access_token">
+        pk.eyJ1IjoiZmVsaXBldmVsYXNxdWV6MTgwMiIsImEiOiJjazVoNnp3NGwwMDI5M2tuenA3djduYml1In0.Uo5BTwBjBLbdQGTHwmzyZA
+    </string>
 </resources>
