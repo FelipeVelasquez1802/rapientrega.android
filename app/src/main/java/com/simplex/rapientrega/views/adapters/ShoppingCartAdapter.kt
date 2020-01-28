@@ -76,6 +76,7 @@ class ShoppingCartAdapter(
                 holder.less.isEnabled = false
             }
             shoppingCarts[position].count = count
+            shoppingCartInterface.run { updateList() }
         }
         holder.right.setOnClickListener {
             val count = holder.count.text.toString().toInt()
@@ -83,12 +84,14 @@ class ShoppingCartAdapter(
                 holder.less.isEnabled = true
             }
             holder.count.text = "${count + 1}"
-            shoppingCarts[position].count = count
+            shoppingCarts[position].count = count + 1
+            shoppingCartInterface.run { updateList() }
         }
     }
 
     interface ShoppingCartInterface {
         fun showShoppingCart(shoppingCarts: List<ShoppingCart>)
+        fun updateList()
     }
 
 }

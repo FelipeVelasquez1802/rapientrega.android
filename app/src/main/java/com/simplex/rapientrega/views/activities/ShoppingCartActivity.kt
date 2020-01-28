@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.simplex.rapientrega.R
@@ -53,6 +54,9 @@ class ShoppingCartActivity :
             R.id.ivUpdate -> {
                 total.text = "$ ${calculateTotalPrice()}"
             }
+            R.id.btPay -> {
+                Toast.makeText(this, "Desarrollando...", Toast.LENGTH_LONG).show()
+            }
         }
     }
 
@@ -64,5 +68,10 @@ class ShoppingCartActivity :
     override fun showShoppingCart(shoppingCarts: List<ShoppingCart>) {
         this.shoppingCarts = shoppingCarts
         total.text = "$ ${calculateTotalPrice()}"
+    }
+
+    override fun updateList() {
+//        Toast.makeText(this, "Sumar", Toast.LENGTH_LONG).show()
+//        adapter.notifyDataSetChanged()
     }
 }

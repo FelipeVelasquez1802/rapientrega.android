@@ -21,7 +21,7 @@
         android:id="@+id/ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@id/btPay"
         android:layout_toStartOf="@id/ivUpdate"
         android:layout_toLeftOf="@id/ivUpdate">
 
@@ -46,14 +46,21 @@
         android:id="@+id/ivUpdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@id/btPay"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
         android:layout_margin="5dp"
         android:elevation="10dp"
         android:onClick="onClick"
         android:padding="5dp"
         android:src="@drawable/ic_update_24dp"
         tools:targetApi="lollipop" />
+
+    <Button
+        android:id="@+id/btPay"
+        style="@style/ButtonTheme"
+        android:layout_alignParentBottom="true"
+        android:onClick="onClick"
+        android:text="@string/pay" />
 
 </RelativeLayout>
