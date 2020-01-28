@@ -1,7 +1,6 @@
 package com.simplex.rapientrega.views.adapters
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,10 @@ import com.bumptech.glide.Glide
 import com.simplex.rapientrega.R
 import com.simplex.rapientrega.objects.ShoppingCart
 
-class ShoppingCartAdapter(private var shoppingCarts: List<ShoppingCart>) :
+class ShoppingCartAdapter(
+    private var shoppingCarts: List<ShoppingCart>,
+    private var shoppingCartInterface: ShoppingCartInterface
+) :
     RecyclerView.Adapter<ShoppingCartAdapter.ShoppingCartViewHolder>() {
 
     private lateinit var view: View
@@ -42,20 +44,19 @@ class ShoppingCartAdapter(private var shoppingCarts: List<ShoppingCart>) :
         fun less() {
             val count = this.count.text.toString().toInt() - 1
             this.count.text = "${count})"
-            Log.d("ShoppingCartAdapterLog", "Aquí entró")
         }
 
         @SuppressLint("SetTextI18n")
         fun right() {
             val count = this.count.text.toString().toInt() + 1
             this.count.text = "${count})"
-            Log.d("ShoppingCartAdapterLog", "Aquí entró")
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShoppingCartViewHolder {
         view = LayoutInflater.from(parent.context)
             .inflate(R.layout.adapter_shopping_cart, parent, false)
+        shoppingCartInterface.run { showShoppingCart(shoppingCarts) }
         return ShoppingCartViewHolder(view)
     }
 
@@ -63,9 +64,9 @@ class ShoppingCartAdapter(private var shoppingCarts: List<ShoppingCart>) :
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ShoppingCartViewHolder, position: Int) {
-        var shoppingCart: ShoppingCart = shoppingCarts.get(position)
-        Glide.with(view).load(shoppingCart.photo).into(holder.photo)
-        holder.name.text = shoppingCart.name
+        var shoppingCart: ShoppingCart = shoppingCarts[position]
+        Glide.with(view).load(shoppingCart.product.photo).into(holder.photo)
+        holder.name.text = shoppingCart.product.name
         holder.count.text = shoppingCart.countFormat()
         holder.less.setOnClickListener {
             val count = holder.count.text.toString().toInt() - 1
@@ -74,6 +75,7 @@ class ShoppingCartAdapter(private var shoppingCarts: List<ShoppingCart>) :
             } else {
                 holder.less.isEnabled = false
             }
+            shoppingCarts[position].count = count
         }
         holder.right.setOnClickListener {
             val count = holder.count.text.toString().toInt()
@@ -81,7 +83,12 @@ class ShoppingCartAdapter(private var shoppingCarts: List<ShoppingCart>) :
                 holder.less.isEnabled = true
             }
             holder.count.text = "${count + 1}"
+            shoppingCarts[position].count = count
         }
+    }
+
+    interface ShoppingCartInterface {
+        fun showShoppingCart(shoppingCarts: List<ShoppingCart>)
     }
 
 }

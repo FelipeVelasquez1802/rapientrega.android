@@ -1,13 +1,11 @@
 package com.simplex.rapientrega.objects
 
 class ShoppingCart {
-    lateinit var photo: String
-    lateinit var name: String
+    var product: Product
     var count: Int = 0
 
-    constructor(photo: String, name: String, count: Int) {
-        this.photo = photo
-        this.name = name
+    constructor(product: Product, count: Int) {
+        this.product = product
         this.count = count
     }
 

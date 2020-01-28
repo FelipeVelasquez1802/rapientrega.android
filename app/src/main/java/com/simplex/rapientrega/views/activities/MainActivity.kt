@@ -25,6 +25,8 @@ class MainActivity :
     ProductDetailFragment.OnFragmentInteractionListener,
     MapFragment.OnFragmentInteractionListener {
 
+    private lateinit var fragment: MainFragment
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -32,7 +34,7 @@ class MainActivity :
     }
 
     private fun initialElements() {
-        var fragment: Fragment = MainFragment()
+        fragment = MainFragment()
 //        var fragment: Fragment = MapFragment()
         fragment.arguments = intent.extras
         supportFragmentManager.beginTransaction().replace(R.id.frame_layout_main, fragment)

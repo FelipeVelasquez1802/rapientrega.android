@@ -1,5 +1,6 @@
 package com.simplex.rapientrega.tests
 
+import com.simplex.rapientrega.objects.Product
 import com.simplex.rapientrega.objects.ShoppingCart
 
 class ShoppingCartTest {
@@ -7,15 +8,13 @@ class ShoppingCartTest {
         var shoppingCarts = ArrayList<ShoppingCart>()
         shoppingCarts.add(
             ShoppingCart(
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStIwbeHLccB8TaHHRLNanthpA38dm84Q5ODlZ0eJ-umGAOs7mA&s",
-                "Galleta",
+                ProductTest().productList()[0],
                 2
             )
         )
         shoppingCarts.add(
             ShoppingCart(
-                "https://jumbocolombiafood.vteximg.com.br/arquivos/ids/218131-750-750/7707358310753-1.jpg?v=636296101339630000",
-                "Cerveza",
+                ProductTest().productList()[1],
                 20
             )
         )

@@ -1,20 +1,27 @@
 package com.simplex.rapientrega.views.activities
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.simplex.rapientrega.R
+import com.simplex.rapientrega.objects.ShoppingCart
 import com.simplex.rapientrega.tests.ShoppingCartTest
 import com.simplex.rapientrega.views.adapters.ShoppingCartAdapter
 
 class ShoppingCartActivity :
     AppCompatActivity(),
-    View.OnClickListener {
+    View.OnClickListener,
+    ShoppingCartAdapter.ShoppingCartInterface {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ShoppingCartAdapter
+    private lateinit var total: TextView
+    private lateinit var shoppingCarts: List<ShoppingCart>
 
 //    private lateinit var count: TextView
 
@@ -31,17 +38,31 @@ class ShoppingCartActivity :
         recyclerView = findViewById(R.id.recycler_view)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = ShoppingCartAdapter(ShoppingCartTest().shoppingCartList())
+        adapter = ShoppingCartAdapter(ShoppingCartTest().shoppingCartList(), this)
         recyclerView.adapter = adapter
 
-//        count = findViewById(R.id.tvCount)
+        total = findViewById(R.id.tvTotal)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.ivBack -> {
                 onBackPressed()
             }
+            R.id.ivUpdate -> {
+                total.text = "$ ${calculateTotalPrice()}"
+            }
         }
+    }
+
+    private fun calculateTotalPrice(): Double {
+        return shoppingCarts.map { it.product.price * it.count }.sum()
+    }
+
+    @SuppressLint("SetTextI18n")
+    override fun showShoppingCart(shoppingCarts: List<ShoppingCart>) {
+        this.shoppingCarts = shoppingCarts
+        total.text = "$ ${calculateTotalPrice()}"
     }
 }

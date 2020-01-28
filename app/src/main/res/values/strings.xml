@@ -50,4 +50,5 @@
     <string name="mapbox_access_token">
         pk.eyJ1IjoiZmVsaXBldmVsYXNxdWV6MTgwMiIsImEiOiJjazVoNnp3NGwwMDI5M2tuenA3djduYml1In0.Uo5BTwBjBLbdQGTHwmzyZA
     </string>
+    <string name="price_double">$0.0</string>
 </resources>
