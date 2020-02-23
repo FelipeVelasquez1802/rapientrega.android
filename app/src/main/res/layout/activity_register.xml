@@ -56,7 +56,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilRepeatPassword"
+                android:id="@+id/tilPasswordRepeat"
                 style="@style/TextInputLayoutTheme">
 
                 <com.google.android.material.textfield.TextInputEditText

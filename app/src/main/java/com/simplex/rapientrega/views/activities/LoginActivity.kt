@@ -32,13 +32,12 @@ class LoginActivity : AppCompatActivity(), LoginInterface.View, View.OnClickList
     }
 
     override fun onClick(v: View?) {
-        var intent = Intent()
         when (v?.id) {
             R.id.tvRegister -> {
-                intent = Intent(this, RegisterActivity::class.java)
+                goRegisterActivity()
             }
             R.id.tvForgotPassword -> {
-                intent = Intent(this, RestorePasswordActivity::class.java)
+                goRestorePasswordActivity()
             }
             R.id.btSignIn -> {
                 presenter.validateFields(
