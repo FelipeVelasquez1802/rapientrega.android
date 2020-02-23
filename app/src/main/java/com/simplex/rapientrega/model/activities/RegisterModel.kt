@@ -22,11 +22,10 @@ class RegisterModel(private val presenter: RegisterInterface.Presenter) : Regist
         }
         if (email.isEmpty()) presenter.showErrorEmail(R.string.not_empty)
         else {
-            if (validationFields.isEmail(email)) presenter.showErrorEmail(R.string.not_email)
-            else {
+            if (validationFields.isEmail(email)) {
                 presenter.hideErrorEmail()
                 flag++
-            }
+            } else presenter.showErrorEmail(R.string.not_email)
         }
         if (password.isEmpty()) presenter.showErrorPassword(R.string.not_empty)
         else {

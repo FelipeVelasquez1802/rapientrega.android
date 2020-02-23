@@ -13,6 +13,6 @@ class ValidationFields {
         "^[a-z0-9!#\$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#\$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\$"
 
     fun isEmail(email: String): Boolean {
-        return !EMAIL_REGEX.toRegex().matches(email)
+        return EMAIL_REGEX.toRegex().matches(email)
     }
 }
