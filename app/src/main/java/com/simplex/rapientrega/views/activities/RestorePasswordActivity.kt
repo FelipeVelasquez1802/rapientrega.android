@@ -27,7 +27,7 @@ class RestorePasswordActivity :
         when (v?.id) {
             R.id.btRestore -> {
                 if (emptyField(email)) {
-                    email.error = getString(R.string.field_empty)
+                    email.error = getString(R.string.not_empty)
                     return
                 } else {
                     email.error = null

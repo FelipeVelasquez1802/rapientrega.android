@@ -14,7 +14,7 @@
     <string name="restore">Restaurar contraseña</string>
     <string name="restoreButtonText">Restaurar</string>
     <string name="descriptionRestore">Para restablecer tu contraseña, escribe tu correo electrónico y te enviaremos un email con el que podras recuperar tu cuenta.</string>
-    <string name="field_empty">Este campo no puede estar vacio.</string>
+    <string name="not_empty">Este campo no puede estar vacio.</string>
     <string name="logo_app">App icon</string>
     <string name="home">Inicio</string>
     <string name="profile">Perfil</string>
@@ -51,4 +51,5 @@
         pk.eyJ1IjoiZmVsaXBldmVsYXNxdWV6MTgwMiIsImEiOiJjazVoNnp3NGwwMDI5M2tuenA3djduYml1In0.Uo5BTwBjBLbdQGTHwmzyZA
     </string>
     <string name="price_double">$0.0</string>
+    <string name="not_email">Email is invalid</string>
 </resources>
