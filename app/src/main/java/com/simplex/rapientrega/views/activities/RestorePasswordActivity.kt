@@ -33,14 +33,6 @@ class RestorePasswordActivity :
         when (v?.id) {
             R.id.btRestore -> {
                 presenter.validateFields(email.editText?.text.toString())
-//                if (emptyField(email)) {
-//                    email.error = getString(R.string.not_empty)
-//                    return
-//                } else {
-//                    email.error = null
-//                }
-//                var intent = Intent(this, LoginActivity::class.java)
-//                startActivity(intent)
             }
         }
     }

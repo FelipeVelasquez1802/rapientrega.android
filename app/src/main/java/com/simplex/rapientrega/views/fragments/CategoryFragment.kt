@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.simplex.rapientrega.R
+import com.simplex.rapientrega.interfaces.CategoryInterface
 import com.simplex.rapientrega.views.adapters.CategoryAdapter
 import com.simplex.rapientrega.objects.Category
+import com.simplex.rapientrega.presenters.fragments.CategoryPresenter
 import com.simplex.rapientrega.tests.CategoryTest
 import com.simplex.rapientrega.tools.GSON
 import com.simplex.rapientrega.tools.PROVIDER
@@ -31,7 +33,9 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class CategoryFragment :
-    Fragment(), CategoryAdapter.OnItemClickListener {
+    Fragment(),
+    CategoryInterface.View,
+    CategoryAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -39,6 +43,8 @@ class CategoryFragment :
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CategoryAdapter
+
+    private lateinit var presenter: CategoryInterface.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,14 +59,14 @@ class CategoryFragment :
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view: View = inflater.inflate(R.layout.fragment_category, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_category, container, false)
 
         recyclerView = view.findViewById(R.id.recycler_view)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = CategoryAdapter(CategoryTest().categoriesList(), this)
-        recyclerView.adapter = adapter
 
+        presenter = CategoryPresenter(this)
+        presenter.consultCategories()
         return view
     }
 
@@ -123,14 +129,19 @@ class CategoryFragment :
 
     override fun onItemClick(category: Category) {
         var fragment: Fragment = ProviderFragment()
-        var bundle: Bundle = Bundle()
+        val bundle = Bundle()
         if (!category.flag) {
             bundle.putSerializable(PROVIDER, GSON.toJson(category.providers))
             fragment.arguments = bundle
         } else {
             fragment = MapFragment()
         }
-        fragmentManager?.beginTransaction()?.replace(R.id.frame_layout_main, fragment)
+        fragmentManager?.beginTransaction()?.add(R.id.frame_layout_main, fragment)
             ?.addToBackStack(null)?.commit()
+    }
+
+    override fun showCategories(categories: List<Category>) {
+        adapter = CategoryAdapter(categories, this)
+        recyclerView.adapter = adapter
     }
 }
