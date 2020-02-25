@@ -14,7 +14,9 @@ import android.widget.Toast
 import com.bumptech.glide.Glide
 
 import com.simplex.rapientrega.R
+import com.simplex.rapientrega.interfaces.ProductDetailInterface
 import com.simplex.rapientrega.objects.Product
+import com.simplex.rapientrega.presenters.fragments.ProductDetailPresenter
 import com.simplex.rapientrega.tests.ProductTest
 import com.synnapps.carouselview.CarouselView
 import com.synnapps.carouselview.ImageListener
@@ -34,6 +36,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class ProductDetailFragment :
     Fragment(),
+    ProductDetailInterface.View,
     ImageListener,
     View.OnClickListener {
     // TODO: Rename and change types of parameters
@@ -51,6 +54,8 @@ class ProductDetailFragment :
 
     private lateinit var product: Product
 
+    private lateinit var presenter: ProductDetailInterface.Presenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -67,6 +72,9 @@ class ProductDetailFragment :
         var view: View = inflater.inflate(R.layout.fragment_product_detail, container, false)
         initialObjects()
         initialElements(view)
+
+        presenter = ProductDetailPresenter(this)
+        presenter.consultProductDetail()
         return view
     }
 
@@ -76,14 +84,11 @@ class ProductDetailFragment :
 
     private fun initialElements(view: View) {
         name = view.findViewById(R.id.tvName)
-        name.text = product.name
 
         carouselView = view.findViewById(R.id.carouselView)
-        carouselView.pageCount = product.photos?.size ?: 0
         carouselView.setImageListener(this)
 
         description = view.findViewById(R.id.tvDescription)
-        description.text = product.description
 
         pay = view.findViewById(R.id.btPay)
         pay.setOnClickListener(this)
@@ -174,5 +179,11 @@ class ProductDetailFragment :
                 this.count.text = "$count"
             }
         }
+    }
+
+    override fun showProductDetail(product: Product) {
+        name.text = product.name
+        carouselView.pageCount = product.photos?.size ?: 0
+        description.text = product.description
     }
 }

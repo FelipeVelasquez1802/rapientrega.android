@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.simplex.rapientrega.R
+import com.simplex.rapientrega.interfaces.ProductInterface
 import com.simplex.rapientrega.objects.Product
+import com.simplex.rapientrega.presenters.fragments.ProductPresenter
 import com.simplex.rapientrega.tests.ProductTest
 import com.simplex.rapientrega.views.adapters.ProductAdapter
 
@@ -31,6 +33,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class ProductFragment :
     Fragment(),
+    ProductInterface.View,
     ProductAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -39,6 +42,8 @@ class ProductFragment :
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ProductAdapter
+
+    private lateinit var presenter: ProductInterface.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,18 +58,19 @@ class ProductFragment :
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view: View = inflater.inflate(R.layout.fragment_product, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_product, container, false)
         initialElements(view)
+
+        presenter = ProductPresenter(this)
+        presenter.consultProducts()
         return view
     }
 
     private fun initialElements(view: View) {
-        adapter = ProductAdapter(ProductTest().productList(), this)
 
         recyclerView = view.findViewById(R.id.recycler_view)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = GridLayoutManager(context, 2)
-        recyclerView.adapter = adapter
 
     }
 
@@ -124,8 +130,11 @@ class ProductFragment :
     }
 
     override fun onItemClick(product: Product) {
-        fragmentManager?.beginTransaction()
-            ?.replace(R.id.frame_layout_main, ProductDetailFragment())?.addToBackStack(null)
-            ?.commit()
+        fragmentManager?.beginTransaction()?.add(R.id.frame_layout_main, ProductDetailFragment())
+            ?.addToBackStack(null)?.commit()
+    }
+
+    override fun showProducts(products: List<Product>) {
+        recyclerView.adapter = ProductAdapter(products, this)
     }
 }
