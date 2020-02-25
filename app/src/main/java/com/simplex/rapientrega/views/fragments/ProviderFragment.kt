@@ -63,7 +63,7 @@ class ProviderFragment :
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view: View = inflater.inflate(R.layout.fragment_provider, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_provider, container, false)
         initialElements(view)
 
         presenter = ProviderPresenter(this)

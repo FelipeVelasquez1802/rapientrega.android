@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.simplex.rapientrega.R
+import com.simplex.rapientrega.interfaces.SubCategoryInterface
 import com.simplex.rapientrega.objects.SubCategory
+import com.simplex.rapientrega.presenters.fragments.SubCategoryPresenter
 import com.simplex.rapientrega.tests.SubCategoryTest
 import com.simplex.rapientrega.views.adapters.SubCategoryAdapter
 
@@ -31,6 +33,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class SubCategoryFragment :
     Fragment(),
+    SubCategoryInterface.View,
     SubCategoryAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -39,6 +42,8 @@ class SubCategoryFragment :
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: SubCategoryAdapter
+
+    private lateinit var presenter: SubCategoryInterface.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,8 +58,11 @@ class SubCategoryFragment :
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view: View = inflater.inflate(R.layout.fragment_sub_category, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_sub_category, container, false)
         initialElements(view)
+
+        presenter = SubCategoryPresenter(this)
+        presenter.consultSubCategories()
         return view
     }
 
@@ -62,7 +70,6 @@ class SubCategoryFragment :
         recyclerView = view.findViewById(R.id.recycler_view)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = GridLayoutManager(context, 2)
-        recyclerView.adapter = SubCategoryAdapter(SubCategoryTest().subCategoriesList(), this)
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -121,7 +128,11 @@ class SubCategoryFragment :
     }
 
     override fun onItemClick(subCategory: SubCategory) {
-        fragmentManager?.beginTransaction()?.replace(R.id.frame_layout_main, ProductFragment())
+        fragmentManager?.beginTransaction()?.add(R.id.frame_layout_main, ProductFragment())
             ?.addToBackStack(null)?.commit()
+    }
+
+    override fun showSubCategories(subcategories: List<SubCategory>) {
+        recyclerView.adapter = SubCategoryAdapter(subcategories, this)
     }
 }
