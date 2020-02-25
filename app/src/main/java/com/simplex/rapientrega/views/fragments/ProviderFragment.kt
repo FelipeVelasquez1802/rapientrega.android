@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.reflect.TypeToken
 
 import com.simplex.rapientrega.R
+import com.simplex.rapientrega.interfaces.ProviderInterface
 import com.simplex.rapientrega.objects.Provider
+import com.simplex.rapientrega.presenters.fragments.ProviderPresenter
 import com.simplex.rapientrega.tests.ProviderTest
 import com.simplex.rapientrega.tools.GSON
 import com.simplex.rapientrega.tools.PROVIDER
@@ -36,6 +38,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class ProviderFragment :
     Fragment(),
+    ProviderInterface.View,
     ProviderAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -44,6 +47,8 @@ class ProviderFragment :
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ProviderAdapter
+
+    private lateinit var presenter: ProviderInterface.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +65,9 @@ class ProviderFragment :
         // Inflate the layout for this fragment
         var view: View = inflater.inflate(R.layout.fragment_provider, container, false)
         initialElements(view)
+
+        presenter = ProviderPresenter(this)
+        presenter.consultProviders()
         return view
     }
 
@@ -72,8 +80,6 @@ class ProviderFragment :
         recyclerView = view.findViewById(R.id.recycler_view)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = providers?.let { ProviderAdapter(it, this) }!!
-        recyclerView.adapter = adapter
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -132,7 +138,12 @@ class ProviderFragment :
     }
 
     override fun onItemClick(provider: Provider) {
-        fragmentManager?.beginTransaction()?.replace(R.id.frame_layout_main, SubCategoryFragment())
+        fragmentManager?.beginTransaction()?.add(R.id.frame_layout_main, SubCategoryFragment())
             ?.addToBackStack(null)?.commit()
+    }
+
+    override fun showProviders(providers: List<Provider>) {
+        adapter = ProviderAdapter(providers, this)
+        recyclerView.adapter = adapter
     }
 }
