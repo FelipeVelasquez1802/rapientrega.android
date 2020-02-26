@@ -18,7 +18,7 @@ interface LoginInterface {
         fun hideErrorEmail()
         fun showErrorPassword(id: Int)
         fun hideErrorPassword()
-        fun validateFields(email: String, password: String)
+        fun validateLogin(email: String, password: String)
         fun goMainActivity()
         fun goRestorePasswordActivity()
         fun goRegisterActivity()
@@ -27,6 +27,6 @@ interface LoginInterface {
     }
 
     interface Model {
-        fun validateFields(email: String, password: String)
+        fun validateLogin(email: String, password: String)
     }
 }

@@ -8,9 +8,9 @@ import com.simplex.rapientrega.views.fragments.CategoryFragment
 import com.simplex.rapientrega.views.fragments.OrderFragment
 import com.simplex.rapientrega.views.fragments.ProfileFragment
 
-class MyPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm) {
+class MyPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm!!) {
 
-    override fun getItem(position: Int): Fragment? {
+    override fun getItem(position: Int): Fragment {
         Log.d("MyPagerAdapter", "Sí entró $position")
         return when (position) {
             0 -> {
@@ -23,7 +23,7 @@ class MyPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm) {
                 ProfileFragment.newInstance()
             }
             else -> {
-                null
+                CategoryFragment.newInstance()
             }
         }
     }

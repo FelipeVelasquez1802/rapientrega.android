@@ -23,8 +23,8 @@
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:layout_gravity="center"
+                android:contentDescription="@string/logo_app"
                 android:src="@drawable/ic_logo_white" />
-
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilUserLogin"
@@ -32,6 +32,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     style="@style/EditTextTheme"
+                    android:drawableStart="@drawable/ic_person_white"
                     android:drawableLeft="@drawable/ic_person_white"
                     android:hint="@string/username"
                     android:inputType="textEmailAddress" />
@@ -44,6 +45,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     style="@style/EditTextTheme"
+                    android:drawableStart="@drawable/ic_lock_white"
                     android:drawableLeft="@drawable/ic_lock_white"
                     android:hint="@string/password"
                     android:inputType="textPassword" />
@@ -74,20 +76,18 @@
             <TextView
                 android:id="@+id/tvForgotPassword"
                 style="@style/TextViewTheme"
-                android:layout_above="@id/tvRegister"
+                android:gravity="center"
                 android:onClick="onClick"
                 android:paddingVertical="10dp"
-                android:text="@string/forgot_password"
-                android:textAlignment="center" />
+                android:text="@string/forgot_password" />
 
             <TextView
                 android:id="@+id/tvRegister"
                 style="@style/TextViewTheme"
-                android:layout_alignParentBottom="true"
+                android:gravity="center"
                 android:onClick="onClick"
                 android:paddingVertical="10dp"
-                android:text="@string/register"
-                android:textAlignment="center" />
+                android:text="@string/register" />
 
         </LinearLayout>
 

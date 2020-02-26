@@ -1,5 +1,6 @@
 package com.simplex.rapientrega.presenters.activities
 
+import com.simplex.rapientrega.R
 import com.simplex.rapientrega.interfaces.LoginInterface
 import com.simplex.rapientrega.model.activities.LoginModel
 
@@ -23,8 +24,19 @@ class LoginPresenter(private val view: LoginInterface.View) : LoginInterface.Pre
         view.hideErrorPassword()
     }
 
-    override fun validateFields(email: String, password: String) {
-        model.validateFields(email, password)
+    override fun validateLogin(email: String, password: String) {
+        var count = 0
+        if (email.isEmpty()) {
+            view.showErrorEmail(R.string.not_empty)
+        } else {
+            count++
+        }
+        if (password.isEmpty()) {
+            view.showErrorPassword(R.string.not_empty)
+        } else {
+            count++
+        }
+        if (count == 2) model.validateLogin(email, password)
     }
 
     override fun goMainActivity() {

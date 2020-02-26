@@ -40,7 +40,7 @@ class LoginActivity : AppCompatActivity(), LoginInterface.View, View.OnClickList
                 goRestorePasswordActivity()
             }
             R.id.btSignIn -> {
-                presenter.validateFields(
+                presenter.validateLogin(
                     username.editText?.text.toString(),
                     password.editText?.text.toString()
                 )
