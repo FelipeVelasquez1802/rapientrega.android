@@ -1,19 +1,17 @@
 package com.simplex.rapientrega.views.activities
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.simplex.rapientrega.R
 import com.simplex.rapientrega.interfaces.ShoppingCartInterface
 import com.simplex.rapientrega.objects.ShoppingCart
 import com.simplex.rapientrega.presenters.activities.ShoppingCartPresenter
-import com.simplex.rapientrega.tests.ShoppingCartTest
 import com.simplex.rapientrega.views.adapters.ShoppingCartAdapter
 
 class ShoppingCartActivity :

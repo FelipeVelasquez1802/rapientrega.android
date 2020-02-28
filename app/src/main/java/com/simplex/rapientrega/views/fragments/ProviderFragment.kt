@@ -3,23 +3,17 @@ package com.simplex.rapientrega.views.fragments
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.reflect.TypeToken
-
 import com.simplex.rapientrega.R
 import com.simplex.rapientrega.interfaces.ProviderInterface
 import com.simplex.rapientrega.objects.Provider
 import com.simplex.rapientrega.presenters.fragments.ProviderPresenter
-import com.simplex.rapientrega.tests.ProviderTest
-import com.simplex.rapientrega.tools.GSON
 import com.simplex.rapientrega.tools.PROVIDER
-import com.simplex.rapientrega.tools.PROVIDER_TYPE
 import com.simplex.rapientrega.tools.toListProvider
 import com.simplex.rapientrega.views.adapters.ProviderAdapter
 

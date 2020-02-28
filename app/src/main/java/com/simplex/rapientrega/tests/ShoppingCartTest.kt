@@ -1,6 +1,5 @@
 package com.simplex.rapientrega.tests
 
-import com.simplex.rapientrega.objects.Product
 import com.simplex.rapientrega.objects.ShoppingCart
 
 class ShoppingCartTest {

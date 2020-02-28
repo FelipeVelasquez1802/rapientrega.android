@@ -3,16 +3,13 @@ package com.simplex.rapientrega.views.fragments
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.mapbox.mapboxsdk.Mapbox
-
 import com.simplex.rapientrega.R
 import com.simplex.rapientrega.interfaces.MainFragmentInterface
 import com.simplex.rapientrega.presenters.fragments.MainFragmentPresenter

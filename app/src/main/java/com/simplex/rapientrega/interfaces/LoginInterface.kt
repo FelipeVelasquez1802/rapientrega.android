@@ -1,5 +1,8 @@
 package com.simplex.rapientrega.interfaces
 
+import android.content.SharedPreferences
+import com.simplex.rapientrega.api.entities.LoginEntity
+
 interface LoginInterface {
     interface View {
         fun showErrorEmail(id: Int)
@@ -11,6 +14,8 @@ interface LoginInterface {
         fun goRegisterActivity()
         fun showProgressBar()
         fun hideProgressBar()
+        fun showAlertMessage(id: Int)
+        fun saveUser(key: String, any: Any)
     }
 
     interface Presenter {
@@ -24,6 +29,9 @@ interface LoginInterface {
         fun goRegisterActivity()
         fun showProgressBar()
         fun hideProgressbar()
+        fun showAlertMessage(id: String)
+        fun isLoginNow(preferences: SharedPreferences)
+        fun saveUser(loginEntity: LoginEntity)
     }
 
     interface Model {

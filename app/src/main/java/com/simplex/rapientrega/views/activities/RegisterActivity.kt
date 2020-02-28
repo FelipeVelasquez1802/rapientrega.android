@@ -1,9 +1,9 @@
 package com.simplex.rapientrega.views.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputLayout
 import com.simplex.rapientrega.R
 import com.simplex.rapientrega.interfaces.RegisterInterface

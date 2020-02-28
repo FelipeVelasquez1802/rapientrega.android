@@ -1,8 +1,12 @@
 package com.simplex.rapientrega.presenters.activities
 
+import android.content.SharedPreferences
 import com.simplex.rapientrega.R
+import com.simplex.rapientrega.api.entities.LoginEntity
 import com.simplex.rapientrega.interfaces.LoginInterface
 import com.simplex.rapientrega.model.activities.LoginModel
+import com.simplex.rapientrega.tools.ERROR_LOGIN
+import com.simplex.rapientrega.tools.USER
 
 class LoginPresenter(private val view: LoginInterface.View) : LoginInterface.Presenter {
 
@@ -57,6 +61,26 @@ class LoginPresenter(private val view: LoginInterface.View) : LoginInterface.Pre
 
     override fun hideProgressbar() {
         view.hideProgressBar()
+    }
+
+    override fun showAlertMessage(id: String) {
+        view.showAlertMessage(
+            when (id) {
+                ERROR_LOGIN -> R.string.error_login
+                else -> R.string.error
+            }
+        )
+    }
+
+    override fun isLoginNow(preferences: SharedPreferences) {
+        val value = preferences.getString(USER, null)
+        if (value != null) {
+            view.goMainActivity()
+        }
+    }
+
+    override fun saveUser(loginEntity: LoginEntity) {
+        view.saveUser(USER, loginEntity)
     }
 
 }

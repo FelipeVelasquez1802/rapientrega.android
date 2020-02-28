@@ -1,14 +1,19 @@
 package com.simplex.rapientrega.views.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputLayout
 import com.simplex.rapientrega.R
 import com.simplex.rapientrega.interfaces.LoginInterface
 import com.simplex.rapientrega.presenters.activities.LoginPresenter
+import com.simplex.rapientrega.tools.objectToString
+
+const val KEY = "data"
 
 class LoginActivity : AppCompatActivity(), LoginInterface.View, View.OnClickListener {
 
@@ -17,11 +22,14 @@ class LoginActivity : AppCompatActivity(), LoginInterface.View, View.OnClickList
     private lateinit var progressBar: ProgressBar
 
     private lateinit var presenter: LoginInterface.Presenter
+    private lateinit var preferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        preferences = applicationContext.getSharedPreferences(KEY, 0)
         presenter = LoginPresenter(this)
+        presenter.isLoginNow(preferences)
         initialElements()
     }
 
@@ -82,6 +90,16 @@ class LoginActivity : AppCompatActivity(), LoginInterface.View, View.OnClickList
 
     override fun hideProgressBar() {
         progressBar.visibility = View.GONE
+    }
+
+    override fun showAlertMessage(id: Int) {
+        Toast.makeText(this, getString(id), Toast.LENGTH_LONG).show()
+    }
+
+    override fun saveUser(key: String, any: Any) {
+        val editor = preferences.edit()
+        editor.putString(key, objectToString(any))
+        editor.apply()
     }
 
     private fun defineIntent(cls: Class<*>) {

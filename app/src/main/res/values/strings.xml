@@ -52,4 +52,6 @@
     </string>
     <string name="price_double">$0.0</string>
     <string name="not_email">Email is invalid</string>
+    <string name="error_login">Username or password incorrect</string>
+    <string name="error">Error</string>
 </resources>

@@ -8,3 +8,7 @@ fun toListProvider(string: String): ArrayList<Provider> {
     list.addAll(GSON.fromJson(string, Array<Provider>::class.java).toList())
     return list
 }
+
+fun objectToString(any: Any): String {
+    return GSON.toJson(any)
+}

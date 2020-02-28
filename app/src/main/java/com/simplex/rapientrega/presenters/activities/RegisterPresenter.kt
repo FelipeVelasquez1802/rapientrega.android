@@ -3,9 +3,9 @@ package com.simplex.rapientrega.presenters.activities
 import com.simplex.rapientrega.interfaces.RegisterInterface
 import com.simplex.rapientrega.model.activities.RegisterModel
 
-class RegisterPresenter(private val view: RegisterInterface.View):RegisterInterface.Presenter {
+class RegisterPresenter(private val view: RegisterInterface.View) : RegisterInterface.Presenter {
 
-    private val model:RegisterInterface.Model = RegisterModel(this)
+    private val model: RegisterInterface.Model = RegisterModel(this)
 
     override fun showErrorUsername(id: Int) {
         view.showErrorUsername(id)
@@ -40,10 +40,11 @@ class RegisterPresenter(private val view: RegisterInterface.View):RegisterInterf
     }
 
     override fun validateFields(
-        username:String,
-        email:String,
-        password:String,
-        passwordRepeat: String) {
+        username: String,
+        email: String,
+        password: String,
+        passwordRepeat: String
+    ) {
         model.validateFields(username, email, password, passwordRepeat)
     }
 

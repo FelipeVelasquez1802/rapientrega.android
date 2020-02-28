@@ -3,19 +3,16 @@ package com.simplex.rapientrega.views.fragments
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import com.simplex.rapientrega.R
 import com.simplex.rapientrega.interfaces.SubCategoryInterface
 import com.simplex.rapientrega.objects.SubCategory
 import com.simplex.rapientrega.presenters.fragments.SubCategoryPresenter
-import com.simplex.rapientrega.tests.SubCategoryTest
 import com.simplex.rapientrega.views.adapters.SubCategoryAdapter
 
 // TODO: Rename parameter arguments, choose names that match

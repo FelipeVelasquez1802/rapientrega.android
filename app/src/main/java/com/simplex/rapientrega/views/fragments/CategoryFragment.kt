@@ -3,21 +3,19 @@ package com.simplex.rapientrega.views.fragments
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import com.simplex.rapientrega.R
 import com.simplex.rapientrega.interfaces.CategoryInterface
-import com.simplex.rapientrega.views.adapters.CategoryAdapter
 import com.simplex.rapientrega.objects.Category
 import com.simplex.rapientrega.presenters.fragments.CategoryPresenter
-import com.simplex.rapientrega.tests.CategoryTest
 import com.simplex.rapientrega.tools.GSON
 import com.simplex.rapientrega.tools.PROVIDER
+import com.simplex.rapientrega.views.adapters.CategoryAdapter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
