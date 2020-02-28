@@ -10,12 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.simplex.rapientrega.R
-import com.simplex.rapientrega.interfaces.ProviderInterface
-import com.simplex.rapientrega.objects.Provider
-import com.simplex.rapientrega.presenters.fragments.ProviderPresenter
-import com.simplex.rapientrega.tools.PROVIDER
-import com.simplex.rapientrega.tools.toListProvider
-import com.simplex.rapientrega.views.adapters.ProviderAdapter
+import com.simplex.rapientrega.api.entities.StoreEntity
+import com.simplex.rapientrega.interfaces.StoreInterface
+import com.simplex.rapientrega.presenters.fragments.StorePresenter
+import com.simplex.rapientrega.tools.STORES
+import com.simplex.rapientrega.views.adapters.StoreAdapter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,24 +24,24 @@ private const val ARG_PARAM2 = "param2"
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [ProviderFragment.OnFragmentInteractionListener] interface
+ * [StoreFragment.OnFragmentInteractionListener] interface
  * to handle interaction events.
- * Use the [ProviderFragment.newInstance] factory method to
+ * Use the [StoreFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ProviderFragment :
+class StoreFragment :
     Fragment(),
-    ProviderInterface.View,
-    ProviderAdapter.OnItemClickListener {
+    StoreInterface.View,
+    StoreAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: ProviderAdapter
+    private lateinit var adapter: StoreAdapter
 
-    private lateinit var presenter: ProviderInterface.Presenter
+    private lateinit var presenter: StoreInterface.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,21 +58,18 @@ class ProviderFragment :
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_provider, container, false)
         initialElements(view)
-
-        presenter = ProviderPresenter(this)
+        presenter = StorePresenter(this)
         presenter.consultProviders()
         return view
     }
 
     private fun initialElements(view: View) {
-        var stringProvider: String? = arguments?.getString(PROVIDER, null)
-        // Validar cuando llegue null
-
-        var providers: ArrayList<Provider>? = stringProvider?.let { toListProvider(it) }
-
+        val stores: List<StoreEntity> = arguments?.getSerializable(STORES) as List<StoreEntity>
         recyclerView = view.findViewById(R.id.recycler_view)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(context)
+        adapter = StoreAdapter(stores, this)
+        recyclerView.adapter = adapter
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -123,7 +119,7 @@ class ProviderFragment :
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            ProviderFragment().apply {
+            StoreFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
@@ -131,13 +127,8 @@ class ProviderFragment :
             }
     }
 
-    override fun onItemClick(provider: Provider) {
+    override fun onItemClick(id: Int) {
         fragmentManager?.beginTransaction()?.add(R.id.frame_layout_main, SubCategoryFragment())
             ?.addToBackStack(null)?.commit()
-    }
-
-    override fun showProviders(providers: List<Provider>) {
-        adapter = ProviderAdapter(providers, this)
-        recyclerView.adapter = adapter
     }
 }

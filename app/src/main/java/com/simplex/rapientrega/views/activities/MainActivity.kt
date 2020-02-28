@@ -18,7 +18,7 @@ class MainActivity :
     ProfileFragment.OnFragmentInteractionListener,
     MainFragment.OnFragmentInteractionListener,
     OrderFragment.OnFragmentInteractionListener,
-    ProviderFragment.OnFragmentInteractionListener,
+    StoreFragment.OnFragmentInteractionListener,
     SubCategoryFragment.OnFragmentInteractionListener,
     ProductFragment.OnFragmentInteractionListener,
     ProductDetailFragment.OnFragmentInteractionListener,

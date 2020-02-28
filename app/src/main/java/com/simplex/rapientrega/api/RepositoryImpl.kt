@@ -1,9 +1,9 @@
 package com.simplex.rapientrega.api
 
+import com.simplex.rapientrega.tools.BASE_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-private const val BASE_URL = "http://rapientrega.co/"
 
 class RepositoryImpl {
     fun service(): ApiInterface {

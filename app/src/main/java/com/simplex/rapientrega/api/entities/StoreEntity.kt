@@ -2,6 +2,8 @@ package com.simplex.rapientrega.api.entities
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import com.simplex.rapientrega.tools.BASE_URL
+import com.simplex.rapientrega.tools.STORES_MS
 
 class StoreEntity {
     @SerializedName("id")
@@ -34,4 +36,8 @@ class StoreEntity {
     @SerializedName("is_active")
     @Expose
     var isActive: Boolean = false
+
+    fun imageAbsolute(): String {
+        return "$BASE_URL${STORES_MS}media/${image}"
+    }
 }

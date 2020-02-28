@@ -8,34 +8,34 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.simplex.rapientrega.R
-import com.simplex.rapientrega.objects.Provider
+import com.simplex.rapientrega.api.entities.StoreEntity
 import com.simplex.rapientrega.tools.FORMAT_PRICE
 
-class ProviderAdapter(providers: List<Provider>, onItemClickListener: OnItemClickListener) :
-    RecyclerView.Adapter<ProviderAdapter.ProviderViewHolder>() {
-
-    private var providers: List<Provider> = providers
+class StoreAdapter(
+    private var stores: List<StoreEntity>,
+    private var onItemClickListener: OnItemClickListener
+) :
+    RecyclerView.Adapter<StoreAdapter.ProviderViewHolder>() {
 
     private lateinit var view: View
-    private var onItemClickListener: OnItemClickListener = onItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProviderViewHolder {
         view = LayoutInflater.from(parent.context).inflate(R.layout.adapter_provider, parent, false)
         return ProviderViewHolder(view)
     }
 
-    override fun getItemCount(): Int = providers.size
+    override fun getItemCount(): Int = stores.size
 
     override fun onBindViewHolder(holder: ProviderViewHolder, position: Int) {
-        var provider: Provider = providers.get(position)
-        Glide.with(view).load(provider.photo).into(holder.photo)
-        holder.name.text = provider.name
-        holder.category.text = provider.category
-        isOpen(holder.open, provider.isOpen)
-        isOpen(holder.closed, !provider.isOpen)
-        holder.minimumOrder.text = FORMAT_PRICE.format(provider.minimumOrder)
-        holder.shipping_cost.text = FORMAT_PRICE.format(provider.shippingCost)
-        holder.itemView.setOnClickListener { onItemClickListener.run { onItemClick(provider) } }
+        val store: StoreEntity = stores[position]
+        Glide.with(view).load(store.imageAbsolute()).into(holder.photo)
+        holder.name.text = store.name
+//        holder.category.text = store.category
+//        isOpen(holder.open, store.isOpen)
+//        isOpen(holder.closed, !store.isOpen)
+//        holder.minimumOrder.text = FORMAT_PRICE.format(store.minimumOrder)
+        holder.shippingCost.text = FORMAT_PRICE.format(store.costOfShipping)
+        holder.itemView.setOnClickListener { onItemClickListener.run { onItemClick(store.id) } }
     }
 
     private fun isOpen(field: TextView, flag: Boolean) {
@@ -49,10 +49,10 @@ class ProviderAdapter(providers: List<Provider>, onItemClickListener: OnItemClic
         var open: TextView = itemView.findViewById(R.id.tvOpen)
         var closed: TextView = itemView.findViewById(R.id.tvClosed)
         var minimumOrder: TextView = itemView.findViewById(R.id.tvMinimumOrder)
-        var shipping_cost: TextView = itemView.findViewById(R.id.tvShippingCost)
+        var shippingCost: TextView = itemView.findViewById(R.id.tvShippingCost)
     }
 
     interface OnItemClickListener {
-        fun onItemClick(provider: Provider)
+        fun onItemClick(store_id: Int)
     }
 }

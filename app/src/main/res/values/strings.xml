@@ -54,4 +54,5 @@
     <string name="not_email">Email is invalid</string>
     <string name="error_login">Username or password incorrect</string>
     <string name="error">Error</string>
+    <string name="list_empty">This list is empty</string>
 </resources>

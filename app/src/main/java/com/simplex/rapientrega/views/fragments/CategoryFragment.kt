@@ -6,16 +6,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.simplex.rapientrega.R
+import com.simplex.rapientrega.api.entities.StoreCategoryEntity
+import com.simplex.rapientrega.api.entities.StoreEntity
 import com.simplex.rapientrega.interfaces.CategoryInterface
-import com.simplex.rapientrega.objects.Category
 import com.simplex.rapientrega.presenters.fragments.CategoryPresenter
-import com.simplex.rapientrega.tools.GSON
-import com.simplex.rapientrega.tools.PROVIDER
+import com.simplex.rapientrega.tools.STORES
 import com.simplex.rapientrega.views.adapters.CategoryAdapter
+import java.io.Serializable
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -125,21 +127,21 @@ class CategoryFragment :
             }
     }
 
-    override fun onItemClick(category: Category) {
-        var fragment: Fragment = ProviderFragment()
-        val bundle = Bundle()
-        if (!category.flag) {
-            bundle.putSerializable(PROVIDER, GSON.toJson(category.providers))
-            fragment.arguments = bundle
-        } else {
-            fragment = MapFragment()
-        }
+    override fun onItemClick(stores: List<StoreEntity>) {
+        val fragment: Fragment = StoreFragment()
+        val args = Bundle()
+        args.putSerializable(STORES, stores as Serializable)
+        fragment.arguments = args
         fragmentManager?.beginTransaction()?.add(R.id.frame_layout_main, fragment)
             ?.addToBackStack(null)?.commit()
     }
 
-    override fun showCategories(categories: List<Category>) {
+    override fun showCategories(categories: List<StoreCategoryEntity>) {
         adapter = CategoryAdapter(categories, this)
         recyclerView.adapter = adapter
+    }
+
+    override fun showAlertError(id: Int) {
+        Toast.makeText(context, getString(id), Toast.LENGTH_LONG).show()
     }
 }

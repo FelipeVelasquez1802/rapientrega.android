@@ -8,15 +8,18 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.simplex.rapientrega.R
-import com.simplex.rapientrega.objects.Category
+import com.simplex.rapientrega.api.entities.StoreCategoryEntity
+import com.simplex.rapientrega.api.entities.StoreEntity
+import com.simplex.rapientrega.tools.BASE_URL
+import com.simplex.rapientrega.tools.STORES_MS
 
-class CategoryAdapter(categories: List<Category>, onItemClickListener: OnItemClickListener) :
+class CategoryAdapter(
+    private var categories: List<StoreCategoryEntity>,
+    private var onItemClickListener: OnItemClickListener
+) :
     RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
     private lateinit var view: View
-    private var categories: List<Category> = categories
-
-    private var onItemClickListener: OnItemClickListener = onItemClickListener
 
     class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var name: TextView = itemView.findViewById(R.id.tvName)
@@ -35,13 +38,13 @@ class CategoryAdapter(categories: List<Category>, onItemClickListener: OnItemCli
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        var category: Category = categories.get(position)
+        val category: StoreCategoryEntity = categories[position]
         holder.name.text = category.name
-        Glide.with(view).load(category.photo).into(holder.photo)
-        holder.itemView.setOnClickListener { onItemClickListener.run { onItemClick(category) } }
+        Glide.with(view).load("${BASE_URL}${STORES_MS}media/${category.image}").into(holder.photo)
+        holder.itemView.setOnClickListener { onItemClickListener.run { onItemClick(category.stores) } }
     }
 
     interface OnItemClickListener {
-        fun onItemClick(category: Category)
+        fun onItemClick(stores: List<StoreEntity>)
     }
 }
