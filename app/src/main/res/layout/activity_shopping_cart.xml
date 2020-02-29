@@ -20,7 +20,7 @@
         android:id="@+id/ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/btPay"
+        android:layout_above="@id/btAddShoppingCart"
         android:layout_toStartOf="@id/ivUpdate"
         android:layout_toLeftOf="@id/ivUpdate">
 
@@ -45,7 +45,7 @@
         android:id="@+id/ivUpdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/btPay"
+        android:layout_above="@id/btAddShoppingCart"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_margin="5dp"
@@ -56,7 +56,7 @@
         tools:targetApi="lollipop" />
 
     <Button
-        android:id="@+id/btPay"
+        android:id="@+id/btAddShoppingCart"
         style="@style/ButtonTheme"
         android:layout_alignParentBottom="true"
         android:onClick="onClick"

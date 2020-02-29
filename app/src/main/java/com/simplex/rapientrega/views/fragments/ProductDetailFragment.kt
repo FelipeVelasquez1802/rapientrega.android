@@ -1,6 +1,7 @@
 package com.simplex.rapientrega.views.fragments
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,14 +10,15 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.simplex.rapientrega.R
 import com.simplex.rapientrega.api.entities.ProductEntity
 import com.simplex.rapientrega.interfaces.ProductDetailInterface
 import com.simplex.rapientrega.presenters.fragments.ProductDetailPresenter
+import com.simplex.rapientrega.tools.KEY
 import com.simplex.rapientrega.tools.PRODUCT
+import com.simplex.rapientrega.tools.SHOPPING_CART
 import com.synnapps.carouselview.CarouselView
 import com.synnapps.carouselview.ImageListener
 
@@ -52,6 +54,7 @@ class ProductDetailFragment :
     private lateinit var right: Button
 
     private lateinit var product: ProductEntity
+    private lateinit var preferences: SharedPreferences
 
     private lateinit var presenter: ProductDetailInterface.Presenter
 
@@ -69,6 +72,7 @@ class ProductDetailFragment :
     ): View? {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_product_detail, container, false)
+        preferences = view.context.getSharedPreferences(KEY, 0)
         initialObjects()
         initialElements(view)
         presenter = ProductDetailPresenter(this)
@@ -91,7 +95,7 @@ class ProductDetailFragment :
         description = view.findViewById(R.id.tvDescription)
         description.text = product.description
 
-        pay = view.findViewById(R.id.btPay)
+        pay = view.findViewById(R.id.btAddShoppingCart)
         pay.setOnClickListener(this)
 
         count = view.findViewById(R.id.tvCount)
@@ -166,12 +170,13 @@ class ProductDetailFragment :
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.btPay -> {
-                Toast.makeText(context, "Comprar", Toast.LENGTH_LONG).show()
+            R.id.btAddShoppingCart -> {
+                val value = preferences.getString(SHOPPING_CART, null)
+                presenter.addProductToCar(product, count.text.toString(), value)
             }
             R.id.btLess -> {
                 val count = this.count.text.toString().toInt() - 1
-                if (count >= 0) {
+                if (count > 0) {
                     this.count.text = "$count"
                 }
             }
@@ -182,6 +187,9 @@ class ProductDetailFragment :
         }
     }
 
-    override fun showProductDetail(product: ProductEntity) {
+    override fun addSharedPreference(string: String) {
+        val editor = preferences.edit()
+        editor.putString(SHOPPING_CART, string)
+        editor.apply()
     }
 }

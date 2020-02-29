@@ -11,7 +11,6 @@ import retrofit2.Response
 
 class LoginModel(private val presenter: LoginInterface.Presenter) : LoginInterface.Model {
 
-    private val validationFields = ValidationFields()
     private val repository: RepositoryImpl = RepositoryImpl()
 
     override fun validateLogin(email: String, password: String) {

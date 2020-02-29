@@ -24,7 +24,8 @@
                 style="@style/TextViewTheme.Title"
                 android:text="@string/name"
                 android:textAlignment="center"
-                android:textColor="@color/colorPrimaryDark" />
+                android:textColor="@color/colorPrimaryDark"
+                android:gravity="center_horizontal" />
 
             <com.synnapps.carouselview.CarouselView
                 android:id="@+id/carouselView"
@@ -65,8 +66,8 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/btPay"
-            android:text="@string/pay"
+            android:id="@+id/btAddShoppingCart"
+            android:text="@string/add_shopping_cart"
             style="@style/ButtonTheme" />
 
     </LinearLayout>

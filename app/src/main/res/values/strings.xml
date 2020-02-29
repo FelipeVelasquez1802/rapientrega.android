@@ -56,4 +56,5 @@
     <string name="error">Error</string>
     <string name="list_empty">This list is empty</string>
     <string name="logout_description">Cerrar sesión</string>
+    <string name="add_shopping_cart">Añadir al carrito</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.simplex.rapientrega.views.activities
 
 import android.annotation.SuppressLint
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -9,9 +10,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.simplex.rapientrega.R
+import com.simplex.rapientrega.api.entities.ShoppingCartEntity
 import com.simplex.rapientrega.interfaces.ShoppingCartInterface
 import com.simplex.rapientrega.objects.ShoppingCart
 import com.simplex.rapientrega.presenters.activities.ShoppingCartPresenter
+import com.simplex.rapientrega.tools.KEY
+import com.simplex.rapientrega.tools.SHOPPING_CART
 import com.simplex.rapientrega.views.adapters.ShoppingCartAdapter
 
 class ShoppingCartActivity :
@@ -23,9 +27,11 @@ class ShoppingCartActivity :
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ShoppingCartAdapter
     private lateinit var total: TextView
-    private lateinit var shoppingCarts: List<ShoppingCart>
+    private lateinit var shoppingCarts: List<ShoppingCartEntity>
 
     private lateinit var presenter: ShoppingCartInterface.Presenter
+
+    private lateinit var preferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,9 +46,11 @@ class ShoppingCartActivity :
 
         total = findViewById(R.id.tvTotal)
 
+        preferences = applicationContext.getSharedPreferences(KEY, 0)
+
         presenter = ShoppingCartPresenter(this)
         presenter.hideIncludeShoppingCart()
-        presenter.consultShoppingCarts()
+        presenter.consultShoppingCarts(preferences.getString(SHOPPING_CART, null))
     }
 
     @SuppressLint("SetTextI18n")
@@ -52,14 +60,14 @@ class ShoppingCartActivity :
                 onBackPressed()
             }
             R.id.ivUpdate -> presenter.calculateResult(shoppingCarts)
-            R.id.btPay -> {
+            R.id.btAddShoppingCart -> {
                 Toast.makeText(this, "Desarrollando...", Toast.LENGTH_LONG).show()
             }
         }
     }
 
     @SuppressLint("SetTextI18n")
-    override fun showShoppingCart(shoppingCarts: List<ShoppingCart>) {
+    override fun showShoppingCart(shoppingCarts: List<ShoppingCartEntity>) {
         this.shoppingCarts = shoppingCarts
         presenter.calculateResult(this.shoppingCarts)
     }
@@ -81,8 +89,8 @@ class ShoppingCartActivity :
         total.text = "$result"
     }
 
-    override fun showShoppingCarts(shoppingCarts: List<ShoppingCart>) {
-        adapter = ShoppingCartAdapter(shoppingCarts, this)
+    override fun showShoppingCarts(products: List<ShoppingCartEntity>) {
+        adapter = ShoppingCartAdapter(products, this)
         recyclerView.adapter = adapter
     }
 }

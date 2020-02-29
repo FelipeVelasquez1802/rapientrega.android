@@ -1,5 +1,6 @@
 package com.simplex.rapientrega.presenters.activities
 
+import com.simplex.rapientrega.api.entities.ShoppingCartEntity
 import com.simplex.rapientrega.interfaces.ShoppingCartInterface
 import com.simplex.rapientrega.model.activities.ShoppingCartModel
 import com.simplex.rapientrega.objects.ShoppingCart
@@ -21,15 +22,15 @@ class ShoppingCartPresenter(
         view.showResult(result)
     }
 
-    override fun calculateResult(shoppingCarts: List<ShoppingCart>) {
+    override fun calculateResult(shoppingCarts: List<ShoppingCartEntity>) {
         model.calculateResult(shoppingCarts)
     }
 
-    override fun showShoppingCarts(shoppingCarts: List<ShoppingCart>) {
-        view.showShoppingCarts(shoppingCarts)
+    override fun showShoppingCarts(products: List<ShoppingCartEntity>) {
+        view.showShoppingCarts(products)
     }
 
-    override fun consultShoppingCarts() {
-        model.consultShoppingCarts()
+    override fun consultShoppingCarts(string: String?) {
+        model.consultShoppingCarts(string)
     }
 }

@@ -10,10 +10,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.simplex.rapientrega.R
-import com.simplex.rapientrega.objects.ShoppingCart
+import com.simplex.rapientrega.api.entities.ShoppingCartEntity
 
 class ShoppingCartAdapter(
-    private var shoppingCarts: List<ShoppingCart>,
+    private var shoppingCarts: List<ShoppingCartEntity>,
     private var shoppingCartInterface: ShoppingCartInterface
 ) :
     RecyclerView.Adapter<ShoppingCartAdapter.ShoppingCartViewHolder>() {
@@ -64,13 +64,13 @@ class ShoppingCartAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ShoppingCartViewHolder, position: Int) {
-        var shoppingCart: ShoppingCart = shoppingCarts[position]
-        Glide.with(view).load(shoppingCart.product.photo).into(holder.photo)
+        var shoppingCart: ShoppingCartEntity = shoppingCarts[position]
+        Glide.with(view).load(shoppingCart.product.imageAbsolute()).into(holder.photo)
         holder.name.text = shoppingCart.product.name
-        holder.count.text = shoppingCart.countFormat()
+        holder.count.text = "${shoppingCart.count}"
         holder.less.setOnClickListener {
             val count = holder.count.text.toString().toInt() - 1
-            if (count >= 0) {
+            if (count > 0) {
                 holder.count.text = "$count"
             } else {
                 holder.less.isEnabled = false
@@ -90,7 +90,7 @@ class ShoppingCartAdapter(
     }
 
     interface ShoppingCartInterface {
-        fun showShoppingCart(shoppingCarts: List<ShoppingCart>)
+        fun showShoppingCart(shoppingCarts: List<ShoppingCartEntity>)
         fun updateList()
     }
 

@@ -19,4 +19,5 @@ var FORMAT_PRICE: NumberFormat = NumberFormat.getCurrencyInstance(Locale.US)
 const val ERROR_LOGIN = "error_login"
 const val ERROR = "error"
 const val USER = "user"
+const val SHOPPING_CART = "shopping_cart"
 const val LIST_EMPTY = "list_empty"
