@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -43,6 +44,7 @@ class CategoryFragment :
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CategoryAdapter
+    private lateinit var progressBar: ProgressBar
 
     private lateinit var presenter: CategoryInterface.Presenter
 
@@ -64,6 +66,8 @@ class CategoryFragment :
         recyclerView = view.findViewById(R.id.recycler_view)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(context)
+
+        progressBar = view.findViewById(R.id.progress_circular)
 
         presenter = CategoryPresenter(this)
         presenter.consultCategories()
@@ -143,5 +147,9 @@ class CategoryFragment :
 
     override fun showAlertError(id: Int) {
         Toast.makeText(context, getString(id), Toast.LENGTH_LONG).show()
+    }
+
+    override fun stateProgressBar(id: Int) {
+        progressBar.visibility = id
     }
 }

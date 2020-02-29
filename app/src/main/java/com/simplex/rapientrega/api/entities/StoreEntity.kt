@@ -2,8 +2,6 @@ package com.simplex.rapientrega.api.entities
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import com.simplex.rapientrega.tools.BASE_URL
-import com.simplex.rapientrega.tools.STORES_MS
 
 class StoreEntity : BaseEntity() {
     @SerializedName("store_category_id")
@@ -24,4 +22,8 @@ class StoreEntity : BaseEntity() {
     @SerializedName("cost_of_shipping")
     @Expose
     var costOfShipping: Double = 0.0
+
+    fun serviceTime(): String {
+        return "$openingTime - $closingTime"
+    }
 }

@@ -25,7 +25,7 @@
         android:textColor="@color/colorPrimaryDark" />
 
     <TextView
-        android:id="@+id/tvCategory"
+        android:id="@+id/tvDescription"
         style="@style/TextViewTheme"
         android:layout_below="@id/tvName"
         android:layout_marginBottom="0dp"
@@ -33,14 +33,6 @@
         android:layout_toRightOf="@id/ivPhoto"
         android:text="@string/category"
         android:textColor="@android:color/black" />
-
-    <include
-        layout="@layout/component_is_open"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvCategory"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true" />
 
     <LinearLayout
         android:id="@+id/linear_layout"
@@ -52,13 +44,15 @@
         <TextView
             style="@style/TextViewTheme"
             android:layout_weight="1"
-            android:text="@string/minimum_order"
+            android:gravity="center_horizontal"
+            android:text="@string/time_services"
             android:textAlignment="center"
             android:textColor="@android:color/darker_gray" />
 
         <TextView
             style="@style/TextViewTheme"
             android:layout_weight="1"
+            android:gravity="center_horizontal"
             android:text="@string/shipping_cost"
             android:textAlignment="center"
             android:textColor="@android:color/darker_gray" />
@@ -72,10 +66,11 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/tvMinimumOrder"
+            android:id="@+id/tvServiceTime"
             style="@style/TextViewTheme"
             android:layout_weight="1"
-            android:text="@string/minimum_order"
+            android:gravity="center_horizontal"
+            android:text="@string/time_services"
             android:textAlignment="center"
             android:textColor="@android:color/darker_gray" />
 
@@ -83,6 +78,7 @@
             android:id="@+id/tvShippingCost"
             style="@style/TextViewTheme"
             android:layout_weight="1"
+            android:gravity="center_horizontal"
             android:text="@string/shipping_cost"
             android:textAlignment="center"
             android:textColor="@android:color/darker_gray" />

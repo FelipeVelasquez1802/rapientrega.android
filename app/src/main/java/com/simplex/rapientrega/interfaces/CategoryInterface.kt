@@ -6,12 +6,14 @@ interface CategoryInterface {
     interface View {
         fun showCategories(categories: List<StoreCategoryEntity>)
         fun showAlertError(id: Int)
+        fun stateProgressBar(id: Int)
     }
 
     interface Presenter {
         fun showCategories(categories: List<StoreCategoryEntity>)
         fun consultCategories()
         fun showAlertError(id: String)
+        fun stateProgressBar(id: String)
     }
 
     interface Model {

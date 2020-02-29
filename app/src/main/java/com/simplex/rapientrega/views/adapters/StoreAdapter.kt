@@ -20,7 +20,7 @@ class StoreAdapter(
     private lateinit var view: View
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProviderViewHolder {
-        view = LayoutInflater.from(parent.context).inflate(R.layout.adapter_provider, parent, false)
+        view = LayoutInflater.from(parent.context).inflate(R.layout.adapter_store, parent, false)
         return ProviderViewHolder(view)
     }
 
@@ -30,25 +30,17 @@ class StoreAdapter(
         val store: StoreEntity = stores[position]
         Glide.with(view).load(store.imageAbsolute()).into(holder.photo)
         holder.name.text = store.name
-//        holder.category.text = store.category
-//        isOpen(holder.open, store.isOpen)
-//        isOpen(holder.closed, !store.isOpen)
-//        holder.minimumOrder.text = FORMAT_PRICE.format(store.minimumOrder)
+        holder.description.text = store.description
+        holder.serviceTime.text = store.serviceTime()
         holder.shippingCost.text = FORMAT_PRICE.format(store.costOfShipping)
         holder.itemView.setOnClickListener { onItemClickListener.run { onItemClick(store.id) } }
-    }
-
-    private fun isOpen(field: TextView, flag: Boolean) {
-        field.visibility = if (flag) View.VISIBLE else View.GONE
     }
 
     class ProviderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var photo: ImageView = itemView.findViewById(R.id.ivPhoto)
         var name: TextView = itemView.findViewById(R.id.tvName)
-        var category: TextView = itemView.findViewById(R.id.tvCategory)
-        var open: TextView = itemView.findViewById(R.id.tvOpen)
-        var closed: TextView = itemView.findViewById(R.id.tvClosed)
-        var minimumOrder: TextView = itemView.findViewById(R.id.tvMinimumOrder)
+        var description: TextView = itemView.findViewById(R.id.tvDescription)
+        var serviceTime: TextView = itemView.findViewById(R.id.tvServiceTime)
         var shippingCost: TextView = itemView.findViewById(R.id.tvShippingCost)
     }
 
