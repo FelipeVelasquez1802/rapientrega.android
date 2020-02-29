@@ -4,8 +4,9 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import com.simplex.rapientrega.tools.BASE_URL
 import com.simplex.rapientrega.tools.STORES_MS
+import java.io.Serializable
 
-open class BaseEntity {
+open class BaseEntity : Serializable {
     @SerializedName("id")
     @Expose
     var id: Int = 0

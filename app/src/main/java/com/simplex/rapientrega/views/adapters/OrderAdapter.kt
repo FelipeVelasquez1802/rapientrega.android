@@ -6,17 +6,16 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.simplex.rapientrega.R
-import com.simplex.rapientrega.objects.Order
+import com.simplex.rapientrega.api.entities.OrderEntity
 import com.simplex.rapientrega.tools.FORMAT_PRICE
 
-class OrderAdapter(orders: List<Order>, onItemClickListener: OnItemClickListener) :
+class OrderAdapter(
+    private var orders: List<OrderEntity>,
+    private var onItemClickListener: OnItemClickListener
+) :
     RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
 
     private lateinit var view: View
-    private var onItemClickListener: OnItemClickListener = onItemClickListener
-
-    private var orders: List<Order> = orders
-
 
     class OrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var date: TextView = itemView.findViewById(R.id.tvDate)
@@ -31,13 +30,13 @@ class OrderAdapter(orders: List<Order>, onItemClickListener: OnItemClickListener
     override fun getItemCount(): Int = orders.size
 
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
-        var order: Order = orders.get(position)
-        holder.date.text = order.date
-        holder.total.text = FORMAT_PRICE.format(order.total)
+        val order: OrderEntity = orders[position]
+        holder.date.text = order.date.toString()
+        holder.total.text = FORMAT_PRICE.format(order.totalPrice())
         holder.itemView.setOnClickListener { onItemClickListener.run { onItemClick(order) } }
     }
 
     interface OnItemClickListener {
-        fun onItemClick(order: Order)
+        fun onItemClick(order: OrderEntity)
     }
 }

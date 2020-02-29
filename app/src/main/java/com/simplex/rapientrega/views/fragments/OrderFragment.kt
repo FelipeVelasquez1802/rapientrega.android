@@ -1,6 +1,7 @@
 package com.simplex.rapientrega.views.fragments
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,8 +12,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.simplex.rapientrega.R
-import com.simplex.rapientrega.objects.Order
-import com.simplex.rapientrega.tests.OrderTest
+import com.simplex.rapientrega.api.entities.OrderEntity
+import com.simplex.rapientrega.interfaces.OrderInterface
+import com.simplex.rapientrega.presenters.fragments.OrderPresenter
+import com.simplex.rapientrega.tools.KEY
+import com.simplex.rapientrega.tools.ORDER
 import com.simplex.rapientrega.views.adapters.OrderAdapter
 
 // TODO: Rename parameter arguments, choose names that match
@@ -29,14 +33,17 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class OrderFragment :
-    Fragment(), OrderAdapter.OnItemClickListener {
+    Fragment(),
+    OrderInterface.View,
+    OrderAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
-
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: OrderAdapter
+    private lateinit var presenter: OrderInterface.Presenter
+    private lateinit var preferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,17 +58,18 @@ class OrderFragment :
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view: View = inflater.inflate(R.layout.fragment_order, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_order, container, false)
         initialElements(view)
         return view
     }
 
     private fun initialElements(view: View) {
-        adapter = OrderAdapter(OrderTest().ordersList(), this)
+        preferences = view.context.getSharedPreferences(KEY, 0)
         recyclerView = view.findViewById(R.id.recycler_view)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = adapter
+        presenter = OrderPresenter(this)
+        presenter.consultOrders(preferences.getString(ORDER, null))
     }
 
 
@@ -122,7 +130,12 @@ class OrderFragment :
             }
     }
 
-    override fun onItemClick(order: Order) {
+    override fun onItemClick(order: OrderEntity) {
         Toast.makeText(context, "Order: " + order.date, Toast.LENGTH_LONG).show()
+    }
+
+    override fun putOrders(orders: List<OrderEntity>) {
+        adapter = OrderAdapter(orders, this)
+        recyclerView.adapter = adapter
     }
 }

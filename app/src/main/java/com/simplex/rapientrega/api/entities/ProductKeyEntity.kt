@@ -2,8 +2,9 @@ package com.simplex.rapientrega.api.entities
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-class ProductKeyEntity {
+class ProductKeyEntity : Serializable {
     @SerializedName("product_categories")
     @Expose
     lateinit var productCategories: List<ProductCategoriesEntity>

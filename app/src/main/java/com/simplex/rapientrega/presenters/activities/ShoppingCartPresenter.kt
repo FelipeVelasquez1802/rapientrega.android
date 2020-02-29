@@ -1,5 +1,6 @@
 package com.simplex.rapientrega.presenters.activities
 
+import com.simplex.rapientrega.R
 import com.simplex.rapientrega.api.entities.ShoppingCartEntity
 import com.simplex.rapientrega.interfaces.ShoppingCartInterface
 import com.simplex.rapientrega.model.activities.ShoppingCartModel
@@ -26,15 +27,19 @@ class ShoppingCartPresenter(
     }
 
     override fun showShoppingCarts(products: List<ShoppingCartEntity>) {
-        view.showShoppingCarts(products)
+        if (products.isNotEmpty()) view.showShoppingCarts(products)
+        else {
+            view.goMainActivity()
+            view.showMessage(R.string.list_empty)
+        }
     }
 
     override fun consultShoppingCarts(string: String?) {
         model.consultShoppingCarts(string)
     }
 
-    override fun convertProducts(products: List<ShoppingCartEntity>) {
-        model.convertProducts(products)
+    override fun convertProducts(products: List<ShoppingCartEntity>, list: String?) {
+        model.convertProducts(products, list)
     }
 
     override fun saveProducts(string: String?) {

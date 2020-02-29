@@ -2,9 +2,10 @@ package com.simplex.rapientrega.api.entities
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 import java.util.*
 
-class RegisterEntity {
+class OrderEntity : Serializable {
     @SerializedName("productos")
     @Expose
     lateinit var products: List<ShoppingCartEntity>

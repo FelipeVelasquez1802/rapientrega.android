@@ -11,6 +11,7 @@ interface ShoppingCartInterface {
         fun saveProducts(string: String?)
         fun deleteProducts()
         fun goMainActivity()
+        fun showMessage(id: Int)
     }
 
     interface Presenter {
@@ -20,13 +21,13 @@ interface ShoppingCartInterface {
         fun calculateResult(shoppingCarts: List<ShoppingCartEntity>)
         fun showShoppingCarts(products: List<ShoppingCartEntity>)
         fun consultShoppingCarts(string: String?)
-        fun convertProducts(products: List<ShoppingCartEntity>)
+        fun convertProducts(products: List<ShoppingCartEntity>, list: String?)
         fun saveProducts(string: String?)
     }
 
     interface Model {
         fun calculateResult(shoppingCarts: List<ShoppingCartEntity>)
         fun consultShoppingCarts(string: String?)
-        fun convertProducts(products: List<ShoppingCartEntity>)
+        fun convertProducts(products: List<ShoppingCartEntity>, list: String?)
     }
 }

@@ -2,7 +2,7 @@ package com.simplex.rapientrega.tools
 
 import com.google.gson.Gson
 import com.simplex.rapientrega.api.entities.LoginEntity
-import com.simplex.rapientrega.api.entities.RegisterEntity
+import com.simplex.rapientrega.api.entities.OrderEntity
 import com.simplex.rapientrega.api.entities.ShoppingCartEntity
 import com.simplex.rapientrega.objects.Provider
 
@@ -31,6 +31,13 @@ fun toListProduct(string: String?): List<ShoppingCartEntity> {
 fun toListShoppingCart(string: String?): List<ShoppingCartEntity> {
     return if (string != null) Gson().fromJson(
         string, Array<ShoppingCartEntity>::class.java
+    ).toList()
+    else emptyList()
+}
+
+fun toListOrder(string: String?): List<OrderEntity> {
+    return if (string != null) Gson().fromJson(
+        string, Array<OrderEntity>::class.java
     ).toList()
     else emptyList()
 }

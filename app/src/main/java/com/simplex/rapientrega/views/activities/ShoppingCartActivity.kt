@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +15,7 @@ import com.simplex.rapientrega.api.entities.ShoppingCartEntity
 import com.simplex.rapientrega.interfaces.ShoppingCartInterface
 import com.simplex.rapientrega.presenters.activities.ShoppingCartPresenter
 import com.simplex.rapientrega.tools.KEY
-import com.simplex.rapientrega.tools.REGISTER
+import com.simplex.rapientrega.tools.ORDER
 import com.simplex.rapientrega.tools.SHOPPING_CART
 import com.simplex.rapientrega.views.adapters.ShoppingCartAdapter
 
@@ -61,7 +62,7 @@ class ShoppingCartActivity :
             }
             R.id.ivUpdate -> presenter.calculateResult(shoppingCarts)
             R.id.btAddShoppingCart -> {
-                presenter.convertProducts(shoppingCarts)
+                presenter.convertProducts(shoppingCarts, preferences.getString(ORDER, null))
             }
         }
     }
@@ -96,7 +97,7 @@ class ShoppingCartActivity :
 
     override fun saveProducts(string: String?) {
         val editor = preferences.edit()
-        editor.putString(REGISTER, string)
+        editor.putString(ORDER, string)
         editor.apply()
     }
 
@@ -107,8 +108,13 @@ class ShoppingCartActivity :
     }
 
     override fun goMainActivity() {
-        val intent = Intent(this, MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(intent)
+//        val intent = Intent(this, MainActivity::class.java)
+//        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+//        startActivity(intent)
+        onBackPressed()
+    }
+
+    override fun showMessage(id: Int) {
+        Toast.makeText(this, getString(id), Toast.LENGTH_LONG).show()
     }
 }

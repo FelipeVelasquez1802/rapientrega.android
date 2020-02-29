@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-class ProductEntity : BaseEntity(), Serializable {
+class ProductEntity : BaseEntity() {
     @SerializedName("product_category_id")
     @Expose
     var productCategoryId: Int = 0
