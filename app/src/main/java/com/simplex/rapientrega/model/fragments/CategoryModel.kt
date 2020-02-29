@@ -33,7 +33,7 @@ class CategoryModel(private val presenter: CategoryInterface.Presenter) :
         val storeCategory: CategoryEntity? = response.body()
         if (storeCategory != null) {
             presenter.showCategories(storeCategory.storesCategories)
-            presenter.stateProgressBar(HIDE)
         } else presenter.showAlertError(LIST_EMPTY)
+        presenter.stateProgressBar(HIDE)
     }
 }

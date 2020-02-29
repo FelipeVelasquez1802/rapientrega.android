@@ -12,6 +12,7 @@ const val PRODUCTS = "products"
 const val PRODUCT = "product"
 const val SHOW = "show"
 const val HIDE = "hide"
+const val STORE_ID = "store_id"
 var GSON: Gson = Gson()
 var FORMAT_PRICE: NumberFormat = NumberFormat.getCurrencyInstance(Locale.US)
 const val ERROR_LOGIN = "error_login"

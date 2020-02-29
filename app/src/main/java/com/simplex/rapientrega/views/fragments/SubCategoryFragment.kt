@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -14,9 +15,9 @@ import com.simplex.rapientrega.R
 import com.simplex.rapientrega.api.entities.ProductCategoriesEntity
 import com.simplex.rapientrega.api.entities.ProductEntity
 import com.simplex.rapientrega.interfaces.SubCategoryInterface
-import com.simplex.rapientrega.objects.Product
 import com.simplex.rapientrega.presenters.fragments.SubCategoryPresenter
 import com.simplex.rapientrega.tools.PRODUCTS
+import com.simplex.rapientrega.tools.STORE_ID
 import com.simplex.rapientrega.views.adapters.SubCategoryAdapter
 import java.io.Serializable
 
@@ -44,6 +45,7 @@ class SubCategoryFragment :
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: SubCategoryAdapter
+    private lateinit var progressBar: ProgressBar
 
     private lateinit var presenter: SubCategoryInterface.Presenter
 
@@ -62,7 +64,7 @@ class SubCategoryFragment :
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_sub_category, container, false)
         initialElements(view)
-
+        val storeId = arguments?.getInt(STORE_ID, -1)
         presenter = SubCategoryPresenter(this)
         presenter.consultSubCategories(1)
         return view
@@ -72,6 +74,7 @@ class SubCategoryFragment :
         recyclerView = view.findViewById(R.id.recycler_view)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = GridLayoutManager(context, 2)
+        progressBar = view.findViewById(R.id.progress_circular)
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -144,5 +147,9 @@ class SubCategoryFragment :
 
     override fun showAlertMessage(id: Int) {
         Toast.makeText(context, getString(id), Toast.LENGTH_LONG).show()
+    }
+
+    override fun stateProgressBar(id: Int) {
+        progressBar.visibility = id
     }
 }

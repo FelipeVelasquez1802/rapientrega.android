@@ -14,6 +14,7 @@ import com.simplex.rapientrega.api.entities.StoreEntity
 import com.simplex.rapientrega.interfaces.StoreInterface
 import com.simplex.rapientrega.presenters.fragments.StorePresenter
 import com.simplex.rapientrega.tools.STORES
+import com.simplex.rapientrega.tools.STORE_ID
 import com.simplex.rapientrega.views.adapters.StoreAdapter
 
 // TODO: Rename parameter arguments, choose names that match
@@ -56,7 +57,7 @@ class StoreFragment :
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view: View = inflater.inflate(R.layout.fragment_provider, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_store, container, false)
         initialElements(view)
         presenter = StorePresenter(this)
         presenter.consultProviders()
@@ -127,8 +128,12 @@ class StoreFragment :
             }
     }
 
-    override fun onItemClick(id: Int) {
-        fragmentManager?.beginTransaction()?.add(R.id.frame_layout_main, SubCategoryFragment())
+    override fun onItemClick(store_id: Int) {
+        val fragment = SubCategoryFragment()
+        val args = Bundle()
+        args.putInt(STORE_ID, store_id)
+        fragment.arguments = args
+        fragmentManager?.beginTransaction()?.add(R.id.frame_layout_main, fragment)
             ?.addToBackStack(null)?.commit()
     }
 }
