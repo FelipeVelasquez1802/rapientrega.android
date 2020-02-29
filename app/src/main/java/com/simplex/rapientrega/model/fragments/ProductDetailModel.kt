@@ -5,7 +5,4 @@ import com.simplex.rapientrega.tests.ProductTest
 
 class ProductDetailModel(private val presenter: ProductDetailInterface.Presenter) :
     ProductDetailInterface.Model {
-    override fun consultProductDetail() {
-        presenter.showProductDetail(ProductTest().product())
-    }
 }

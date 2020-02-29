@@ -3,8 +3,8 @@ package com.simplex.rapientrega.api.entities
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class StoreCategoryEntity :BaseEntity(){
-    @SerializedName("stores")
+class ProductKeyEntity {
+    @SerializedName("product_categories")
     @Expose
-    lateinit var stores: List<StoreEntity>
+    lateinit var productCategories: List<ProductCategoriesEntity>
 }

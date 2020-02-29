@@ -13,10 +13,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.simplex.rapientrega.R
+import com.simplex.rapientrega.api.entities.ProductEntity
 import com.simplex.rapientrega.interfaces.ProductDetailInterface
-import com.simplex.rapientrega.objects.Product
 import com.simplex.rapientrega.presenters.fragments.ProductDetailPresenter
-import com.simplex.rapientrega.tests.ProductTest
+import com.simplex.rapientrega.tools.PRODUCT
 import com.synnapps.carouselview.CarouselView
 import com.synnapps.carouselview.ImageListener
 
@@ -51,7 +51,7 @@ class ProductDetailFragment :
     private lateinit var less: Button
     private lateinit var right: Button
 
-    private lateinit var product: Product
+    private lateinit var product: ProductEntity
 
     private lateinit var presenter: ProductDetailInterface.Presenter
 
@@ -68,26 +68,28 @@ class ProductDetailFragment :
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view: View = inflater.inflate(R.layout.fragment_product_detail, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_product_detail, container, false)
         initialObjects()
         initialElements(view)
-
         presenter = ProductDetailPresenter(this)
-        presenter.consultProductDetail()
         return view
     }
 
     private fun initialObjects() {
-        product = ProductTest().product()
     }
 
     private fun initialElements(view: View) {
+        product = arguments?.getSerializable(PRODUCT) as ProductEntity
+
         name = view.findViewById(R.id.tvName)
+        name.text = product.name
 
         carouselView = view.findViewById(R.id.carouselView)
         carouselView.setImageListener(this)
+        carouselView.pageCount = product.images.size ?: 0
 
         description = view.findViewById(R.id.tvDescription)
+        description.text = product.description
 
         pay = view.findViewById(R.id.btPay)
         pay.setOnClickListener(this)
@@ -158,7 +160,7 @@ class ProductDetailFragment :
 
     override fun setImageForPosition(position: Int, imageView: ImageView?) {
         if (imageView != null) {
-            context?.let { Glide.with(it).load(product.photos?.get(position)).into(imageView) }
+            context?.let { Glide.with(it).load(product.images[position]).into(imageView) }
         }
     }
 
@@ -180,9 +182,6 @@ class ProductDetailFragment :
         }
     }
 
-    override fun showProductDetail(product: Product) {
-        name.text = product.name
-        carouselView.pageCount = product.photos?.size ?: 0
-        description.text = product.description
+    override fun showProductDetail(product: ProductEntity) {
     }
 }

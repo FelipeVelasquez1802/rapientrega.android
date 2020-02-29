@@ -8,18 +8,17 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.simplex.rapientrega.R
-import com.simplex.rapientrega.objects.SubCategory
+import com.simplex.rapientrega.api.entities.ProductCategoriesEntity
+import com.simplex.rapientrega.api.entities.ProductEntity
+import com.simplex.rapientrega.objects.Product
 
 class SubCategoryAdapter(
-    subCategories: List<SubCategory>,
-    onItemClickListener: OnItemClickListener
+    private var subCategories: List<ProductCategoriesEntity>,
+    private var onItemClickListener: OnItemClickListener
 ) :
     RecyclerView.Adapter<SubCategoryAdapter.SubCategoryViewHolder>() {
 
     private lateinit var view: View
-
-    private var subCategories: List<SubCategory> = subCategories
-    private var onItemClickListener: OnItemClickListener = onItemClickListener
 
 
     class SubCategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -36,14 +35,14 @@ class SubCategoryAdapter(
     override fun getItemCount(): Int = subCategories.size
 
     override fun onBindViewHolder(holder: SubCategoryViewHolder, position: Int) {
-        var subCategory: SubCategory = subCategories.get(position)
+        val subCategory: ProductCategoriesEntity = subCategories[position]
         holder.name.text = subCategory.name
-        Glide.with(view).load(subCategory.photo).into(holder.photo)
-        holder.itemView.setOnClickListener { onItemClickListener.run { onItemClick(subCategory) } }
+        Glide.with(view).load(subCategory.imageAbsolute()).into(holder.photo)
+        holder.itemView.setOnClickListener { onItemClickListener.run { onItemClick(subCategory.products) } }
     }
 
     interface OnItemClickListener {
-        fun onItemClick(subCategory: SubCategory)
+        fun onItemClick(products: List<ProductEntity>)
     }
 
 }

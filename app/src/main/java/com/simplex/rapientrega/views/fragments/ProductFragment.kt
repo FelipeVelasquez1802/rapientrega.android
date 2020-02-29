@@ -10,10 +10,14 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.simplex.rapientrega.R
+import com.simplex.rapientrega.api.entities.ProductEntity
 import com.simplex.rapientrega.interfaces.ProductInterface
 import com.simplex.rapientrega.objects.Product
 import com.simplex.rapientrega.presenters.fragments.ProductPresenter
+import com.simplex.rapientrega.tools.PRODUCT
+import com.simplex.rapientrega.tools.PRODUCTS
 import com.simplex.rapientrega.views.adapters.ProductAdapter
+import java.io.Serializable
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -64,10 +68,11 @@ class ProductFragment :
     }
 
     private fun initialElements(view: View) {
-
+        val products = arguments?.getSerializable(PRODUCTS) as List<ProductEntity>
         recyclerView = view.findViewById(R.id.recycler_view)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = GridLayoutManager(context, 2)
+        recyclerView.adapter = ProductAdapter(products, this)
 
     }
 
@@ -126,12 +131,15 @@ class ProductFragment :
             }
     }
 
-    override fun onItemClick(product: Product) {
-        fragmentManager?.beginTransaction()?.add(R.id.frame_layout_main, ProductDetailFragment())
+    override fun onItemClick(product: ProductEntity) {
+        val fragment = ProductDetailFragment()
+        val args = Bundle()
+        args.putSerializable(PRODUCT, product as Serializable)
+        fragment.arguments = args
+        fragmentManager?.beginTransaction()?.add(R.id.frame_layout_main, fragment)
             ?.addToBackStack(null)?.commit()
     }
 
     override fun showProducts(products: List<Product>) {
-        recyclerView.adapter = ProductAdapter(products, this)
     }
 }

@@ -8,16 +8,16 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.simplex.rapientrega.R
-import com.simplex.rapientrega.objects.Product
+import com.simplex.rapientrega.api.entities.ProductEntity
 import com.simplex.rapientrega.tools.FORMAT_PRICE
 
-class ProductAdapter(products: List<Product>, onItemClickListener: OnItemClickListener) :
+class ProductAdapter(
+    private var products: List<ProductEntity>,
+    private var onItemClickListener: OnItemClickListener
+) :
     RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     private lateinit var view: View
-
-    private var products: List<Product> = products
-    private var onItemClickListener: OnItemClickListener = onItemClickListener
 
     class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var photo: ImageView = itemView.findViewById(R.id.ivPhoto)
@@ -36,8 +36,8 @@ class ProductAdapter(products: List<Product>, onItemClickListener: OnItemClickLi
     override fun getItemCount(): Int = products.size
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        var product: Product = products.get(position)
-        Glide.with(view).load(product.photo).into(holder.photo)
+        var product = products[position]
+        Glide.with(view).load(product.imageAbsolute()).into(holder.photo)
         holder.name.text = product.name
         holder.description.text = product.description
         holder.price.text = FORMAT_PRICE.format(product.price)
@@ -45,7 +45,7 @@ class ProductAdapter(products: List<Product>, onItemClickListener: OnItemClickLi
     }
 
     interface OnItemClickListener {
-        fun onItemClick(product: Product)
+        fun onItemClick(product: ProductEntity)
     }
 
 }

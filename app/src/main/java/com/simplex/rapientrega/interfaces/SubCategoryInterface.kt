@@ -1,18 +1,20 @@
 package com.simplex.rapientrega.interfaces
 
-import com.simplex.rapientrega.objects.SubCategory
+import com.simplex.rapientrega.api.entities.ProductCategoriesEntity
 
 interface SubCategoryInterface {
     interface View {
-        fun showSubCategories(subcategories: List<SubCategory>)
+        fun showSubCategories(subcategories: List<ProductCategoriesEntity>)
+        fun showAlertMessage(id: Int)
     }
 
     interface Presenter {
-        fun showSubCategories(subcategories: List<SubCategory>)
-        fun consultSubCategories()
+        fun showSubCategories(subcategories: List<ProductCategoriesEntity>)
+        fun consultSubCategories(id: Int)
+        fun showAlertMessage(id: String)
     }
 
     interface Model {
-        fun consultSubCategories()
+        fun consultSubCategories(id: Int)
     }
 }

@@ -5,19 +5,10 @@ import com.google.gson.annotations.SerializedName
 import com.simplex.rapientrega.tools.BASE_URL
 import com.simplex.rapientrega.tools.STORES_MS
 
-class StoreEntity {
-    @SerializedName("id")
-    @Expose
-    var id: Int = 0
+class StoreEntity : BaseEntity() {
     @SerializedName("store_category_id")
     @Expose
     var storeCategoryId: Int = 0
-    @SerializedName("name")
-    @Expose
-    lateinit var name: String
-    @SerializedName("image")
-    @Expose
-    lateinit var image: String
     @SerializedName("description")
     @Expose
     lateinit var description: String
@@ -33,11 +24,4 @@ class StoreEntity {
     @SerializedName("cost_of_shipping")
     @Expose
     var costOfShipping: Double = 0.0
-    @SerializedName("is_active")
-    @Expose
-    var isActive: Boolean = false
-
-    fun imageAbsolute(): String {
-        return "$BASE_URL${STORES_MS}media/${image}"
-    }
 }

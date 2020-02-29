@@ -6,14 +6,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.simplex.rapientrega.R
+import com.simplex.rapientrega.api.entities.ProductCategoriesEntity
+import com.simplex.rapientrega.api.entities.ProductEntity
 import com.simplex.rapientrega.interfaces.SubCategoryInterface
-import com.simplex.rapientrega.objects.SubCategory
+import com.simplex.rapientrega.objects.Product
 import com.simplex.rapientrega.presenters.fragments.SubCategoryPresenter
+import com.simplex.rapientrega.tools.PRODUCTS
 import com.simplex.rapientrega.views.adapters.SubCategoryAdapter
+import java.io.Serializable
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,7 +64,7 @@ class SubCategoryFragment :
         initialElements(view)
 
         presenter = SubCategoryPresenter(this)
-        presenter.consultSubCategories()
+        presenter.consultSubCategories(1)
         return view
     }
 
@@ -124,12 +129,20 @@ class SubCategoryFragment :
             }
     }
 
-    override fun onItemClick(subCategory: SubCategory) {
-        fragmentManager?.beginTransaction()?.add(R.id.frame_layout_main, ProductFragment())
+    override fun onItemClick(products: List<ProductEntity>) {
+        val fragment = ProductFragment()
+        val args = Bundle()
+        args.putSerializable(PRODUCTS, products as Serializable)
+        fragment.arguments = args
+        fragmentManager?.beginTransaction()?.add(R.id.frame_layout_main, fragment)
             ?.addToBackStack(null)?.commit()
     }
 
-    override fun showSubCategories(subcategories: List<SubCategory>) {
+    override fun showSubCategories(subcategories: List<ProductCategoriesEntity>) {
         recyclerView.adapter = SubCategoryAdapter(subcategories, this)
+    }
+
+    override fun showAlertMessage(id: Int) {
+        Toast.makeText(context, getString(id), Toast.LENGTH_LONG).show()
     }
 }

@@ -1,6 +1,8 @@
 package com.simplex.rapientrega.objects
 
-class Product {
+import java.io.Serializable
+
+class Product : Serializable {
     var name: String
     lateinit var photo: String
     var photos: ArrayList<String>? = null

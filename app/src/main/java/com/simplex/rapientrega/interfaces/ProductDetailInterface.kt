@@ -1,18 +1,17 @@
 package com.simplex.rapientrega.interfaces
 
+import com.simplex.rapientrega.api.entities.ProductEntity
 import com.simplex.rapientrega.objects.Product
 
 interface ProductDetailInterface {
     interface View {
-        fun showProductDetail(product: Product)
+        fun showProductDetail(product: ProductEntity)
     }
 
     interface Presenter {
-        fun showProductDetail(product: Product)
-        fun consultProductDetail()
+        fun showProductDetail(product: ProductEntity)
     }
 
     interface Model {
-        fun consultProductDetail()
     }
 }
