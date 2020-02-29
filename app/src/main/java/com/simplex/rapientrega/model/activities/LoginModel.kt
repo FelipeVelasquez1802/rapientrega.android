@@ -28,7 +28,6 @@ class LoginModel(private val presenter: LoginInterface.Presenter) : LoginInterfa
                     presenter.hideProgressbar()
                     val loginEntity: LoginEntity? = entity.body()
                     if (loginEntity != null) {
-                        val profile = loginEntity.profile.isSuperUser
                         presenter.saveUser(loginEntity)
                         presenter.goMainActivity()
                     } else presenter.showAlertMessage(ERROR_LOGIN)

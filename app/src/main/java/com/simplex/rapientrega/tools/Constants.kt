@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import java.text.NumberFormat
 import java.util.*
 
+const val KEY = "data"
 const val BASE_URL = "http://rapientrega.co/"
 const val STORES_MS = "stores-ms/"
 const val PROVIDER: String = "Provider"

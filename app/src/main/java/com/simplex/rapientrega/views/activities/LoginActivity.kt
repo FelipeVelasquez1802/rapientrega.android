@@ -11,9 +11,9 @@ import com.google.android.material.textfield.TextInputLayout
 import com.simplex.rapientrega.R
 import com.simplex.rapientrega.interfaces.LoginInterface
 import com.simplex.rapientrega.presenters.activities.LoginPresenter
+import com.simplex.rapientrega.tools.KEY
 import com.simplex.rapientrega.tools.objectToString
 
-const val KEY = "data"
 
 class LoginActivity : AppCompatActivity(), LoginInterface.View, View.OnClickListener {
 

@@ -1,6 +1,8 @@
 package com.simplex.rapientrega.views.fragments
 
 import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,11 +10,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.bumptech.glide.Glide
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.simplex.rapientrega.R
+import com.simplex.rapientrega.api.entities.ProfileEntity
+import com.simplex.rapientrega.interfaces.ProfileInterface
 import com.simplex.rapientrega.objects.User
+import com.simplex.rapientrega.presenters.fragments.ProfilePresenter
 import com.simplex.rapientrega.tests.UserTest
+import com.simplex.rapientrega.tools.KEY
+import com.simplex.rapientrega.tools.USER
+import com.simplex.rapientrega.views.activities.LoginActivity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,17 +36,22 @@ private const val ARG_PARAM2 = "param2"
  * Use the [ProfileFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ProfileFragment : Fragment() {
+class ProfileFragment : Fragment(), ProfileInterface.View, View.OnClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
+
+    private lateinit var preferences: SharedPreferences
 
     private lateinit var user: User
 
     private lateinit var username: TextView
     private lateinit var email: TextView
     private lateinit var photo: ImageView
+    private lateinit var fab: FloatingActionButton
+
+    private lateinit var presenter: ProfileInterface.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +66,7 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view: View = inflater.inflate(R.layout.fragment_profile, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_profile, container, false)
         initialObjects()
         initialElements(view)
         return view
@@ -63,14 +77,14 @@ class ProfileFragment : Fragment() {
     }
 
     private fun initialElements(view: View) {
+        preferences = view.context.getSharedPreferences(KEY, 0)
         username = view.findViewById(R.id.tvUsername)
-        username.text = user.username
-
         email = view.findViewById(R.id.tvEmail)
-        email.text = user.email
-
         photo = view.findViewById(R.id.ivPhoto)
-        Glide.with(view).load(user.photo).into(photo)
+        fab = view.findViewById(R.id.fab)
+        fab.setOnClickListener(this)
+        presenter = ProfilePresenter(this)
+        presenter.convertString(preferences.getString(USER, null))
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -128,5 +142,33 @@ class ProfileFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.fab -> {
+                this.logout(USER)
+                this.goLoginActivity()
+                Toast.makeText(context, "Hola", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    override fun putData(profileEntity: ProfileEntity) {
+        username.text = profileEntity.username
+        email.text = profileEntity.email
+//        Glide.with(view).load(user.photo).into(photo)
+    }
+
+    override fun logout(id: String) {
+        val editor = preferences.edit()
+        editor.remove(id)
+        editor.apply()
+    }
+
+    override fun goLoginActivity() {
+        val intent = Intent(context, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
     }
 }

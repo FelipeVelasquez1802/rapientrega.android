@@ -28,6 +28,7 @@
             <TextView
                 android:id="@+id/tvUsername"
                 style="@style/TextViewTheme.Title"
+                android:gravity="center_horizontal"
                 android:text="@string/username"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimary" />
@@ -35,12 +36,14 @@
             <TextView
                 android:id="@+id/tvEmail"
                 style="@style/TextViewTheme"
+                android:gravity="center_horizontal"
                 android:text="@string/email"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimaryLight" />
 
             <TextView
                 style="@style/TextViewTheme"
+                android:gravity="center_horizontal"
                 android:text="@string/address"
                 android:textAlignment="center"
                 android:textColor="@android:color/darker_gray" />
@@ -63,6 +66,16 @@
             android:padding="10dp">
 
         </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="20dp"
+            android:contentDescription="@string/logout_description"
+            android:src="@drawable/ic_subdirectory_arrow_left_white_24dp"
+            app:backgroundTint="@color/colorPrimaryDark" />
 
     </RelativeLayout>
 
