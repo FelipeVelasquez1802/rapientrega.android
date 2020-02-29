@@ -3,7 +3,6 @@ package com.simplex.rapientrega.presenters.activities
 import com.simplex.rapientrega.api.entities.ShoppingCartEntity
 import com.simplex.rapientrega.interfaces.ShoppingCartInterface
 import com.simplex.rapientrega.model.activities.ShoppingCartModel
-import com.simplex.rapientrega.objects.ShoppingCart
 
 class ShoppingCartPresenter(
     private val view: ShoppingCartInterface.View
@@ -32,5 +31,15 @@ class ShoppingCartPresenter(
 
     override fun consultShoppingCarts(string: String?) {
         model.consultShoppingCarts(string)
+    }
+
+    override fun convertProducts(products: List<ShoppingCartEntity>) {
+        model.convertProducts(products)
+    }
+
+    override fun saveProducts(string: String?) {
+        view.saveProducts(string)
+        view.deleteProducts()
+        view.goMainActivity()
     }
 }

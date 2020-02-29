@@ -2,6 +2,7 @@ package com.simplex.rapientrega.tools
 
 import com.google.gson.Gson
 import com.simplex.rapientrega.api.entities.LoginEntity
+import com.simplex.rapientrega.api.entities.RegisterEntity
 import com.simplex.rapientrega.api.entities.ShoppingCartEntity
 import com.simplex.rapientrega.objects.Provider
 

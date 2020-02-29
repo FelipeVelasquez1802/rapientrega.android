@@ -1,7 +1,6 @@
 package com.simplex.rapientrega.interfaces
 
 import com.simplex.rapientrega.api.entities.ShoppingCartEntity
-import com.simplex.rapientrega.objects.ShoppingCart
 
 interface ShoppingCartInterface {
     interface View {
@@ -9,6 +8,9 @@ interface ShoppingCartInterface {
         fun addAdapter()
         fun showResult(result: Double)
         fun showShoppingCarts(products: List<ShoppingCartEntity>)
+        fun saveProducts(string: String?)
+        fun deleteProducts()
+        fun goMainActivity()
     }
 
     interface Presenter {
@@ -18,10 +20,13 @@ interface ShoppingCartInterface {
         fun calculateResult(shoppingCarts: List<ShoppingCartEntity>)
         fun showShoppingCarts(products: List<ShoppingCartEntity>)
         fun consultShoppingCarts(string: String?)
+        fun convertProducts(products: List<ShoppingCartEntity>)
+        fun saveProducts(string: String?)
     }
 
     interface Model {
         fun calculateResult(shoppingCarts: List<ShoppingCartEntity>)
         fun consultShoppingCarts(string: String?)
+        fun convertProducts(products: List<ShoppingCartEntity>)
     }
 }

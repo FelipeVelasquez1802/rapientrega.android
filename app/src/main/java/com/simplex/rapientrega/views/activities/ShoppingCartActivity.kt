@@ -1,20 +1,20 @@
 package com.simplex.rapientrega.views.activities
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.simplex.rapientrega.R
 import com.simplex.rapientrega.api.entities.ShoppingCartEntity
 import com.simplex.rapientrega.interfaces.ShoppingCartInterface
-import com.simplex.rapientrega.objects.ShoppingCart
 import com.simplex.rapientrega.presenters.activities.ShoppingCartPresenter
 import com.simplex.rapientrega.tools.KEY
+import com.simplex.rapientrega.tools.REGISTER
 import com.simplex.rapientrega.tools.SHOPPING_CART
 import com.simplex.rapientrega.views.adapters.ShoppingCartAdapter
 
@@ -61,7 +61,7 @@ class ShoppingCartActivity :
             }
             R.id.ivUpdate -> presenter.calculateResult(shoppingCarts)
             R.id.btAddShoppingCart -> {
-                Toast.makeText(this, "Desarrollando...", Toast.LENGTH_LONG).show()
+                presenter.convertProducts(shoppingCarts)
             }
         }
     }
@@ -92,5 +92,23 @@ class ShoppingCartActivity :
     override fun showShoppingCarts(products: List<ShoppingCartEntity>) {
         adapter = ShoppingCartAdapter(products, this)
         recyclerView.adapter = adapter
+    }
+
+    override fun saveProducts(string: String?) {
+        val editor = preferences.edit()
+        editor.putString(REGISTER, string)
+        editor.apply()
+    }
+
+    override fun deleteProducts() {
+        val editor = preferences.edit()
+        editor.remove(SHOPPING_CART)
+        editor.apply()
+    }
+
+    override fun goMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
     }
 }
