@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary">
+
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/back"
+        android:onClick="onClick"
+        android:padding="5dp"
+        android:src="@drawable/ic_back_24dp" />
+
+    <TextView
+        style="@style/TextViewTheme.Title"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/ivBack"
+        android:layout_toRightOf="@id/ivBack"
+        android:padding="5dp"
+        android:text="@string/app_name" />
+</RelativeLayout>

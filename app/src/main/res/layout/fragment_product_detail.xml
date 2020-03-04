@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <LinearLayout
@@ -19,13 +19,29 @@
             android:background="@android:color/white"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvName"
-                style="@style/TextViewTheme.Title"
-                android:text="@string/name"
-                android:textAlignment="center"
-                android:textColor="@color/colorPrimaryDark"
-                android:gravity="center_horizontal" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/ivPhoto"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/th_icon"
+                    android:src="@drawable/ic_user"
+                    app:civ_border_color="#FFFFFFFF"
+                    app:civ_border_width="2dp" />
+
+                <TextView
+                    android:id="@+id/tvName"
+                    style="@style/TextViewTheme.Title"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_horizontal"
+                    android:text="@string/name"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryDark" />
+
+            </LinearLayout>
 
             <com.synnapps.carouselview.CarouselView
                 android:id="@+id/carouselView"
@@ -67,8 +83,8 @@
 
         <Button
             android:id="@+id/btAddShoppingCart"
-            android:text="@string/add_shopping_cart"
-            style="@style/ButtonTheme" />
+            style="@style/ButtonTheme"
+            android:text="@string/add_shopping_cart" />
 
     </LinearLayout>
 

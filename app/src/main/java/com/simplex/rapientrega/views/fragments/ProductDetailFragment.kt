@@ -45,6 +45,7 @@ class ProductDetailFragment :
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
 
+    private lateinit var image: ImageView
     private lateinit var name: TextView
     private lateinit var description: TextView
     private lateinit var carouselView: CarouselView
@@ -84,6 +85,9 @@ class ProductDetailFragment :
 
     private fun initialElements(view: View) {
         product = arguments?.getSerializable(PRODUCT) as ProductEntity
+
+        image = view.findViewById(R.id.ivPhoto)
+        Glide.with(this).load(product.imageAbsolute()).into(image)
 
         name = view.findViewById(R.id.tvName)
         name.text = product.name
