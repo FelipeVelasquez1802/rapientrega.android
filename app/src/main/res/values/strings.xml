@@ -57,9 +57,7 @@
     <string name="list_empty">This list is empty</string>
     <string name="logout_description">Cerrar sesión</string>
     <string name="add_shopping_cart">Añadir al carrito</string>
-    <string name="you_sure_exit">¿Estas seguro que quieres salir?</string>
+    <string name="arr_you_exit">¿Estas seguro que deseas salir?</string>
     <string name="yes">Sí</string>
     <string name="no">No</string>
-    <string name="identification">Número de identificación</string>
-    <string name="cellphone">Teléfono</string>
 </resources>

@@ -23,7 +23,7 @@ interface RegisterInterface {
         fun hideErrorPassword()
         fun showErrorPasswordRepeat(id: Int)
         fun hideErrorPasswordRepeat()
-        fun validateFields(
+        fun registerUser(
             username: String,
             email: String,
             password: String,
@@ -37,7 +37,7 @@ interface RegisterInterface {
     }
 
     interface Model {
-        fun validateFields(
+        fun registerUser(
             username: String,
             email: String,
             password: String,

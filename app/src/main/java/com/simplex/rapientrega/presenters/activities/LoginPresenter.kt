@@ -87,8 +87,4 @@ class LoginPresenter(private val view: LoginInterface.View) : LoginInterface.Pre
         view.showDialogExit()
     }
 
-    override fun hideDialogExit() {
-        view.hideDialogExit()
-    }
-
 }

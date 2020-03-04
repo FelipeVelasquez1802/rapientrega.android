@@ -60,6 +60,12 @@
                 android:layout_gravity="center_horizontal"
                 android:visibility="gone" />
 
+            <Button
+                android:id="@+id/btSignIn"
+                style="@style/ButtonTheme"
+                android:onClick="onClick"
+                android:text="@string/signin" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -67,12 +73,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="0"
             android:orientation="vertical">
-
-            <Button
-                android:id="@+id/btSignIn"
-                style="@style/ButtonTheme"
-                android:onClick="onClick"
-                android:text="@string/signin" />
 
             <TextView
                 android:id="@+id/tvForgotPassword"

@@ -34,4 +34,8 @@ interface ApiInterface {
 
     @GET("stores-ms/api/products/")
     fun products(): Call<ProductKeyEntity>
+
+    @FormUrlEncoded
+    @POST("users-ms/api/rest-users/signup/")
+    fun signup(): Call<ProfileEntity>
 }

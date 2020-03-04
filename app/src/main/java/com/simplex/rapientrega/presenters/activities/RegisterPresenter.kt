@@ -1,9 +1,7 @@
 package com.simplex.rapientrega.presenters.activities
 
-import com.simplex.rapientrega.R
 import com.simplex.rapientrega.interfaces.RegisterInterface
 import com.simplex.rapientrega.model.activities.RegisterModel
-import com.simplex.rapientrega.tools.ERROR_LOGIN
 
 class RegisterPresenter(private val view: RegisterInterface.View) : RegisterInterface.Presenter {
 
@@ -41,35 +39,17 @@ class RegisterPresenter(private val view: RegisterInterface.View) : RegisterInte
         view.hideErrorPasswordRepeat()
     }
 
-    override fun validateFields(
+    override fun registerUser(
         username: String,
         email: String,
         password: String,
-        passwordRepeat: String,
-        identificationCard: String,
-        cellphone: String
+        passwordRepeat: String
     ) {
-        model.validateFields(
-            username,
-            email,
-            password,
-            passwordRepeat,
-            identificationCard,
-            cellphone
-        )
+        model.registerUser(username, email, password, passwordRepeat)
     }
 
     override fun goLoginActivity() {
         view.goLoginActivity()
-    }
-
-    override fun showErrorMessage(id: String) {
-        view.showErrorMessage(
-            when (id) {
-                ERROR_LOGIN -> R.string.error_login
-                else -> R.string.error
-            }
-        )
     }
 
 }

@@ -71,30 +71,6 @@
                     android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilIdentification"
-                style="@style/TextInputLayoutTheme">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    style="@style/EditTextTheme"
-                    android:drawableStart="@drawable/ic_call_24dp"
-                    android:drawableLeft="@drawable/ic_call_24dp"
-                    android:hint="@string/identification" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilCellphone"
-                style="@style/TextInputLayoutTheme">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    style="@style/EditTextTheme"
-                    android:drawableStart="@drawable/ic_exposure_zero_24dp"
-                    android:drawableLeft="@drawable/ic_exposure_zero_24dp"
-                    android:hint="@string/cellphone" />
-            </com.google.android.material.textfield.TextInputLayout>
-
         </LinearLayout>
 
         <Button
