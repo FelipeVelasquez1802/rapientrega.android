@@ -1,14 +1,18 @@
 package com.simplex.rapientrega.views.activities
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputLayout
 import com.simplex.rapientrega.R
 import com.simplex.rapientrega.interfaces.LoginInterface
 import com.simplex.rapientrega.presenters.activities.LoginPresenter
+import com.simplex.rapientrega.tools.KEY
 import com.simplex.rapientrega.tools.objectToString
 
 
@@ -99,6 +103,14 @@ class LoginActivity : BaseActivity(), LoginInterface.View, View.OnClickListener 
         val editor = preferences.edit()
         editor.putString(key, objectToString(any))
         editor.apply()
+    }
+
+    override fun showDialogExit() {
+        dialog.show()
+    }
+
+    override fun hideDialogExit() {
+        dialog.hide()
     }
 
     private fun defineIntent(cls: Class<*>) {

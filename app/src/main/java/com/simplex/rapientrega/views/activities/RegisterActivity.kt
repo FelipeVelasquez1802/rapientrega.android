@@ -3,6 +3,8 @@ package com.simplex.rapientrega.views.activities
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputLayout
 import com.simplex.rapientrega.R
 import com.simplex.rapientrega.interfaces.RegisterInterface
@@ -14,6 +16,8 @@ class RegisterActivity : BaseActivity(), RegisterInterface.View, View.OnClickLis
     private lateinit var email: TextInputLayout
     private lateinit var password: TextInputLayout
     private lateinit var passwordRepeat: TextInputLayout
+    private lateinit var identification: TextInputLayout
+    private lateinit var cellphone: TextInputLayout
 
     private lateinit var presenter: RegisterInterface.Presenter
 
@@ -23,6 +27,8 @@ class RegisterActivity : BaseActivity(), RegisterInterface.View, View.OnClickLis
         email = findViewById(R.id.tilEmail)
         password = findViewById(R.id.tilPassword)
         passwordRepeat = findViewById(R.id.tilPasswordRepeat)
+        identification = findViewById(R.id.tilIdentification)
+        cellphone = findViewById(R.id.tilCellphone)
 
         presenter = RegisterPresenter(this)
     }
@@ -34,11 +40,13 @@ class RegisterActivity : BaseActivity(), RegisterInterface.View, View.OnClickLis
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btCreateAccount -> {
-                presenter.registerUser(
+                presenter.validateFields(
                     username.editText?.text.toString(),
                     email.editText?.text.toString(),
                     password.editText?.text.toString(),
-                    passwordRepeat.editText?.text.toString()
+                    passwordRepeat.editText?.text.toString(),
+                    identification.editText?.text.toString(),
+                    cellphone.editText?.text.toString()
                 )
             }
             R.id.ivBack -> onBackPressed()
@@ -81,5 +89,9 @@ class RegisterActivity : BaseActivity(), RegisterInterface.View, View.OnClickLis
         val intent = Intent(this, LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
+    }
+
+    override fun showErrorMessage(id: Int) {
+        Toast.makeText(this, getString(id), Toast.LENGTH_LONG).show()
     }
 }
