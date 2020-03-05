@@ -83,4 +83,12 @@ class LoginPresenter(private val view: LoginInterface.View) : LoginInterface.Pre
         view.saveUser(USER, loginEntity)
     }
 
+    override fun showDialogExit() {
+        view.showDialogExit()
+    }
+
+    override fun hideDialogExit() {
+        view.hideDialogExit()
+    }
+
 }

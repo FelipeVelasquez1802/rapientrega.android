@@ -39,13 +39,15 @@ class RegisterPresenter(private val view: RegisterInterface.View) : RegisterInte
         view.hideErrorPasswordRepeat()
     }
 
-    override fun validateFields(
+    override fun registerUser(
         username: String,
         email: String,
         password: String,
-        passwordRepeat: String
+        passwordRepeat: String,
+        identificationCard: String,
+        cellphone: String
     ) {
-        model.validateFields(username, email, password, passwordRepeat)
+        model.registerUser(username, email, password, passwordRepeat, identificationCard, cellphone)
     }
 
     override fun goLoginActivity() {

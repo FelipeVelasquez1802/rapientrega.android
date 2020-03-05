@@ -15,6 +15,8 @@ class RegisterActivity : AppCompatActivity(), RegisterInterface.View, View.OnCli
     private lateinit var email: TextInputLayout
     private lateinit var password: TextInputLayout
     private lateinit var passwordRepeat: TextInputLayout
+    private lateinit var identificationCard: TextInputLayout
+    private lateinit var cellphone: TextInputLayout
 
     private lateinit var presenter: RegisterInterface.Presenter
 
@@ -25,6 +27,8 @@ class RegisterActivity : AppCompatActivity(), RegisterInterface.View, View.OnCli
         email = findViewById(R.id.tilEmail)
         password = findViewById(R.id.tilPassword)
         passwordRepeat = findViewById(R.id.tilPasswordRepeat)
+        identificationCard = findViewById(R.id.tilIdentificationCard)
+        cellphone = findViewById(R.id.tilCellphone)
 
         presenter = RegisterPresenter(this)
     }
@@ -32,11 +36,13 @@ class RegisterActivity : AppCompatActivity(), RegisterInterface.View, View.OnCli
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btCreateAccount -> {
-                presenter.validateFields(
+                presenter.registerUser(
                     username.editText?.text.toString(),
                     email.editText?.text.toString(),
                     password.editText?.text.toString(),
-                    passwordRepeat.editText?.text.toString()
+                    passwordRepeat.editText?.text.toString(),
+                    identificationCard.editText?.text.toString(),
+                    cellphone.editText?.text.toString()
                 )
             }
         }
@@ -78,5 +84,9 @@ class RegisterActivity : AppCompatActivity(), RegisterInterface.View, View.OnCli
         val intent = Intent(this, LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
+    }
+
+    override fun showErrorMessage(id: Int) {
+
     }
 }

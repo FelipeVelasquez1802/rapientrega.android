@@ -15,22 +15,24 @@ import com.simplex.rapientrega.tools.KEY
 import com.simplex.rapientrega.tools.objectToString
 
 
-class LoginActivity : AppCompatActivity(), LoginInterface.View, View.OnClickListener {
+class LoginActivity : BaseActivity(), LoginInterface.View, View.OnClickListener {
 
     private lateinit var username: TextInputLayout
     private lateinit var password: TextInputLayout
     private lateinit var progressBar: ProgressBar
 
     private lateinit var presenter: LoginInterface.Presenter
-    private lateinit var preferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
         preferences = applicationContext.getSharedPreferences(KEY, 0)
         presenter = LoginPresenter(this)
         presenter.isLoginNow(preferences)
         initialElements()
+    }
+
+    override fun layout(): Int {
+        return R.layout.activity_login
     }
 
     fun initialElements() {
@@ -53,6 +55,7 @@ class LoginActivity : AppCompatActivity(), LoginInterface.View, View.OnClickList
                     password.editText?.text.toString()
                 )
             }
+            R.id.ivBack -> presenter.showDialogExit()
         }
     }
 
@@ -102,9 +105,17 @@ class LoginActivity : AppCompatActivity(), LoginInterface.View, View.OnClickList
         editor.apply()
     }
 
+    override fun showDialogExit() {
+        dialog.show()
+    }
+
+    override fun hideDialogExit() {
+        dialog.hide()
+    }
+
     private fun defineIntent(cls: Class<*>) {
         val intent = Intent(this, cls)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
     }
 

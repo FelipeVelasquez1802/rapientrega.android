@@ -8,11 +8,14 @@ class RegisterModel(private val presenter: RegisterInterface.Presenter) : Regist
 
     private val validationFields = ValidationFields()
 
-    override fun validateFields(
+
+    override fun registerUser(
         username: String,
         email: String,
         password: String,
-        passwordRepeat: String
+        passwordRepeat: String,
+        identificationCard: String,
+        cellphone: String
     ) {
         var flag = 0
         if (username.isEmpty()) presenter.showErrorUsername(R.string.not_empty)
