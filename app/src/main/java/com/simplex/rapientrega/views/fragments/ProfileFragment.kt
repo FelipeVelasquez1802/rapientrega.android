@@ -149,7 +149,6 @@ class ProfileFragment : Fragment(), ProfileInterface.View, View.OnClickListener 
             R.id.fab -> {
                 this.logout(USER)
                 this.goLoginActivity()
-                Toast.makeText(context, "Hola", Toast.LENGTH_LONG).show()
             }
         }
     }

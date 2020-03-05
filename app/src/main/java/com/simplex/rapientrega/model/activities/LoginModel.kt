@@ -1,12 +1,10 @@
 package com.simplex.rapientrega.model.activities
 
-import android.util.Log
 import com.simplex.rapientrega.api.RepositoryImpl
 import com.simplex.rapientrega.api.entities.LoginEntity
 import com.simplex.rapientrega.interfaces.LoginInterface
 import com.simplex.rapientrega.tools.ERROR
 import com.simplex.rapientrega.tools.ERROR_LOGIN
-import com.simplex.rapientrega.tools.ValidationFields
 import retrofit2.Call
 import retrofit2.Response
 
@@ -19,8 +17,8 @@ class LoginModel(private val presenter: LoginInterface.Presenter) : LoginInterfa
         repository.service().login(email, password)
             .enqueue(object : retrofit2.Callback<LoginEntity> {
                 override fun onFailure(call: Call<LoginEntity>, t: Throwable) {
-                    Log.d("ErrorLogin", "${t.message}")
                     presenter.showAlertMessage(ERROR)
+                    presenter.hideProgressbar()
                 }
 
                 override fun onResponse(
@@ -32,6 +30,7 @@ class LoginModel(private val presenter: LoginInterface.Presenter) : LoginInterfa
                         presenter.saveUser(loginEntity)
                         presenter.goMainActivity()
                     } else presenter.showAlertMessage(ERROR_LOGIN)
+                    presenter.hideProgressbar()
                 }
             })
     }

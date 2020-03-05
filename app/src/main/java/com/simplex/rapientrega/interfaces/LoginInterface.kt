@@ -16,8 +16,6 @@ interface LoginInterface {
         fun hideProgressBar()
         fun showAlertMessage(id: Int)
         fun saveUser(key: String, any: Any)
-        fun showDialogExit()
-        fun hideDialogExit()
     }
 
     interface Presenter {
@@ -34,8 +32,6 @@ interface LoginInterface {
         fun showAlertMessage(id: String)
         fun isLoginNow(preferences: SharedPreferences)
         fun saveUser(loginEntity: LoginEntity)
-        fun showDialogExit()
-        fun hideDialogExit()
     }
 
     interface Model {

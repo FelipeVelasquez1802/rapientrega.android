@@ -17,7 +17,6 @@ const val STORE_ID = "store_id"
 var GSON: Gson = Gson()
 var FORMAT_PRICE: NumberFormat = NumberFormat.getCurrencyInstance(Locale.US)
 const val ERROR_LOGIN = "error_login"
-const val ERROR_REGISTER = "error_register"
 const val ERROR = "error"
 const val USER = "user"
 const val SHOPPING_CART = "shopping_cart"

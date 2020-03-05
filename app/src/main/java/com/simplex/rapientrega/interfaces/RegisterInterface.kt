@@ -11,7 +11,6 @@ interface RegisterInterface {
         fun showErrorPasswordRepeat(id: Int)
         fun hideErrorPasswordRepeat()
         fun goLoginActivity()
-        fun showErrorMessage(id: Int)
     }
 
     interface Presenter {
@@ -23,27 +22,22 @@ interface RegisterInterface {
         fun hideErrorPassword()
         fun showErrorPasswordRepeat(id: Int)
         fun hideErrorPasswordRepeat()
-        fun validateFields(
+        fun registerUser(
             username: String,
             email: String,
             password: String,
-            passwordRepeat: String,
-            identificationCard: String,
-            cellphone: String
+            passwordRepeat: String
         )
 
         fun goLoginActivity()
-        fun showErrorMessage(id: String)
     }
 
     interface Model {
-        fun validateFields(
+        fun registerUser(
             username: String,
             email: String,
             password: String,
-            passwordRepeat: String,
-            identificationCard: String,
-            cellphone: String
+            passwordRepeat: String
         )
     }
 }

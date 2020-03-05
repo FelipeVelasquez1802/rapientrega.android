@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputLayout
 import com.simplex.rapientrega.R
@@ -16,23 +15,22 @@ import com.simplex.rapientrega.tools.KEY
 import com.simplex.rapientrega.tools.objectToString
 
 
-class LoginActivity : BaseActivity(), LoginInterface.View, View.OnClickListener {
+class LoginActivity : AppCompatActivity(), LoginInterface.View, View.OnClickListener {
 
     private lateinit var username: TextInputLayout
     private lateinit var password: TextInputLayout
     private lateinit var progressBar: ProgressBar
 
     private lateinit var presenter: LoginInterface.Presenter
+    private lateinit var preferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_login)
+        preferences = applicationContext.getSharedPreferences(KEY, 0)
         presenter = LoginPresenter(this)
         presenter.isLoginNow(preferences)
         initialElements()
-    }
-
-    override fun layout(): Int {
-        return R.layout.activity_login
     }
 
     fun initialElements() {
@@ -55,7 +53,6 @@ class LoginActivity : BaseActivity(), LoginInterface.View, View.OnClickListener 
                     password.editText?.text.toString()
                 )
             }
-            R.id.ivBack -> presenter.showDialogExit()
         }
     }
 
@@ -105,17 +102,9 @@ class LoginActivity : BaseActivity(), LoginInterface.View, View.OnClickListener 
         editor.apply()
     }
 
-    override fun showDialogExit() {
-        dialog.show()
-    }
-
-    override fun hideDialogExit() {
-        dialog.hide()
-    }
-
     private fun defineIntent(cls: Class<*>) {
         val intent = Intent(this, cls)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
     }
 
