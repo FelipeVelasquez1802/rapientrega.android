@@ -9,10 +9,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <include layout="@layout/component_action_bar_single" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,7 +24,6 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     style="@style/EditTextTheme"
-                    android:drawableStart="@drawable/ic_person_white"
                     android:drawableLeft="@drawable/ic_person_white"
                     android:hint="@string/username"
                     android:inputType="textCapWords" />
@@ -39,7 +36,6 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     style="@style/EditTextTheme"
-                    android:drawableStart="@drawable/ic_email_white"
                     android:drawableLeft="@drawable/ic_email_white"
                     android:hint="@string/email"
                     android:inputType="textEmailAddress" />
@@ -52,7 +48,6 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     style="@style/EditTextTheme"
-                    android:drawableStart="@drawable/ic_lock_white"
                     android:drawableLeft="@drawable/ic_lock_white"
                     android:hint="@string/password"
                     android:inputType="textPassword" />
@@ -65,13 +60,13 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     style="@style/EditTextTheme"
-                    android:drawableStart="@drawable/ic_lock_white"
                     android:drawableLeft="@drawable/ic_lock_white"
                     android:hint="@string/repeat_password"
                     android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
+
 
         <Button
             android:id="@+id/btCreateAccount"

@@ -1,6 +1,5 @@
 package com.simplex.rapientrega.model.activities
 
-import android.util.Log
 import com.simplex.rapientrega.api.RepositoryImpl
 import com.simplex.rapientrega.api.entities.LoginEntity
 import com.simplex.rapientrega.interfaces.LoginInterface
@@ -18,7 +17,6 @@ class LoginModel(private val presenter: LoginInterface.Presenter) : LoginInterfa
         repository.service().login(email, password)
             .enqueue(object : retrofit2.Callback<LoginEntity> {
                 override fun onFailure(call: Call<LoginEntity>, t: Throwable) {
-                    Log.d("ErrorLogin", "${t.message}")
                     presenter.showAlertMessage(ERROR)
                     presenter.hideProgressbar()
                 }
