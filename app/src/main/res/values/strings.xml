@@ -62,4 +62,5 @@
     <string name="you_sure_exit">¿Estas seguro que quieres salir?</string>
     <string name="yes">Sí</string>
     <string name="no">No</string>
+    <string name="error_register">Error al registrar el usuario</string>
 </resources>

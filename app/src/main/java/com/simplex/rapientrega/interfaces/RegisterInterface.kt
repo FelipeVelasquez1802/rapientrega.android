@@ -1,5 +1,8 @@
 package com.simplex.rapientrega.interfaces
 
+import com.simplex.rapientrega.api.entities.ProfileEntity
+import com.simplex.rapientrega.api.entities.RegisterEntity
+
 interface RegisterInterface {
     interface View {
         fun showErrorUsername(id: Int)
@@ -33,16 +36,18 @@ interface RegisterInterface {
         )
 
         fun goLoginActivity()
+        fun showErrorMessage(id: String)
     }
 
     interface Model {
-        fun registerUser(
-            username: String,
-            email: String,
-            password: String,
-            passwordRepeat: String,
-            identificationCard: String,
-            cellphone: String
-        )
+        //        fun registerUser(
+//            username: String,
+//            email: String,
+//            password: String,
+//            passwordRepeat: String,
+//            identificationCard: String,
+//            cellphone: String
+//        )
+        fun registerUser(registerEntity: RegisterEntity)
     }
 }

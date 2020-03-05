@@ -9,7 +9,7 @@ import com.simplex.rapientrega.R
 import com.simplex.rapientrega.interfaces.RegisterInterface
 import com.simplex.rapientrega.presenters.activities.RegisterPresenter
 
-class RegisterActivity : AppCompatActivity(), RegisterInterface.View, View.OnClickListener {
+class RegisterActivity : BaseActivity(), RegisterInterface.View, View.OnClickListener {
 
     private lateinit var username: TextInputLayout
     private lateinit var email: TextInputLayout
@@ -22,7 +22,6 @@ class RegisterActivity : AppCompatActivity(), RegisterInterface.View, View.OnCli
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register)
         username = findViewById(R.id.tilUsername)
         email = findViewById(R.id.tilEmail)
         password = findViewById(R.id.tilPassword)
@@ -31,6 +30,10 @@ class RegisterActivity : AppCompatActivity(), RegisterInterface.View, View.OnCli
         cellphone = findViewById(R.id.tilCellphone)
 
         presenter = RegisterPresenter(this)
+    }
+
+    override fun layout(): Int {
+        return R.layout.activity_register
     }
 
     override fun onClick(v: View?) {
@@ -45,6 +48,7 @@ class RegisterActivity : AppCompatActivity(), RegisterInterface.View, View.OnCli
                     cellphone.editText?.text.toString()
                 )
             }
+            R.id.ivBack -> onBackPressed()
         }
     }
 
@@ -87,6 +91,6 @@ class RegisterActivity : AppCompatActivity(), RegisterInterface.View, View.OnCli
     }
 
     override fun showErrorMessage(id: Int) {
-
+        createToast(id)
     }
 }

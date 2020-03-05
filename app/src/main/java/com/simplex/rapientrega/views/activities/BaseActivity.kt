@@ -2,6 +2,7 @@ package com.simplex.rapientrega.views.activities
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.simplex.rapientrega.R
@@ -28,5 +29,9 @@ abstract class BaseActivity : AppCompatActivity() {
             .setPositiveButton(R.string.yes, { dialog, which -> onBackPressed() })
             .setNegativeButton(R.string.no, null)
         dialog = build.create()
+    }
+
+    protected fun createToast(id: Int) {
+        Toast.makeText(this, getString(id), Toast.LENGTH_LONG).show()
     }
 }
