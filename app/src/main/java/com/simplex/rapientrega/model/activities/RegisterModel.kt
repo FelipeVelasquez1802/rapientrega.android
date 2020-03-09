@@ -74,4 +74,6 @@ class RegisterModel(private val presenter: RegisterInterface.Presenter) :
         }
     }
 
+
+
 }
