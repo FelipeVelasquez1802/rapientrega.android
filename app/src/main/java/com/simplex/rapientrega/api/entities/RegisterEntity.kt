@@ -3,36 +3,23 @@ package com.simplex.rapientrega.api.entities
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class RegisterEntity {
-    @SerializedName("id")
-    @Expose
-    var id: Int = 0
-
-    @SerializedName("is_superuser")
-    @Expose
-    var isSuperUser: Boolean = false
-
+data class RegisterEntity(
     @SerializedName("username")
     @Expose
-    lateinit var username: String
-
+    val username: String,
     @SerializedName("email")
     @Expose
-    lateinit var email: String
-
+    val email: String,
     @SerializedName("password")
     @Expose
-    lateinit var password: String
-
+    val password: String,
     @SerializedName("password_confirm")
     @Expose
-    lateinit var passwordRepeat: String
-
+    val passwordRepeat: String,
     @SerializedName("identification_card")
     @Expose
-    lateinit var identificationCard: String
-
+    val identificationCard: String,
     @SerializedName("cellphone")
     @Expose
-    lateinit var cellphone: String
-}
+    val cellphone: String
+)

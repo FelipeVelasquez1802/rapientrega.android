@@ -1,7 +1,6 @@
 package com.simplex.rapientrega.presenters.activities
 
 import com.simplex.rapientrega.R
-import com.simplex.rapientrega.api.entities.ProfileEntity
 import com.simplex.rapientrega.api.entities.RegisterEntity
 import com.simplex.rapientrega.interfaces.RegisterInterface
 import com.simplex.rapientrega.model.activities.RegisterModel
@@ -52,13 +51,20 @@ class RegisterPresenter(private val view: RegisterInterface.View) : RegisterInte
         identificationCard: String,
         cellphone: String
     ) {
-        val registerEntity = RegisterEntity()
-        registerEntity.username = username
-        registerEntity.email = email
-        registerEntity.password = password
-        registerEntity.passwordRepeat = passwordRepeat
-        registerEntity.identificationCard = identificationCard
-        registerEntity.cellphone = cellphone
+        val registerEntity = RegisterEntity(
+            "felipe",
+            "admin@gmail.com",
+            "admin2345",
+            "admin2345",
+            "1121922340",
+            "305313600"
+        )
+//        registerEntity.username = username
+//        registerEntity.email = email
+//        registerEntity.password = password
+//        registerEntity.passwordRepeat = passwordRepeat
+//        registerEntity.identificationCard = identificationCard
+//        registerEntity.cellphone = cellphone
         model.registerUser(registerEntity)
     }
 

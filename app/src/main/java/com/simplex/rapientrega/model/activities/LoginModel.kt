@@ -6,32 +6,33 @@ import com.simplex.rapientrega.interfaces.LoginInterface
 import com.simplex.rapientrega.tools.ERROR
 import com.simplex.rapientrega.tools.ERROR_LOGIN
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 
-class LoginModel(private val presenter: LoginInterface.Presenter) : LoginInterface.Model {
+class LoginModel(private val presenter: LoginInterface.Presenter) :
+    LoginInterface.Model,
+Callback<LoginEntity>{
 
     private val repository: RepositoryImpl = RepositoryImpl()
 
     override fun validateLogin(email: String, password: String) {
         presenter.showProgressBar()
         repository.service().login(email, password)
-            .enqueue(object : retrofit2.Callback<LoginEntity> {
-                override fun onFailure(call: Call<LoginEntity>, t: Throwable) {
-                    presenter.showAlertMessage(ERROR)
-                    presenter.hideProgressbar()
-                }
+            .enqueue(this)
+    }
 
-                override fun onResponse(
-                    call: Call<LoginEntity>, entity: Response<LoginEntity>
-                ) {
-                    presenter.hideProgressbar()
-                    val loginEntity: LoginEntity? = entity.body()
-                    if (loginEntity != null) {
-                        presenter.saveUser(loginEntity)
-                        presenter.goMainActivity()
-                    } else presenter.showAlertMessage(ERROR_LOGIN)
-                    presenter.hideProgressbar()
-                }
-            })
+    override fun onFailure(call: Call<LoginEntity>, t: Throwable) {
+        presenter.showAlertMessage(ERROR)
+        presenter.hideProgressbar()
+    }
+
+    override fun onResponse(call: Call<LoginEntity>, response: Response<LoginEntity>) {
+        presenter.hideProgressbar()
+        val loginEntity: LoginEntity? = response.body()
+        if (loginEntity != null) {
+            presenter.saveUser(loginEntity)
+            presenter.goMainActivity()
+        } else presenter.showAlertMessage(ERROR_LOGIN)
+        presenter.hideProgressbar()
     }
 }

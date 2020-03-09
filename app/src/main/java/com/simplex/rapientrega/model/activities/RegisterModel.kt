@@ -1,7 +1,6 @@
 package com.simplex.rapientrega.model.activities
 
 import android.util.Log
-import com.simplex.rapientrega.R
 import com.simplex.rapientrega.api.RepositoryImpl
 import com.simplex.rapientrega.api.entities.ProfileEntity
 import com.simplex.rapientrega.api.entities.RegisterEntity
@@ -10,6 +9,7 @@ import com.simplex.rapientrega.tools.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class RegisterModel(private val presenter: RegisterInterface.Presenter) :
     RegisterInterface.Model, Callback<ProfileEntity> {
@@ -43,7 +43,15 @@ class RegisterModel(private val presenter: RegisterInterface.Presenter) :
 //        }
 //        if (flag == 4) {
 
-        repository.service().signup(registerEntity).enqueue(this)
+        val register = HashMap<String, String>()
+        register[USERNAME] = registerEntity.username
+        register[EMAIL] = registerEntity.email
+        register[PASSWORD] = registerEntity.password
+        register[PASSWORD_REPEAT] = registerEntity.passwordRepeat
+        register[IDENTIFICATION_CARD] = registerEntity.identificationCard
+        register[CELLPHONE] = registerEntity.cellphone
+
+        repository.service().signup(register).enqueue(this)
     }
 
     override fun onFailure(call: Call<ProfileEntity>, t: Throwable) {
@@ -52,11 +60,13 @@ class RegisterModel(private val presenter: RegisterInterface.Presenter) :
     }
 
     override fun onResponse(call: Call<ProfileEntity>, response: Response<ProfileEntity>) {
-        Log.d("ErrorRegister", "$response")
         if (response.isSuccessful) {
             presenter.goLoginActivity()
         } else {
             when (response.code()) {
+                400 -> {
+                    Log.d("ErrorRegister", "${response.errorBody()?.string()}")
+                }
                 404 -> presenter.showErrorMessage(NOT_FOUND)
                 500 -> presenter.showErrorMessage(SERVER_BROKEN)
                 else -> presenter.showErrorMessage(ERROR_REGISTER)
