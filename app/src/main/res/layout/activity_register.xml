@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:fillViewport="true"
-    tools:context=".views.activities.RegisterActivity">
+    tools:context=".presentation.views.activities.RegisterActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -99,6 +99,11 @@
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
+        <include
+            layout="@layout/component_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/btCreateAccount"

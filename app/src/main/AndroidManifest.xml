@@ -16,17 +16,17 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".views.activities.ShoppingCartActivity"></activity>
-        <activity android:name=".views.activities.RestorePasswordActivity"></activity>
-        <activity android:name=".views.activities.RegisterActivity"></activity>
-        <activity android:name=".views.activities.LoginActivity">
+        <activity android:name="com.simplex.rapientrega.presentation.views.activities.ShoppingCartActivity"></activity>
+        <activity android:name="com.simplex.rapientrega.presentation.views.activities.RestorePasswordActivity"></activity>
+        <activity android:name="com.simplex.rapientrega.presentation.views.activities.RegisterActivity"></activity>
+        <activity android:name="com.simplex.rapientrega.presentation.views.activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".views.activities.MainActivity"></activity>
+        <activity android:name="com.simplex.rapientrega.presentation.views.activities.MainActivity"></activity>
     </application>
 
 </manifest>
