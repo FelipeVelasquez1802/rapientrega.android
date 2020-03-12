@@ -3,8 +3,8 @@ package com.simplex.rapientrega.domain.tools
 import com.google.android.material.textfield.TextInputLayout
 
 fun emptyField(field: TextInputLayout): Boolean {
-    var string = field.editText?.text.toString()
-    return string == null || string.equals("", ignoreCase = true)
+    val string = field.editText?.text.toString()
+    return string.equals("", ignoreCase = true)
 }
 
 class ValidationFields {

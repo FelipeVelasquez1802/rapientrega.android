@@ -4,7 +4,7 @@ import com.simplex.rapientrega.data.api.entities.*
 import retrofit2.Call
 import retrofit2.http.*
 
-interface ApiInterface {
+interface ApiDao {
     @FormUrlEncoded
     @POST("users-ms/api/rest-users/login/")
     fun login(

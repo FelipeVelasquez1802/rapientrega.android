@@ -1,6 +1,6 @@
 package com.simplex.rapientrega.domain.model.fragments
 
-import com.simplex.rapientrega.data.api.RepositoryImpl
+import com.simplex.rapientrega.data.api.repositories.RepositoryImpl
 import com.simplex.rapientrega.data.api.entities.ProductKeyEntity
 import com.simplex.rapientrega.domain.interfaces.SubCategoryInterface
 import com.simplex.rapientrega.domain.tools.ERROR
@@ -15,7 +15,8 @@ class SubCategoryModel(private val presenter: SubCategoryInterface.Presenter) :
     SubCategoryInterface.Model,
     Callback<ProductKeyEntity> {
 
-    private val repository: RepositoryImpl = RepositoryImpl()
+    private val repository: RepositoryImpl =
+        RepositoryImpl()
     private var storeId: Int = -1
 
     override fun consultSubCategories(storeId: Int) {

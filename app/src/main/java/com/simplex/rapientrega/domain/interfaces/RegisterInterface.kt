@@ -4,14 +4,12 @@ import com.simplex.rapientrega.data.api.entities.RegisterEntity
 
 interface RegisterInterface {
     interface View {
-        fun showErrorUsername(id: Int)
-        fun hideErrorUsername()
-        fun showErrorEmail(id: Int)
-        fun hideErrorEmail()
-        fun showErrorPassword(id: Int)
-        fun hideErrorPassword()
-        fun showErrorPasswordRepeat(id: Int)
-        fun hideErrorPasswordRepeat()
+        fun errorUsername(string: String?)
+        fun errorEmail(string: String?)
+        fun errorPassword(string: String?)
+        fun errorPasswordRepeat(string: String?)
+        fun errorIdentificationCard(string: String?)
+        fun errorCellphone(string: String?)
         fun goLoginActivity()
         fun showErrorMessage(id: Int)
         fun showProgressBar()
@@ -19,8 +17,6 @@ interface RegisterInterface {
     }
 
     interface Presenter {
-        fun showErrorEmail(id: Int)
-        fun hideErrorEmail()
         fun registerUser(
             username: String,
             email: String,
@@ -30,6 +26,12 @@ interface RegisterInterface {
             cellphone: String
         )
 
+        fun errorUsername(string: String?)
+        fun errorEmail(string: String?)
+        fun errorPassword(string: String?)
+        fun errorPasswordRepeat(string: String?)
+        fun errorIdentificationCard(string: String?)
+        fun errorCellphone(string: String?)
         fun goLoginActivity()
         fun showErrorMessage(id: String)
     }

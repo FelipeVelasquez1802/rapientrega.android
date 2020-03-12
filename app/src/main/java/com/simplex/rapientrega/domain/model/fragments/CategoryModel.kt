@@ -1,6 +1,6 @@
 package com.simplex.rapientrega.domain.model.fragments
 
-import com.simplex.rapientrega.data.api.RepositoryImpl
+import com.simplex.rapientrega.data.api.repositories.RepositoryImpl
 import com.simplex.rapientrega.data.api.entities.CategoryEntity
 import com.simplex.rapientrega.domain.interfaces.CategoryInterface
 import com.simplex.rapientrega.domain.tools.ERROR
@@ -15,7 +15,8 @@ class CategoryModel(private val presenter: CategoryInterface.Presenter) :
     CategoryInterface.Model,
     Callback<CategoryEntity> {
 
-    private val repository: RepositoryImpl = RepositoryImpl()
+    private val repository: RepositoryImpl =
+        RepositoryImpl()
 
     override fun consultCategories() {
         presenter.stateProgressBar(SHOW)

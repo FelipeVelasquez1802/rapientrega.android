@@ -11,9 +11,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.simplex.rapientrega.R
 import com.simplex.rapientrega.data.api.entities.ProductEntity
-import com.simplex.rapientrega.domain.interfaces.ProductInterface
-import com.simplex.rapientrega.data.objects.Product
-import com.simplex.rapientrega.presentation.presenters.fragments.ProductPresenter
 import com.simplex.rapientrega.domain.tools.PRODUCT
 import com.simplex.rapientrega.domain.tools.PRODUCTS
 import com.simplex.rapientrega.presentation.views.adapters.ProductAdapter
@@ -34,7 +31,6 @@ private const val ARG_PARAM2 = "param2"
  */
 class ProductFragment :
     Fragment(),
-    ProductInterface.View,
     ProductAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -43,8 +39,6 @@ class ProductFragment :
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ProductAdapter
-
-    private lateinit var presenter: ProductInterface.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,9 +55,6 @@ class ProductFragment :
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_product, container, false)
         initialElements(view)
-
-        presenter = ProductPresenter(this)
-        presenter.consultProducts()
         return view
     }
 
@@ -138,8 +129,5 @@ class ProductFragment :
         fragment.arguments = args
         fragmentManager?.beginTransaction()?.add(R.id.frame_layout_main, fragment)
             ?.addToBackStack(null)?.commit()
-    }
-
-    override fun showProducts(products: List<Product>) {
     }
 }

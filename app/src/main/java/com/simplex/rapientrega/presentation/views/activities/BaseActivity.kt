@@ -26,7 +26,7 @@ abstract class BaseActivity : AppCompatActivity() {
         val build: AlertDialog.Builder = AlertDialog.Builder(this)
         build.setMessage(R.string.you_sure_exit)
             .setTitle(R.string.app_name)
-            .setPositiveButton(R.string.yes, { dialog, which -> onBackPressed() })
+            .setPositiveButton(R.string.yes) { _, _ -> onBackPressed() }
             .setNegativeButton(R.string.no, null)
         dialog = build.create()
     }

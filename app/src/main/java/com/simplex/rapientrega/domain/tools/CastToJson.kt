@@ -3,15 +3,8 @@ package com.simplex.rapientrega.domain.tools
 import com.google.gson.Gson
 import com.simplex.rapientrega.data.api.entities.LoginEntity
 import com.simplex.rapientrega.data.api.entities.OrderEntity
+import com.simplex.rapientrega.data.api.entities.RegisterErrorEntity
 import com.simplex.rapientrega.data.api.entities.ShoppingCartEntity
-import com.simplex.rapientrega.data.objects.Provider
-
-
-fun toListProvider(string: String): ArrayList<Provider> {
-    val list = ArrayList<Provider>()
-    list.addAll(GSON.fromJson(string, Array<Provider>::class.java).toList())
-    return list
-}
 
 fun objectToString(any: Any): String {
     return GSON.toJson(any)
@@ -40,4 +33,11 @@ fun toListOrder(string: String?): List<OrderEntity> {
         string, Array<OrderEntity>::class.java
     ).toList()
     else emptyList()
+}
+
+fun toRegisterError(string: String?): RegisterErrorEntity? {
+    return if (string != null) Gson().fromJson(
+        string, RegisterErrorEntity::class.java
+    )
+    else null
 }

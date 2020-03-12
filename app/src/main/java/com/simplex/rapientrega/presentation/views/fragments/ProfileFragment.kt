@@ -15,9 +15,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.simplex.rapientrega.R
 import com.simplex.rapientrega.data.api.entities.ProfileEntity
 import com.simplex.rapientrega.domain.interfaces.ProfileInterface
-import com.simplex.rapientrega.data.objects.User
 import com.simplex.rapientrega.presentation.presenters.fragments.ProfilePresenter
-import com.simplex.rapientrega.tests.UserTest
 import com.simplex.rapientrega.domain.tools.KEY
 import com.simplex.rapientrega.domain.tools.USER
 import com.simplex.rapientrega.presentation.views.activities.LoginActivity
@@ -42,8 +40,6 @@ class ProfileFragment : Fragment(), ProfileInterface.View, View.OnClickListener 
     private var listener: OnFragmentInteractionListener? = null
 
     private lateinit var preferences: SharedPreferences
-
-    private lateinit var user: User
 
     private lateinit var username: TextView
     private lateinit var email: TextView
@@ -72,7 +68,6 @@ class ProfileFragment : Fragment(), ProfileInterface.View, View.OnClickListener 
     }
 
     private fun initialObjects() {
-        user = UserTest().user()
     }
 
     private fun initialElements(view: View) {

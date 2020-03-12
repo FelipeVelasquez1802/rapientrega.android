@@ -54,36 +54,28 @@ class RegisterActivity : BaseActivity(), RegisterInterface.View, View.OnClickLis
         }
     }
 
-    override fun showErrorUsername(id: Int) {
-        username.error = getString(id)
+    override fun errorUsername(string: String?) {
+        username.error = string
     }
 
-    override fun hideErrorUsername() {
-        username.error = null
+    override fun errorEmail(string: String?) {
+        email.error = string
     }
 
-    override fun showErrorEmail(id: Int) {
-        email.error = getString(id)
+    override fun errorPassword(string: String?) {
+        password.error = string
     }
 
-    override fun hideErrorEmail() {
-        email.error = null
+    override fun errorPasswordRepeat(string: String?) {
+        passwordRepeat.error = string
     }
 
-    override fun showErrorPassword(id: Int) {
-        password.error = getString(id)
+    override fun errorIdentificationCard(string: String?) {
+        identificationCard.error = string
     }
 
-    override fun hideErrorPassword() {
-        password.error = null
-    }
-
-    override fun showErrorPasswordRepeat(id: Int) {
-        passwordRepeat.error = getString(id)
-    }
-
-    override fun hideErrorPasswordRepeat() {
-        passwordRepeat.error = null
+    override fun errorCellphone(string: String?) {
+        cellphone.error = string
     }
 
     override fun goLoginActivity() {
