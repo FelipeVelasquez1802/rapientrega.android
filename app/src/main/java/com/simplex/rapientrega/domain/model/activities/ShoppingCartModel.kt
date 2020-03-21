@@ -1,5 +1,6 @@
 package com.simplex.rapientrega.domain.model.activities
 
+import android.util.Log
 import com.simplex.rapientrega.data.api.entities.OrderEntity
 import com.simplex.rapientrega.data.api.entities.ShoppingCartEntity
 import com.simplex.rapientrega.domain.interfaces.ShoppingCartInterface
@@ -11,10 +12,6 @@ import java.util.*
 class ShoppingCartModel(
     private val presenter: ShoppingCartInterface.Presenter
 ) : ShoppingCartInterface.Model {
-
-    override fun calculateResult(shoppingCarts: List<ShoppingCartEntity>) {
-        presenter.showResult(shoppingCarts.map { it.product.price * it.count }.sum())
-    }
 
     override fun consultShoppingCarts(string: String?) {
         val shoppingCarts = toListShoppingCart(string)

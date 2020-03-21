@@ -64,4 +64,10 @@
     <string name="no">No</string>
     <string name="error_register">Error al registrar el usuario</string>
     <string name="success_register_user">Se registró correctamente el usuario</string>
+    <string name="edit_password">Editar contraseña</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="edit_profile">Editar perfil</string>
+    <string name="about">Acerca de</string>
+    <string name="image">Image</string>
+    <string name="you_sure_delete">¿Esta seguro de borrar este producto?</string>
 </resources>

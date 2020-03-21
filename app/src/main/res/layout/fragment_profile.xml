@@ -1,82 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     tools:context=".presentation.views.fragments.ProfileFragment">
 
-    <RelativeLayout
-
-        android:id="@+id/layoutAccount"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/background_2"
-        tools:context=".activities.AccountActivity">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:id="@+id/llUser"
-            style="@style/PanelTheme"
-            android:layout_marginTop="75dp"
-            android:orientation="vertical"
-            android:paddingLeft="10dp"
-            android:paddingTop="75dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="10dp">
-
-            <TextView
-                android:id="@+id/tvUsername"
-                style="@style/TextViewTheme.Title"
-                android:gravity="center_horizontal"
-                android:text="@string/username"
-                android:textAlignment="center"
-                android:textColor="@color/colorPrimary" />
-
-            <TextView
-                android:id="@+id/tvEmail"
-                style="@style/TextViewTheme"
-                android:gravity="center_horizontal"
-                android:text="@string/email"
-                android:textAlignment="center"
-                android:textColor="@color/colorPrimaryLight" />
-
-            <TextView
-                style="@style/TextViewTheme"
-                android:gravity="center_horizontal"
-                android:text="@string/address"
-                android:textAlignment="center"
-                android:textColor="@android:color/darker_gray" />
-
-        </LinearLayout>
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/ivPhoto"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/th_icon"
-            android:src="@drawable/ic_user"
-            app:civ_border_color="#FFFFFFFF"
-            app:civ_border_width="2dp" />
-
-        <LinearLayout
-            style="@style/PanelTheme"
-            android:layout_below="@id/llUser"
-            android:padding="10dp">
-
-        </LinearLayout>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/layoutAccount"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="20dp"
-            android:contentDescription="@string/logout_description"
-            android:src="@drawable/ic_subdirectory_arrow_left_white_24dp"
-            app:backgroundTint="@color/colorPrimaryDark" />
+            tools:context=".activities.AccountActivity">
 
-    </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/llUser"
+                style="@style/PanelTheme"
+                android:layout_marginTop="75dp"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingTop="75dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp">
 
-</FrameLayout>
+                <TextView
+                    android:id="@+id/tvUsername"
+                    style="@style/TextViewTheme.Title"
+                    android:gravity="center_horizontal"
+                    android:text="@string/username"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/tvEmail"
+                    style="@style/TextViewTheme"
+                    android:drawableStart="@drawable/ic_email_black_24dp"
+                    android:drawableLeft="@drawable/ic_email_black_24dp"
+                    android:text="@string/email"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    style="@style/TextViewTheme"
+                    android:drawableStart="@drawable/ic_place_black_24dp"
+                    android:drawableLeft="@drawable/ic_place_black_24dp"
+                    android:text="@string/address"
+                    android:textColor="@android:color/darker_gray" />
+
+            </LinearLayout>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ivPhoto"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/th_icon"
+                android:src="@drawable/ic_user"
+                app:civ_border_color="#FFFFFFFF"
+                app:civ_border_width="2dp" />
+
+            <LinearLayout
+                style="@style/PanelTheme"
+                android:layout_below="@id/llUser"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/tvEditProfile"
+                    style="@style/TextViewTheme.paragraph"
+                    android:drawableEnd="@drawable/ic_chevron_right_black_24dp"
+                    android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+                    android:text="@string/edit_profile"
+                    android:textColor="@android:color/darker_gray" />
+
+                <TextView
+                    android:id="@+id/tvEditPassword"
+                    style="@style/TextViewTheme.paragraph"
+                    android:drawableEnd="@drawable/ic_chevron_right_black_24dp"
+                    android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+                    android:text="@string/edit_password"
+                    android:textColor="@android:color/darker_gray" />
+
+                <TextView
+                    android:id="@+id/tvAbout"
+                    style="@style/TextViewTheme.paragraph"
+                    android:drawableEnd="@drawable/ic_chevron_right_black_24dp"
+                    android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+                    android:text="@string/about"
+                    android:textColor="@android:color/darker_gray" />
+
+                <TextView
+                    android:id="@+id/tvLogOut"
+                    style="@style/TextViewTheme.paragraph"
+                    android:onClick="onClick"
+                    android:text="@string/logout"
+                    android:textColor="@android:color/darker_gray" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</ScrollView>

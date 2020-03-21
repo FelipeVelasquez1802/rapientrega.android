@@ -15,8 +15,8 @@ import com.simplex.rapientrega.R
 import com.simplex.rapientrega.data.api.entities.StoreCategoryEntity
 import com.simplex.rapientrega.data.api.entities.StoreEntity
 import com.simplex.rapientrega.domain.interfaces.CategoryInterface
-import com.simplex.rapientrega.presentation.presenters.fragments.CategoryPresenter
 import com.simplex.rapientrega.domain.tools.STORES
+import com.simplex.rapientrega.presentation.presenters.fragments.CategoryPresenter
 import com.simplex.rapientrega.presentation.views.adapters.CategoryAdapter
 import java.io.Serializable
 
@@ -140,9 +140,12 @@ class CategoryFragment :
             ?.addToBackStack(null)?.commit()
     }
 
-    override fun showCategories(categories: List<StoreCategoryEntity>) {
-        adapter = CategoryAdapter(categories, this)
-        recyclerView.adapter = adapter
+    override fun showCategories(categories: List<StoreCategoryEntity>?) {
+        if (categories == null) showAlertError(R.string.list_empty)
+        else {
+            adapter = CategoryAdapter(categories, this)
+            recyclerView.adapter = adapter
+        }
     }
 
     override fun showAlertError(id: Int) {

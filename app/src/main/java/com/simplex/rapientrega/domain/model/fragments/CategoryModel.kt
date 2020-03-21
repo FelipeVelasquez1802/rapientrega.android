@@ -1,7 +1,7 @@
 package com.simplex.rapientrega.domain.model.fragments
 
-import com.simplex.rapientrega.data.api.repositories.RepositoryImpl
 import com.simplex.rapientrega.data.api.entities.CategoryEntity
+import com.simplex.rapientrega.data.api.repositories.RepositoryImpl
 import com.simplex.rapientrega.domain.interfaces.CategoryInterface
 import com.simplex.rapientrega.domain.tools.ERROR
 import com.simplex.rapientrega.domain.tools.HIDE
@@ -31,9 +31,9 @@ class CategoryModel(private val presenter: CategoryInterface.Presenter) :
     override fun onResponse(
         call: Call<CategoryEntity>, response: Response<CategoryEntity>
     ) {
-        val storeCategory: CategoryEntity? = response.body()
-        if (storeCategory != null) {
-            presenter.showCategories(storeCategory.storesCategories)
+        if (response.isSuccessful) {
+            val storeCategory: CategoryEntity? = response.body()
+            presenter.showCategories(storeCategory?.storesCategories)
         } else presenter.showAlertError(LIST_EMPTY)
         presenter.stateProgressBar(HIDE)
     }

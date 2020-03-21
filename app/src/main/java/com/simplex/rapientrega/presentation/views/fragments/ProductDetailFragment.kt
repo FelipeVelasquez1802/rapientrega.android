@@ -100,7 +100,7 @@ class ProductDetailFragment :
 
         count = view.findViewById(R.id.tvCount)
 
-        less = view.findViewById(R.id.btLess)
+        less = view.findViewById(R.id.btLeft)
         less.setOnClickListener(this)
 
         right = view.findViewById(R.id.btMore)
@@ -174,7 +174,7 @@ class ProductDetailFragment :
                 val value = preferences.getString(SHOPPING_CART, null)
                 presenter.addProductToCar(product, count.text.toString(), value)
             }
-            R.id.btLess -> {
+            R.id.btLeft -> {
                 val count = this.count.text.toString().toInt() - 1
                 if (count > 0) {
                     this.count.text = "$count"

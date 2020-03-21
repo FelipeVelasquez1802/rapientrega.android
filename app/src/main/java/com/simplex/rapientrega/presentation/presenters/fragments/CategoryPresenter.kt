@@ -12,7 +12,7 @@ import com.simplex.rapientrega.domain.tools.SHOW
 class CategoryPresenter(private val view: CategoryInterface.View) : CategoryInterface.Presenter {
 
     private val model: CategoryInterface.Model = CategoryModel(this)
-    override fun showCategories(categories: List<StoreCategoryEntity>) {
+    override fun showCategories(categories: List<StoreCategoryEntity>?) {
         view.showCategories(categories)
     }
 

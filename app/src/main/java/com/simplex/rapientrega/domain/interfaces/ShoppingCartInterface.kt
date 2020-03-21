@@ -4,30 +4,50 @@ import com.simplex.rapientrega.data.api.entities.ShoppingCartEntity
 
 interface ShoppingCartInterface {
     interface View {
-        fun hideIncludeShoppingCart()
         fun addAdapter()
-        fun showResult(result: Double)
         fun showShoppingCarts(products: List<ShoppingCartEntity>)
         fun saveProducts(string: String?)
         fun deleteProducts()
         fun goMainActivity()
         fun showMessage(id: Int)
+        fun changeList(shoppingCarts: List<ShoppingCartEntity>)
+        fun updateTotal(total: String)
     }
 
     interface Presenter {
-        fun hideIncludeShoppingCart()
         fun addAdapter()
-        fun showResult(result: Double)
-        fun calculateResult(shoppingCarts: List<ShoppingCartEntity>)
         fun showShoppingCarts(products: List<ShoppingCartEntity>)
         fun consultShoppingCarts(string: String?)
         fun convertProducts(products: List<ShoppingCartEntity>, list: String?)
         fun saveProducts(string: String?)
+        fun changeList(shoppingCarts: List<ShoppingCartEntity>)
     }
 
     interface Model {
-        fun calculateResult(shoppingCarts: List<ShoppingCartEntity>)
         fun consultShoppingCarts(string: String?)
         fun convertProducts(products: List<ShoppingCartEntity>, list: String?)
+    }
+
+    interface AdapterView {
+        fun subtract(value: Int, flag: Boolean)
+        fun add(value: Int, flag: Boolean)
+        fun updateTotal(total: Double)
+    }
+
+    interface AdapterPresenter {
+        fun left(count: String, id: Int, shoppingCarts: ArrayList<ShoppingCartEntity>)
+        fun right(count: String, id: Int, shoppingCarts: ArrayList<ShoppingCartEntity>)
+        fun subtract(value: Int)
+        fun add(value: Int)
+        fun updateTotal(total: Double)
+        fun calculate(count: String, id: Int, shoppingCarts: ArrayList<ShoppingCartEntity>): Double
+        fun deleteRow(shoppingCarts: ArrayList<ShoppingCartEntity>, row: Int)
+    }
+
+    interface AdapterModel {
+        fun left(count: Int, id: Int, shoppingCarts: ArrayList<ShoppingCartEntity>)
+        fun right(count: Int, id: Int, shoppingCarts: ArrayList<ShoppingCartEntity>)
+        fun calculate(count: Int, id: Int, shoppingCarts: ArrayList<ShoppingCartEntity>): Double
+        fun deleteRow(shoppingCarts: ArrayList<ShoppingCartEntity>, row: Int)
     }
 }

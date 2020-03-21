@@ -5,25 +5,13 @@ import com.simplex.rapientrega.data.api.entities.ShoppingCartEntity
 import com.simplex.rapientrega.domain.interfaces.ShoppingCartInterface
 import com.simplex.rapientrega.domain.model.activities.ShoppingCartModel
 
-class ShoppingCartPresenter(
-    private val view: ShoppingCartInterface.View
-) : ShoppingCartInterface.Presenter {
-    private val model: ShoppingCartInterface.Model = ShoppingCartModel(this)
+class ShoppingCartPresenter(private val view: ShoppingCartInterface.View) :
+    ShoppingCartInterface.Presenter {
 
-    override fun hideIncludeShoppingCart() {
-        view.hideIncludeShoppingCart()
-    }
+    private val model: ShoppingCartInterface.Model = ShoppingCartModel(this)
 
     override fun addAdapter() {
         view.addAdapter()
-    }
-
-    override fun showResult(result: Double) {
-        view.showResult(result)
-    }
-
-    override fun calculateResult(shoppingCarts: List<ShoppingCartEntity>) {
-        model.calculateResult(shoppingCarts)
     }
 
     override fun showShoppingCarts(products: List<ShoppingCartEntity>) {
@@ -46,5 +34,9 @@ class ShoppingCartPresenter(
         view.saveProducts(string)
         view.deleteProducts()
         view.goMainActivity()
+    }
+
+    override fun changeList(shoppingCarts: List<ShoppingCartEntity>) {
+        view.changeList(shoppingCarts)
     }
 }

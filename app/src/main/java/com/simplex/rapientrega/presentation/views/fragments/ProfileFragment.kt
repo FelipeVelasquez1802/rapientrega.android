@@ -10,14 +10,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.simplex.rapientrega.R
 import com.simplex.rapientrega.data.api.entities.ProfileEntity
 import com.simplex.rapientrega.domain.interfaces.ProfileInterface
-import com.simplex.rapientrega.presentation.presenters.fragments.ProfilePresenter
 import com.simplex.rapientrega.domain.tools.KEY
 import com.simplex.rapientrega.domain.tools.USER
+import com.simplex.rapientrega.presentation.presenters.fragments.ProfilePresenter
 import com.simplex.rapientrega.presentation.views.activities.LoginActivity
 
 // TODO: Rename parameter arguments, choose names that match
@@ -44,7 +44,7 @@ class ProfileFragment : Fragment(), ProfileInterface.View, View.OnClickListener 
     private lateinit var username: TextView
     private lateinit var email: TextView
     private lateinit var photo: ImageView
-    private lateinit var fab: FloatingActionButton
+    private lateinit var logout: TextView
 
     private lateinit var presenter: ProfileInterface.Presenter
 
@@ -75,8 +75,8 @@ class ProfileFragment : Fragment(), ProfileInterface.View, View.OnClickListener 
         username = view.findViewById(R.id.tvUsername)
         email = view.findViewById(R.id.tvEmail)
         photo = view.findViewById(R.id.ivPhoto)
-        fab = view.findViewById(R.id.fab)
-        fab.setOnClickListener(this)
+        logout = view.findViewById(R.id.tvLogOut)
+        logout.setOnClickListener(this)
         presenter = ProfilePresenter(this)
         presenter.convertString(preferences.getString(USER, null))
     }
@@ -140,9 +140,12 @@ class ProfileFragment : Fragment(), ProfileInterface.View, View.OnClickListener 
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.fab -> {
+            R.id.tvLogOut -> {
                 this.logout(USER)
                 this.goLoginActivity()
+            }
+            R.id.tvAbout -> {
+                Toast.makeText(context, "Acerca de", Toast.LENGTH_LONG).show()
             }
         }
     }

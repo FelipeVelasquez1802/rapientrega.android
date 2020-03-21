@@ -1,97 +1,102 @@
 package com.simplex.rapientrega.presentation.views.adapters
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.simplex.rapientrega.R
 import com.simplex.rapientrega.data.api.entities.ShoppingCartEntity
+import com.simplex.rapientrega.domain.interfaces.ShoppingCartInterface
+import com.simplex.rapientrega.presentation.presenters.adapters.ShoppingCartPresenter
+
+private const val YES = "Sí"
 
 class ShoppingCartAdapter(
-    private var shoppingCarts: List<ShoppingCartEntity>,
-    private var shoppingCartInterface: ShoppingCartInterface
+    private val view: ShoppingCartInterface.View,
+    private var shoppingCarts: ArrayList<ShoppingCartEntity>,
+    private val dialog: AlertDialog
 ) :
     RecyclerView.Adapter<ShoppingCartAdapter.ShoppingCartViewHolder>() {
 
-    private lateinit var view: View
+    private lateinit var itemView: View
+    private lateinit var presenter: ShoppingCartInterface.AdapterPresenter
 
-    class ShoppingCartViewHolder(itemView: View) :
+    class ShoppingCartViewHolder(itemView: View, val activity: ShoppingCartInterface.View) :
         RecyclerView.ViewHolder(itemView),
-        View.OnClickListener {
+        ShoppingCartInterface.AdapterView {
         var photo: ImageView = itemView.findViewById(R.id.ivPhoto)
         var name: TextView = itemView.findViewById(R.id.tvName)
         var count: TextView = itemView.findViewById(R.id.tvCount)
-        var less: Button = itemView.findViewById(R.id.btLess)
+        val delete: ImageView = itemView.findViewById(R.id.ivDelete)
+        var left: Button = itemView.findViewById(R.id.btLeft)
         var right: Button = itemView.findViewById(R.id.btMore)
 
-        override fun onClick(v: View?) {
-            when (v?.id) {
-                R.id.btLess -> {
-                    less()
-                }
-                R.id.btMore -> {
-                    right()
-                }
-            }
+        override fun subtract(value: Int, flag: Boolean) {
+            count.text = "$value"
+            left.isEnabled = flag
         }
 
-        @SuppressLint("SetTextI18n")
-        fun less() {
-            val count = this.count.text.toString().toInt() - 1
-            this.count.text = "${count})"
+        override fun add(value: Int, flag: Boolean) {
+            count.text = "$value"
+            right.isEnabled = flag
         }
 
-        @SuppressLint("SetTextI18n")
-        fun right() {
-            val count = this.count.text.toString().toInt() + 1
-            this.count.text = "${count})"
+        override fun updateTotal(total: Double) {
+            activity.updateTotal("$total")
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShoppingCartViewHolder {
-        view = LayoutInflater.from(parent.context)
+        itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.adapter_shopping_cart, parent, false)
-        shoppingCartInterface.run { showShoppingCart(shoppingCarts) }
-        return ShoppingCartViewHolder(view)
+        val shoppingCartViewHolder = ShoppingCartViewHolder(itemView, view)
+        presenter = ShoppingCartPresenter(shoppingCartViewHolder)
+        return shoppingCartViewHolder
     }
 
     override fun getItemCount(): Int = shoppingCarts.size
 
-    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ShoppingCartViewHolder, position: Int) {
-        var shoppingCart: ShoppingCartEntity = shoppingCarts[position]
-        Glide.with(view).load(shoppingCart.product.imageAbsolute()).into(holder.photo)
+        val shoppingCart: ShoppingCartEntity = shoppingCarts[position]
+        Glide.with(itemView).load(shoppingCart.product.imageAbsolute()).into(holder.photo)
         holder.name.text = shoppingCart.product.name
         holder.count.text = "${shoppingCart.count}"
-        holder.less.setOnClickListener {
-            val count = holder.count.text.toString().toInt() - 1
-            if (count > 0) {
-                holder.count.text = "$count"
-            } else {
-                holder.less.isEnabled = false
+        holder.delete.setOnClickListener {
+            dialog.setButton(
+                AlertDialog.BUTTON_POSITIVE,
+                YES
+            ) { _, _ ->
+                presenter.deleteRow(shoppingCarts, position)
+                view.updateTotal(
+                    "${presenter.calculate(
+                        holder.count.text.toString(), shoppingCart.id, shoppingCarts
+                    )}"
+                )
+                this.notifyDataSetChanged()
             }
-            shoppingCarts[position].count = count
-            shoppingCartInterface.run { updateList() }
+            dialog.show()
+        }
+        holder.left.setOnClickListener {
+            presenter.left(holder.count.text.toString(), shoppingCart.id, shoppingCarts)
         }
         holder.right.setOnClickListener {
-            val count = holder.count.text.toString().toInt()
-            if (count == 0) {
-                holder.less.isEnabled = true
-            }
-            holder.count.text = "${count + 1}"
-            shoppingCarts[position].count = count + 1
-            shoppingCartInterface.run { updateList() }
+            presenter.right(holder.count.text.toString(), shoppingCart.id, shoppingCarts)
         }
+        initialView(holder.left, shoppingCart.count, shoppingCart.product.price)
     }
 
-    interface ShoppingCartInterface {
-        fun showShoppingCart(shoppingCarts: List<ShoppingCartEntity>)
-        fun updateList()
+    private fun initialView(left: Button, count: Int, price: Double) {
+        var id = true
+        if (count == 1) {
+            id = false
+        }
+        left.isEnabled = id
+        view.updateTotal("${count * price}")
     }
 
 }
