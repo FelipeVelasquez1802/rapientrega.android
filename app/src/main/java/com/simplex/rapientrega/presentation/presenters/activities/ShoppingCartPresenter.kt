@@ -1,7 +1,7 @@
 package com.simplex.rapientrega.presentation.presenters.activities
 
 import com.simplex.rapientrega.R
-import com.simplex.rapientrega.data.api.entities.ShoppingCartEntity
+import com.simplex.rapientrega.data.api.entities.shoppingcart.ShoppingCartEntity
 import com.simplex.rapientrega.domain.interfaces.ShoppingCartInterface
 import com.simplex.rapientrega.domain.model.activities.ShoppingCartModel
 
@@ -30,13 +30,18 @@ class ShoppingCartPresenter(private val view: ShoppingCartInterface.View) :
         model.convertProducts(products, list)
     }
 
-    override fun saveProducts(string: String?) {
-        view.saveProducts(string)
-        view.deleteProducts()
-        view.goMainActivity()
+    override fun payProducts(string: String?) {
+//        view.payProducts(string)
+//        view.deleteProducts()
+//        view.goMainActivity()
+        view.goShoppingCartDataActivity()
     }
 
     override fun changeList(shoppingCarts: List<ShoppingCartEntity>) {
         view.changeList(shoppingCarts)
+    }
+
+    override fun goShoppingCartData() {
+        view.goShoppingCartDataActivity()
     }
 }

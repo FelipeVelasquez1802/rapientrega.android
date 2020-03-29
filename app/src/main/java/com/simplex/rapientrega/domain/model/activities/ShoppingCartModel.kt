@@ -1,8 +1,7 @@
 package com.simplex.rapientrega.domain.model.activities
 
-import android.util.Log
 import com.simplex.rapientrega.data.api.entities.OrderEntity
-import com.simplex.rapientrega.data.api.entities.ShoppingCartEntity
+import com.simplex.rapientrega.data.api.entities.shoppingcart.ShoppingCartEntity
 import com.simplex.rapientrega.domain.interfaces.ShoppingCartInterface
 import com.simplex.rapientrega.domain.tools.objectToString
 import com.simplex.rapientrega.domain.tools.toListOrder
@@ -25,7 +24,7 @@ class ShoppingCartModel(
         order.date = Date()
         val listOrders = toListOrder(list)
         val string = objectToString(listOrders.plus(order))
-        presenter.saveProducts(string)
+        presenter.payProducts(string)
     }
 
 }

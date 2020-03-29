@@ -19,7 +19,8 @@
             style="@style/TextViewTheme.Title"
             android:text="@string/name"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimaryDark" />
+            android:textColor="@color/colorPrimaryDark"
+            android:gravity="center_horizontal" />
 
         <TextView
             android:id="@+id/tvPrice"

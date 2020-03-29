@@ -1,6 +1,6 @@
 package com.simplex.rapientrega.presentation.views.activities
 
-import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -8,8 +8,9 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.simplex.rapientrega.R
-import com.simplex.rapientrega.data.api.entities.ShoppingCartEntity
+import com.simplex.rapientrega.data.api.entities.shoppingcart.ShoppingCartEntity
 import com.simplex.rapientrega.domain.interfaces.ShoppingCartInterface
+import com.simplex.rapientrega.domain.tools.HEAD
 import com.simplex.rapientrega.domain.tools.ORDER
 import com.simplex.rapientrega.domain.tools.SHOPPING_CART
 import com.simplex.rapientrega.presentation.presenters.activities.ShoppingCartPresenter
@@ -48,7 +49,7 @@ class ShoppingCartActivity :
             R.id.ivBack -> {
                 onBackPressed()
             }
-            R.id.btAddShoppingCart -> {
+            R.id.btPay -> {
                 presenter.convertProducts(shoppingCarts, preferences.getString(ORDER, null))
             }
         }
@@ -57,11 +58,11 @@ class ShoppingCartActivity :
     override fun addAdapter() {
     }
 
-    override fun showShoppingCarts(shoppingCarts: List<ShoppingCartEntity>) {
-        changeShoppingCarts(shoppingCarts)
+    override fun showShoppingCarts(products: List<ShoppingCartEntity>) {
+        changeShoppingCarts(products)
     }
 
-    override fun saveProducts(string: String?) {
+    override fun payProducts(string: String?) {
         val editor = preferences.edit()
         editor.putString(ORDER, string)
         editor.apply()
@@ -74,9 +75,6 @@ class ShoppingCartActivity :
     }
 
     override fun goMainActivity() {
-//        val intent = Intent(this, MainActivity::class.java)
-//        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-//        startActivity(intent)
         onBackPressed()
     }
 
@@ -90,6 +88,13 @@ class ShoppingCartActivity :
 
     override fun updateTotal(total: String) {
         this.total.text = total
+    }
+
+    override fun goShoppingCartDataActivity() {
+        val intent = Intent(this, ShoppingCartDataActivity::class.java)
+        intent.putExtra(SHOPPING_CART, shoppingCarts)
+        intent.putExtra(HEAD, true)
+        startActivity(intent)
     }
 
     private fun changeShoppingCarts(shoppingCarts: List<ShoppingCartEntity>) {

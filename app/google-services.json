@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "68254591597",
+    "firebase_url": "https://rapientrega-eaecf.firebaseio.com",
+    "project_id": "rapientrega-eaecf",
+    "storage_bucket": "rapientrega-eaecf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:68254591597:android:c21faa8665057b0a15ad64",
+        "android_client_info": {
+          "package_name": "com.simplex.rapientrega"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "68254591597-kiutftnkmgsvnc8jgcan4cj0u4krdgc0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwJTrh4B9eesxrOprftM3hXwxXKiuypf0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "68254591597-kiutftnkmgsvnc8jgcan4cj0u4krdgc0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

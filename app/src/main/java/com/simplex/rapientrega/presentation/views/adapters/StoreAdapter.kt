@@ -28,20 +28,25 @@ class StoreAdapter(
 
     override fun onBindViewHolder(holder: ProviderViewHolder, position: Int) {
         val store: StoreEntity = stores[position]
-        Glide.with(view).load(store.imageAbsolute()).into(holder.photo)
+        Glide.with(view).load(
+            if (store.image == null) R.drawable.ic_image_black_24dp
+            else store.imageAbsolute()
+        ).into(holder.photo)
         holder.name.text = store.name
         holder.description.text = store.description
         holder.serviceTime.text = store.serviceTime()
         holder.shippingCost.text = FORMAT_PRICE.format(store.costOfShipping)
+        holder.qualification.text = store.qualificationString()
         holder.itemView.setOnClickListener { onItemClickListener.run { onItemClick(store.id) } }
     }
 
     class ProviderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var photo: ImageView = itemView.findViewById(R.id.ivPhoto)
-        var name: TextView = itemView.findViewById(R.id.tvName)
-        var description: TextView = itemView.findViewById(R.id.tvDescription)
-        var serviceTime: TextView = itemView.findViewById(R.id.tvServiceTime)
-        var shippingCost: TextView = itemView.findViewById(R.id.tvShippingCost)
+        val photo: ImageView = itemView.findViewById(R.id.ivPhoto)
+        val name: TextView = itemView.findViewById(R.id.tvName)
+        val description: TextView = itemView.findViewById(R.id.tvDescription)
+        val serviceTime: TextView = itemView.findViewById(R.id.tvServiceTime)
+        val shippingCost: TextView = itemView.findViewById(R.id.tvShippingCost)
+        val qualification: TextView = itemView.findViewById(R.id.tvQualification)
     }
 
     interface OnItemClickListener {

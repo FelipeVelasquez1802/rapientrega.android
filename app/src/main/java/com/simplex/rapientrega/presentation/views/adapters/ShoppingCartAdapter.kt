@@ -10,7 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.simplex.rapientrega.R
-import com.simplex.rapientrega.data.api.entities.ShoppingCartEntity
+import com.simplex.rapientrega.data.api.entities.shoppingcart.ShoppingCartEntity
 import com.simplex.rapientrega.domain.interfaces.ShoppingCartInterface
 import com.simplex.rapientrega.presentation.presenters.adapters.ShoppingCartPresenter
 

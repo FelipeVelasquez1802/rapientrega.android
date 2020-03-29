@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".presentation.views.fragments.MapFragment">
 
+    <include layout="@layout/component_progress_bar" />
+
     <com.mapbox.mapboxsdk.maps.MapView
         android:id="@+id/map_view"
         android:layout_width="match_parent"
@@ -13,5 +15,12 @@
         mapbox:mapbox_cameraTargetLat="4.1517126"
         mapbox:mapbox_cameraTargetLng="-73.6653936"
         mapbox:mapbox_cameraZoom="13" />
+
+    <include
+        layout="@layout/component_zoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="10dp" />
 
 </FrameLayout>

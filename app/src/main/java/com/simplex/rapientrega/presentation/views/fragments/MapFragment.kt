@@ -6,11 +6,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.mapbox.android.core.permissions.PermissionsManager
 import com.mapbox.mapboxsdk.Mapbox
+import com.mapbox.mapboxsdk.camera.CameraPosition
+import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
+import com.mapbox.mapboxsdk.geometry.LatLng
+import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions
+import com.mapbox.mapboxsdk.location.LocationComponentOptions
+import com.mapbox.mapboxsdk.location.modes.RenderMode
 import com.mapbox.mapboxsdk.maps.MapView
+import com.mapbox.mapboxsdk.maps.MapboxMap
+import com.mapbox.mapboxsdk.maps.OnMapReadyCallback
 import com.mapbox.mapboxsdk.maps.Style
 import com.simplex.rapientrega.R
+import com.simplex.rapientrega.domain.interfaces.MapInterface
+import com.simplex.rapientrega.presentation.presenters.fragments.MapPresenter
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,13 +39,25 @@ private const val ARG_PARAM2 = "param2"
  * Use the [MapFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MapFragment : Fragment() {
+class MapFragment :
+    BaseFragment(),
+    MapInterface.View,
+    OnMapReadyCallback,
+    Style.OnStyleLoaded,
+    View.OnClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
 
     private var mapView: MapView? = null
+    private lateinit var progressBar: ProgressBar;
+    private lateinit var less: FloatingActionButton
+    private lateinit var plus: FloatingActionButton
+
+    private lateinit var map: MapboxMap
+
+    private lateinit var presenter: MapInterface.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,21 +71,15 @@ class MapFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-
         Mapbox.getInstance(requireContext(), getString(R.string.mapbox_access_token))
+        super.onCreateView(inflater, container, savedInstanceState)
+        presenter = MapPresenter(this)
+        presenter.initial(savedInstanceState)
+        return itemView
+    }
 
-        var view: View = inflater.inflate(R.layout.fragment_map, container, false)
-
-        mapView = view.findViewById(R.id.map_view)
-        mapView?.onCreate(savedInstanceState)
-        mapView?.getMapAsync { mapboxMap ->
-            mapboxMap.setStyle(Style.MAPBOX_STREETS) {
-                // Map is set up and the style has loaded. Now you can add data or make other map adjustments
-            }
-        }
-
-        return view
+    override fun getItemView(inflater: LayoutInflater, container: ViewGroup?): View {
+        return inflater.inflate(R.layout.fragment_map, container, false)
     }
 
     override fun onStart() {
@@ -128,6 +148,8 @@ class MapFragment : Fragment() {
     }
 
     companion object {
+        fun newInstance() = MapFragment()
+
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -145,5 +167,67 @@ class MapFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun initialElement(savedInstanceState: Bundle?) {
+        mapView = itemView.findViewById(R.id.map_view)
+        mapView?.onCreate(savedInstanceState)
+        mapView?.getMapAsync(this)
+        progressBar = itemView.findViewById(R.id.progress_circular)
+        presenter.stateProgressBar(true)
+        less = itemView.findViewById(R.id.fabLess)
+        plus = itemView.findViewById(R.id.fabPlus)
+    }
+
+    override fun stateProgressBar(id: Int) {
+        progressBar.visibility = id
+    }
+
+    override fun addListener() {
+        less.setOnClickListener(this)
+        plus.setOnClickListener(this)
+    }
+
+    override fun onMapReady(mapboxMap: MapboxMap) {
+        presenter.stateProgressBar(false)
+        map = mapboxMap
+        map.setStyle(Style.MAPBOX_STREETS, this)
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.fabPlus -> updateCamera(1)
+            R.id.fabLess -> updateCamera(-1)
+        }
+    }
+
+    private fun updateCamera(value: Int) {
+        val location = map.locationComponent.lastKnownLocation ?: return
+        val lat = location.latitude
+        val lng = location.longitude
+        val zoom = map.cameraPosition.zoom + value
+        val cameraPosition = CameraPosition.Builder()
+            .target(LatLng(lat, lng))
+            .zoom(zoom)
+            .build()
+        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 1000)
+    }
+
+    override fun onStyleLoaded(style: Style) {
+        if (PermissionsManager.areLocationPermissionsGranted(context)) {
+            val locationComponent = map.locationComponent
+            map.style?.let { style ->
+                val locationComponentOptions =
+                    LocationComponentOptions.builder(requireContext()).build()
+                val activationOptions =
+                    LocationComponentActivationOptions.Builder(requireContext(), style)
+                        .locationComponentOptions(locationComponentOptions)
+                        .build()
+                locationComponent.activateLocationComponent(activationOptions)
+            }
+
+            locationComponent.isLocationComponentEnabled = true
+            locationComponent.renderMode = RenderMode.COMPASS
+        }
     }
 }

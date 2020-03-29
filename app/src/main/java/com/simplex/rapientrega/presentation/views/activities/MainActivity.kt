@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import com.simplex.rapientrega.R
 import com.simplex.rapientrega.domain.interfaces.MainInterface
+import com.simplex.rapientrega.domain.tools.HEAD
 import com.simplex.rapientrega.presentation.presenters.activities.MainPresenter
 import com.simplex.rapientrega.presentation.views.fragments.*
 
@@ -44,7 +45,7 @@ class MainActivity :
             R.id.ivShoppingCart -> {
                 presenter.goShoppingCartActivity()
             }
-            R.id.ivBack -> dialog.show()
+            R.id.ivBack -> onBackPressed()
         }
     }
 
@@ -54,6 +55,7 @@ class MainActivity :
 
     override fun goShoppingCartActivity() {
         val intent = Intent(this, ShoppingCartActivity::class.java)
+        intent.putExtra(HEAD, true)
         startActivity(intent)
     }
 }

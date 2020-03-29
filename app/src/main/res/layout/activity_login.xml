@@ -42,7 +42,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilPasswordLogin"
-                style="@style/TextInputLayoutTheme">
+                style="@style/TextInputLayoutTheme.Password">
 
                 <com.google.android.material.textfield.TextInputEditText
                     style="@style/EditTextTheme"

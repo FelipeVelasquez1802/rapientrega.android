@@ -33,6 +33,7 @@ class RestorePasswordActivity :
             R.id.btRestore -> {
                 presenter.validateFields(email.editText?.text.toString())
             }
+            R.id.ivBack -> onBackPressed()
         }
     }
 

@@ -4,7 +4,7 @@ import com.google.gson.Gson
 import com.simplex.rapientrega.data.api.entities.LoginEntity
 import com.simplex.rapientrega.data.api.entities.OrderEntity
 import com.simplex.rapientrega.data.api.entities.RegisterErrorEntity
-import com.simplex.rapientrega.data.api.entities.ShoppingCartEntity
+import com.simplex.rapientrega.data.api.entities.shoppingcart.ShoppingCartEntity
 
 fun objectToString(any: Any): String {
     return GSON.toJson(any)

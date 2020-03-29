@@ -1,17 +1,16 @@
 package com.simplex.rapientrega.presentation.views.adapters
 
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.simplex.rapientrega.presentation.views.fragments.CategoryFragment
+import com.simplex.rapientrega.presentation.views.fragments.MapFragment
 import com.simplex.rapientrega.presentation.views.fragments.OrderFragment
 import com.simplex.rapientrega.presentation.views.fragments.ProfileFragment
 
 class MyPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm!!) {
 
     override fun getItem(position: Int): Fragment {
-        Log.d("MyPagerAdapter", "Sí entró $position")
         return when (position) {
             0 -> {
                 CategoryFragment.newInstance()
@@ -20,6 +19,9 @@ class MyPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm!!) {
                 OrderFragment.newInstance()
             }
             2 -> {
+                MapFragment.newInstance()
+            }
+            3 -> {
                 ProfileFragment.newInstance()
             }
             else -> {
@@ -29,7 +31,7 @@ class MyPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm!!) {
     }
 
     override fun getCount(): Int {
-        return 3
+        return 4
     }
 
 }

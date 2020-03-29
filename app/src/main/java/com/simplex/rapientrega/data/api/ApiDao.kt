@@ -1,6 +1,8 @@
 package com.simplex.rapientrega.data.api
 
 import com.simplex.rapientrega.data.api.entities.*
+import com.simplex.rapientrega.data.api.entities.shoppingcart.PayEntity
+import com.simplex.rapientrega.data.api.entities.shoppingcart.PayResponseEntity
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -21,4 +23,8 @@ interface ApiDao {
 
     @GET("stores-ms/api/products/")
     fun products(): Call<ProductKeyEntity>
+
+    @Headers("Content-Type: application/json")
+    @POST("orders-ms/api/order/create")
+    fun payProducts(@Body payEntity: PayEntity): Call<PayResponseEntity>
 }

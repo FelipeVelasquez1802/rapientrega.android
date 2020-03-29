@@ -2,10 +2,12 @@ package com.simplex.rapientrega.presentation.views.activities
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.ContextThemeWrapper
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.simplex.rapientrega.R
+import com.simplex.rapientrega.domain.tools.HEAD
 import com.simplex.rapientrega.domain.tools.KEY
 
 abstract class BaseActivity : AppCompatActivity() {
@@ -25,7 +27,8 @@ abstract class BaseActivity : AppCompatActivity() {
     abstract fun layout(): Int
 
     private fun createDialog() {
-        val build: AlertDialog.Builder = AlertDialog.Builder(this)
+        val build: AlertDialog.Builder =
+            AlertDialog.Builder(ContextThemeWrapper(this, R.style.AlertDialogTheme))
         build.setMessage(R.string.you_sure_exit)
             .setTitle(R.string.app_name)
             .setPositiveButton(R.string.yes) { _, _ -> finish() }
@@ -45,7 +48,11 @@ abstract class BaseActivity : AppCompatActivity() {
         Toast.makeText(this, getString(id), Toast.LENGTH_LONG).show()
     }
 
-//    override fun onBackPressed() {
-//        dialog.show()
-//    }
+    override fun onBackPressed() {
+        when {
+            supportFragmentManager.backStackEntryCount > 0 -> supportFragmentManager.popBackStack()
+            intent.hasExtra(HEAD) -> finish()
+            else -> dialog.show()
+        }
+    }
 }

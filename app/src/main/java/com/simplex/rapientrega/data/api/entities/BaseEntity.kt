@@ -9,16 +9,19 @@ import java.io.Serializable
 open class BaseEntity : Serializable {
     @SerializedName("id")
     @Expose
-    var id: Int = 0
+    val id: Int = 0
+
     @SerializedName("name")
     @Expose
     lateinit var name: String
+
     @SerializedName("image")
     @Expose
-    lateinit var image: String
+    val image: String? = null
+
     @SerializedName("is_active")
     @Expose
-    var isActive: Boolean = false
+    val isActive: Boolean = false
 
     fun imageAbsolute(): String {
         return "$BASE_URL${STORES_MS}media/${image}"

@@ -20,14 +20,14 @@
         android:id="@+id/ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/btAddShoppingCart">
+        android:layout_above="@id/btPay">
 
         <TextView
             style="@style/TextViewTheme.Title"
             android:layout_weight="1"
             android:gravity="end"
             android:text="@string/total"
-            android:textColor="@color/colorPrimaryDark" />
+            android:textColor="@android:color/black" />
 
         <TextView
             android:id="@+id/tvTotal"
@@ -35,15 +35,15 @@
             android:layout_weight="1"
             android:gravity="end"
             android:text="@string/price_double"
-            android:textColor="@color/colorPrimaryDark" />
+            android:textColor="@android:color/black" />
 
     </LinearLayout>
 
     <Button
-        android:id="@+id/btAddShoppingCart"
-        style="@style/ButtonTheme"
+        android:id="@+id/btPay"
+        style="@style/ButtonTheme.Stroke"
         android:layout_alignParentBottom="true"
         android:onClick="onClick"
-        android:text="@string/pay" />
+        android:text="@string/next" />
 
 </RelativeLayout>

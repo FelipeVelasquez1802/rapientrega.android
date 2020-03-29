@@ -17,19 +17,20 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
-            android:name="com.simplex.rapientrega.presentation.views.activities.ShoppingCartActivity"
-            android:parentActivityName=".presentation.views.activities.MainActivity">
-        </activity>
-        <activity android:name="com.simplex.rapientrega.presentation.views.activities.RestorePasswordActivity" />
-        <activity android:name="com.simplex.rapientrega.presentation.views.activities.RegisterActivity" />
-        <activity android:name="com.simplex.rapientrega.presentation.views.activities.LoginActivity">
+            android:name=".presentation.views.activities.ShoppingCartDataActivity"
+            android:parentActivityName=".presentation.views.activities.ShoppingCartActivity"></activity>
+        <activity
+            android:name=".presentation.views.activities.ShoppingCartActivity"
+            android:parentActivityName=".presentation.views.activities.MainActivity"></activity>
+        <activity android:name=".presentation.views.activities.RestorePasswordActivity" />
+        <activity android:name=".presentation.views.activities.RegisterActivity" />
+        <activity android:name=".presentation.views.activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.simplex.rapientrega.presentation.views.activities.MainActivity" />
+        <activity android:name=".presentation.views.activities.MainActivity" />
     </application>
 
 </manifest>

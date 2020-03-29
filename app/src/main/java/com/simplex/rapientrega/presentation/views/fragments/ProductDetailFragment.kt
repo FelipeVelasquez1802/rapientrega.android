@@ -1,5 +1,6 @@
 package com.simplex.rapientrega.presentation.views.fragments
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
@@ -15,10 +16,11 @@ import com.bumptech.glide.Glide
 import com.simplex.rapientrega.R
 import com.simplex.rapientrega.data.api.entities.ProductEntity
 import com.simplex.rapientrega.domain.interfaces.ProductDetailInterface
-import com.simplex.rapientrega.presentation.presenters.fragments.ProductDetailPresenter
 import com.simplex.rapientrega.domain.tools.KEY
 import com.simplex.rapientrega.domain.tools.PRODUCT
 import com.simplex.rapientrega.domain.tools.SHOPPING_CART
+import com.simplex.rapientrega.domain.tools.YES
+import com.simplex.rapientrega.presentation.presenters.fragments.ProductDetailPresenter
 import com.synnapps.carouselview.CarouselView
 import com.synnapps.carouselview.ImageListener
 
@@ -36,7 +38,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class ProductDetailFragment :
-    Fragment(),
+    BaseFragment(),
     ProductDetailInterface.View,
     ImageListener,
     View.OnClickListener {
@@ -45,12 +47,13 @@ class ProductDetailFragment :
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
 
+    private lateinit var image: ImageView
     private lateinit var name: TextView
     private lateinit var description: TextView
     private lateinit var carouselView: CarouselView
     private lateinit var pay: Button
     private lateinit var count: TextView
-    private lateinit var less: Button
+    private lateinit var left: Button
     private lateinit var right: Button
 
     private lateinit var product: ProductEntity
@@ -71,40 +74,50 @@ class ProductDetailFragment :
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view: View = inflater.inflate(R.layout.fragment_product_detail, container, false)
-        preferences = view.context.getSharedPreferences(KEY, 0)
+        super.onCreateView(inflater, container, savedInstanceState)
+        preferences = itemView.context.getSharedPreferences(KEY, 0)
         initialObjects()
-        initialElements(view)
         presenter = ProductDetailPresenter(this)
-        return view
+        presenter.initial()
+        return itemView
+    }
+
+    override fun getItemView(inflater: LayoutInflater, container: ViewGroup?): View {
+        return inflater.inflate(R.layout.fragment_product_detail, container, false)
     }
 
     private fun initialObjects() {
     }
 
-    private fun initialElements(view: View) {
+    override fun initialElements() {
         product = arguments?.getSerializable(PRODUCT) as ProductEntity
-
-        name = view.findViewById(R.id.tvName)
+        image = itemView.findViewById(R.id.ivPhoto)
+        Glide.with(itemView).load(
+            if (product.image == null) R.drawable.ic_image_black_24dp
+            else product.imageAbsolute()
+        ).into(image)
+        name = itemView.findViewById(R.id.tvName)
         name.text = product.name
-
-        carouselView = view.findViewById(R.id.carouselView)
-        carouselView.setImageListener(this)
-        carouselView.pageCount = product.images.size ?: 0
-
-        description = view.findViewById(R.id.tvDescription)
+        carouselView = itemView.findViewById(R.id.carouselView)
+        val size = product.images.size
+        carouselView.pageCount = if (size > 0) size else 1
+        description = itemView.findViewById(R.id.tvDescription)
         description.text = product.description
+        pay = itemView.findViewById(R.id.btAddShoppingCart)
+        count = itemView.findViewById(R.id.tvCount)
+        left = itemView.findViewById(R.id.btLeft)
+        left.isEnabled = false
+        right = itemView.findViewById(R.id.btMore)
+    }
 
-        pay = view.findViewById(R.id.btAddShoppingCart)
-        pay.setOnClickListener(this)
+    override fun subtract(count: String, flag: Boolean) {
+        this.count.text = count
+        left.isEnabled = flag
+    }
 
-        count = view.findViewById(R.id.tvCount)
-
-        less = view.findViewById(R.id.btLeft)
-        less.setOnClickListener(this)
-
-        right = view.findViewById(R.id.btMore)
-        right.setOnClickListener(this)
+    override fun add(count: String, flag: Boolean) {
+        this.count.text = count
+        left.isEnabled = flag
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -164,32 +177,47 @@ class ProductDetailFragment :
 
     override fun setImageForPosition(position: Int, imageView: ImageView?) {
         if (imageView != null) {
-            context?.let { Glide.with(it).load(product.images[position]).into(imageView) }
+            val count = product.images.size
+            context?.let {
+                Glide.with(it).load(
+                    if (count > 0) product.images[position]
+                    else R.drawable.ic_image_black_24dp
+                ).into(imageView)
+            }
         }
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btAddShoppingCart -> {
-                val value = preferences.getString(SHOPPING_CART, null)
-                presenter.addProductToCar(product, count.text.toString(), value)
+                dialog.setButton(AlertDialog.BUTTON_POSITIVE, YES) { _, _ ->
+                    run {
+                        val value = preferences.getString(SHOPPING_CART, null)
+                        presenter.addProductToCar(product, count.text.toString(), value)
+                    }
+                }
+                dialog.show()
             }
             R.id.btLeft -> {
-                val count = this.count.text.toString().toInt() - 1
-                if (count > 0) {
-                    this.count.text = "$count"
-                }
+                presenter.left(count.text.toString())
             }
             R.id.btMore -> {
-                val count = this.count.text.toString().toInt() + 1
-                this.count.text = "$count"
+                presenter.right(count.text.toString())
             }
         }
     }
 
-    override fun addSharedPreference(string: String) {
+    override fun addShoppingCart(string: String) {
         val editor = preferences.edit()
         editor.putString(SHOPPING_CART, string)
         editor.apply()
+        parentFragmentManager.popBackStack()
+    }
+
+    override fun addListener() {
+        carouselView.setImageListener(this)
+        pay.setOnClickListener(this)
+        left.setOnClickListener(this)
+        right.setOnClickListener(this)
     }
 }

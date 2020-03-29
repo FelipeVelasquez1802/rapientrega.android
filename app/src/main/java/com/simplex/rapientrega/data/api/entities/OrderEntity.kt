@@ -2,6 +2,7 @@ package com.simplex.rapientrega.data.api.entities
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import com.simplex.rapientrega.data.api.entities.shoppingcart.ShoppingCartEntity
 import java.io.Serializable
 import java.util.*
 

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.views.activities.ShoppingCartDataActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/component_action_bar_single"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilAddress"
+            style="@style/TextInputLayoutTheme.Stroke">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/EditTextTheme.Stroke"
+                android:drawableStart="@drawable/ic_place_black_24dp"
+                android:drawableLeft="@drawable/ic_place_black_24dp"
+                android:hint="@string/address" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Spinner
+            android:id="@+id/spCity"
+            style="@style/SpinnerTheme"
+            android:entries="@array/cities" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btUbication"
+                style="@style/ButtonTheme.Stroke"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/ic_map_black_24dp"
+                android:drawableTint="@color/colorPrimaryDark"
+                android:onClick="onClick"
+                android:text="@string/search_location"
+                tools:targetApi="m" />
+
+            <TextView
+                style="@style/TextViewTheme.paragraph"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/lat_lng"
+                android:textColor="@android:color/darker_gray" />
+
+        </LinearLayout>
+
+        <Spinner
+            android:id="@+id/spType"
+            style="@style/SpinnerTheme"
+            android:entries="@array/types_cash_value" />
+
+        <include layout="@layout/component_progress_bar" />
+
+        <Button
+            android:id="@+id/btPay"
+            style="@style/ButtonTheme.Stroke"
+            android:onClick="onClick"
+            android:text="@string/pay" />
+
+    </LinearLayout>
+
+</ScrollView>

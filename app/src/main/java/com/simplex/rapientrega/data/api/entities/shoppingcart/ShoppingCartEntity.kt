@@ -1,7 +1,8 @@
-package com.simplex.rapientrega.data.api.entities
+package com.simplex.rapientrega.data.api.entities.shoppingcart
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import com.simplex.rapientrega.data.api.entities.ProductEntity
 import java.io.Serializable
 
 class ShoppingCartEntity : Serializable {

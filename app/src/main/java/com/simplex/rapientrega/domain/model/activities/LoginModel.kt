@@ -1,7 +1,7 @@
 package com.simplex.rapientrega.domain.model.activities
 
-import com.simplex.rapientrega.data.api.repositories.RepositoryImpl
 import com.simplex.rapientrega.data.api.entities.LoginEntity
+import com.simplex.rapientrega.data.api.repositories.RepositoryImpl
 import com.simplex.rapientrega.domain.interfaces.LoginInterface
 import com.simplex.rapientrega.domain.tools.ERROR
 import com.simplex.rapientrega.domain.tools.ERROR_LOGIN
@@ -11,10 +11,9 @@ import retrofit2.Response
 
 class LoginModel(private val presenter: LoginInterface.Presenter) :
     LoginInterface.Model,
-Callback<LoginEntity>{
+    Callback<LoginEntity> {
 
-    private val repository: RepositoryImpl =
-        RepositoryImpl()
+    private val repository: RepositoryImpl = RepositoryImpl()
 
     override fun validateLogin(email: String, password: String) {
         presenter.showProgressBar()

@@ -78,8 +78,8 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     style="@style/EditTextTheme"
-                    android:drawableStart="@drawable/ic_lock_white"
-                    android:drawableLeft="@drawable/ic_lock_white"
+                    android:drawableStart="@drawable/ic_fingerprint_white_24dp"
+                    android:drawableLeft="@drawable/ic_fingerprint_white_24dp"
                     android:hint="@string/identificationCard"
                     android:inputType="number" />
 
@@ -91,8 +91,8 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     style="@style/EditTextTheme"
-                    android:drawableStart="@drawable/ic_lock_white"
-                    android:drawableLeft="@drawable/ic_lock_white"
+                    android:drawableStart="@drawable/ic_phone_iphone_white_24dp"
+                    android:drawableLeft="@drawable/ic_phone_iphone_white_24dp"
                     android:hint="@string/cellphone"
                     android:inputType="number" />
 

@@ -27,6 +27,7 @@ const val SHOPPING_CART = "shopping_cart"
 const val ORDER = "order"
 const val LIST_EMPTY = "list_empty"
 const val SUCCESS_REGISTER_USER = "success_register_user"
+const val YES = "Sí"
 
 const val USERNAME = "username"
 const val EMAIL = "email"
@@ -39,3 +40,7 @@ const val CELLPHONE = "cellphone"
 
 const val FIELD_NOT_EMPTY = "Este campo no puede estar vacio."
 const val NOT_EMAIL = "Este no es un correo valido."
+
+// Keys
+
+const val HEAD = "head"

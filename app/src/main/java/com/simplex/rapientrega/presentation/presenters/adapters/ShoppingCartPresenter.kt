@@ -1,6 +1,6 @@
 package com.simplex.rapientrega.presentation.presenters.adapters
 
-import com.simplex.rapientrega.data.api.entities.ShoppingCartEntity
+import com.simplex.rapientrega.data.api.entities.shoppingcart.ShoppingCartEntity
 import com.simplex.rapientrega.domain.interfaces.ShoppingCartInterface
 import com.simplex.rapientrega.domain.model.adapters.ShoppingCartModel
 

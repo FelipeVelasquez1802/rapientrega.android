@@ -70,4 +70,22 @@
     <string name="about">Acerca de</string>
     <string name="image">Image</string>
     <string name="you_sure_delete">¿Esta seguro de borrar este producto?</string>
+    <string name="qualification">4.5</string>
+    <string name="working_days">Working days</string>
+    <string name="you_sure_add_product">¿Estas seguro de agregar este producto al carrito?</string>
+    <string name="map">Mapa</string>
+    <string name="city">Ciudad</string>
+    <string name="search_location">Buscar mi ubicación</string>
+    <string name="lat_lng">Latitud y Longitud</string>
+    <string name="next">Siguiente paso</string>
+    <string name="you_sure_pay">¿Estas seguro de generar la compra?</string>
+    <string-array name="cities">
+        <item>Villavicencio</item>
+    </string-array>
+    <string-array name="types_cash_value">
+        <item>Efectivo</item>
+    </string-array>
+    <string-array name="types_cash_key">
+        <item>cash</item>
+    </string-array>
 </resources>

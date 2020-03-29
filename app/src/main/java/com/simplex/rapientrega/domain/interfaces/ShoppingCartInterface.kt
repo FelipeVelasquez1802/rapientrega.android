@@ -1,17 +1,18 @@
 package com.simplex.rapientrega.domain.interfaces
 
-import com.simplex.rapientrega.data.api.entities.ShoppingCartEntity
+import com.simplex.rapientrega.data.api.entities.shoppingcart.ShoppingCartEntity
 
 interface ShoppingCartInterface {
     interface View {
         fun addAdapter()
         fun showShoppingCarts(products: List<ShoppingCartEntity>)
-        fun saveProducts(string: String?)
+        fun payProducts(string: String?)
         fun deleteProducts()
         fun goMainActivity()
         fun showMessage(id: Int)
         fun changeList(shoppingCarts: List<ShoppingCartEntity>)
         fun updateTotal(total: String)
+        fun goShoppingCartDataActivity()
     }
 
     interface Presenter {
@@ -19,8 +20,9 @@ interface ShoppingCartInterface {
         fun showShoppingCarts(products: List<ShoppingCartEntity>)
         fun consultShoppingCarts(string: String?)
         fun convertProducts(products: List<ShoppingCartEntity>, list: String?)
-        fun saveProducts(string: String?)
+        fun payProducts(string: String?)
         fun changeList(shoppingCarts: List<ShoppingCartEntity>)
+        fun goShoppingCartData()
     }
 
     interface Model {
