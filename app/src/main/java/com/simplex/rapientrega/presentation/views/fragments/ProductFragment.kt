@@ -6,13 +6,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.simplex.rapientrega.R
 import com.simplex.rapientrega.data.api.entities.ProductEntity
+import com.simplex.rapientrega.domain.interfaces.ProductInterface
 import com.simplex.rapientrega.domain.tools.PRODUCT
 import com.simplex.rapientrega.domain.tools.PRODUCTS
+import com.simplex.rapientrega.presentation.presenters.fragments.ProductPresenter
 import com.simplex.rapientrega.presentation.views.adapters.ProductAdapter
 import java.io.Serializable
 
@@ -30,8 +33,9 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class ProductFragment :
-    Fragment(),
-    ProductAdapter.OnItemClickListener {
+    BaseFragment(),
+    ProductAdapter.OnItemClickListener,
+    ProductInterface.View {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -39,6 +43,10 @@ class ProductFragment :
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ProductAdapter
+    private lateinit var listEmpty: TextView
+
+    private lateinit var presenter: ProductInterface.Presenter
+    private var products: ArrayList<ProductEntity> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,19 +60,14 @@ class ProductFragment :
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view: View = inflater.inflate(R.layout.fragment_product, container, false)
-        initialElements(view)
-        return view
+        super.onCreateView(inflater, container, savedInstanceState)
+        presenter = ProductPresenter(this)
+        presenter.initial()
+        return itemView
     }
 
-    private fun initialElements(view: View) {
-        val products = arguments?.getSerializable(PRODUCTS) as List<ProductEntity>
-        recyclerView = view.findViewById(R.id.recycler_view)
-        recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = GridLayoutManager(context, 2)
-        recyclerView.adapter = ProductAdapter(products, this)
-
+    override fun getItemView(inflater: LayoutInflater, container: ViewGroup?): View {
+        return inflater.inflate(R.layout.fragment_product, container, false)
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -129,5 +132,25 @@ class ProductFragment :
         fragment.arguments = args
         fragmentManager?.beginTransaction()?.add(R.id.frame_layout_main, fragment)
             ?.addToBackStack(null)?.commit()
+    }
+
+    override fun initialElements() {
+        recyclerView = itemView.findViewById(R.id.recycler_view)
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = GridLayoutManager(context, 2)
+        recyclerView.adapter = ProductAdapter(products, this)
+        listEmpty = itemView.findViewById(R.id.tvListEmpty)
+    }
+
+    override fun initialObjects() {
+        products = arguments?.getSerializable(PRODUCTS) as ArrayList<ProductEntity>
+    }
+
+    override fun showListEmpty() {
+        if (products.isEmpty()) {
+            listEmpty.visibility = View.VISIBLE
+        } else {
+            listEmpty.visibility = View.GONE
+        }
     }
 }

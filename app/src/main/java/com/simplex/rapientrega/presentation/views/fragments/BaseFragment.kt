@@ -14,12 +14,14 @@ abstract class BaseFragment : Fragment() {
 
     protected lateinit var itemView: View
     protected lateinit var dialog: AlertDialog
+    protected lateinit var dialogLoading: AlertDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         itemView = getItemView(inflater, container)
         createDialog()
+        createDialogLoading()
         return itemView
     }
 
@@ -32,6 +34,14 @@ abstract class BaseFragment : Fragment() {
             .setCancelable(false)
             .setNegativeButton(R.string.no, null)
         dialog = build.create()
+    }
+
+    private fun createDialogLoading() {
+        val build = AlertDialog.Builder(context)
+        val dialogView = layoutInflater.inflate(R.layout.dialog_loading, null)
+        build.setView(dialogView)
+        dialogLoading = build.create()
+        dialogLoading.setCancelable(false)
     }
 
     protected fun showToast(message: String) {

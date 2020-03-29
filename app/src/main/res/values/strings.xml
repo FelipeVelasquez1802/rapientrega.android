@@ -79,6 +79,8 @@
     <string name="lat_lng">Latitud y Longitud</string>
     <string name="next">Siguiente paso</string>
     <string name="you_sure_pay">¿Estas seguro de generar la compra?</string>
+    <string name="loading">Cargando...</string>
+    <string name="please_wait">Por favor espera.</string>
     <string-array name="cities">
         <item>Villavicencio</item>
     </string-array>

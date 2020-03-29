@@ -179,6 +179,9 @@ class SubCategoryFragment :
     }
 
     override fun stateProgressBar(id: Int) {
-        progressBar.visibility = id
+        when (id) {
+            View.GONE -> dialogLoading.hide()
+            View.VISIBLE -> dialogLoading.show()
+        }
     }
 }
