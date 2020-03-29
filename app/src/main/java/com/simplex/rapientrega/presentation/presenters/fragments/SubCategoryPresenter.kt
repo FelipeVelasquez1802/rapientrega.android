@@ -13,6 +13,11 @@ class SubCategoryPresenter(private val view: SubCategoryInterface.View) :
     SubCategoryInterface.Presenter {
 
     private val model: SubCategoryInterface.Model = SubCategoryModel(this)
+    override fun initial() {
+        view.initialElements()
+        view.initialObjects()
+    }
+
     override fun showSubCategories(subcategories: List<ProductCategoriesEntity>) {
         view.showSubCategories(subcategories)
     }

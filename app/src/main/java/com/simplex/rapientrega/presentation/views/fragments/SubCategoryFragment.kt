@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -15,9 +16,9 @@ import com.simplex.rapientrega.R
 import com.simplex.rapientrega.data.api.entities.ProductCategoriesEntity
 import com.simplex.rapientrega.data.api.entities.ProductEntity
 import com.simplex.rapientrega.domain.interfaces.SubCategoryInterface
-import com.simplex.rapientrega.presentation.presenters.fragments.SubCategoryPresenter
 import com.simplex.rapientrega.domain.tools.PRODUCTS
 import com.simplex.rapientrega.domain.tools.STORE_ID
+import com.simplex.rapientrega.presentation.presenters.fragments.SubCategoryPresenter
 import com.simplex.rapientrega.presentation.views.adapters.SubCategoryAdapter
 import java.io.Serializable
 
@@ -35,7 +36,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class SubCategoryFragment :
-    Fragment(),
+    BaseFragment(),
     SubCategoryInterface.View,
     SubCategoryAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters
@@ -46,8 +47,10 @@ class SubCategoryFragment :
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: SubCategoryAdapter
     private lateinit var progressBar: ProgressBar
+    private lateinit var listEmpty: TextView
 
     private lateinit var presenter: SubCategoryInterface.Presenter
+    private var subcategories: ArrayList<ProductCategoriesEntity> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,20 +64,17 @@ class SubCategoryFragment :
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view: View = inflater.inflate(R.layout.fragment_sub_category, container, false)
-        initialElements(view)
-        val storeId = arguments?.getInt(STORE_ID, -1)
+        super.onCreateView(inflater, container, savedInstanceState)
         presenter = SubCategoryPresenter(this)
-        presenter.consultSubCategories(1)
-        return view
+        presenter.initial()
+        return itemView
+    }
+
+    override fun getItemView(inflater: LayoutInflater, container: ViewGroup?): View {
+        return inflater.inflate(R.layout.fragment_sub_category, container, false)
     }
 
     private fun initialElements(view: View) {
-        recyclerView = view.findViewById(R.id.recycler_view)
-        recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = GridLayoutManager(context, 2)
-        progressBar = view.findViewById(R.id.progress_circular)
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -141,8 +141,37 @@ class SubCategoryFragment :
             ?.addToBackStack(null)?.commit()
     }
 
+    override fun initialObjects() {
+        val storeId = arguments?.getInt(STORE_ID, -1)
+        if (storeId == null) {
+            showListEmpty()
+            return
+        }
+        presenter.consultSubCategories(storeId)
+    }
+
+    override fun initialElements() {
+        recyclerView = itemView.findViewById(R.id.recycler_view)
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = GridLayoutManager(context, 2)
+        adapter = SubCategoryAdapter(subcategories, this)
+        recyclerView.adapter = adapter
+        progressBar = itemView.findViewById(R.id.progress_circular)
+        listEmpty = itemView.findViewById(R.id.tvListEmpty)
+    }
+
     override fun showSubCategories(subcategories: List<ProductCategoriesEntity>) {
-        recyclerView.adapter = SubCategoryAdapter(subcategories, this)
+        this.subcategories.addAll(subcategories)
+        adapter.notifyDataSetChanged()
+        showListEmpty()
+    }
+
+    private fun showListEmpty() {
+        if (subcategories.isEmpty()) {
+            listEmpty.visibility = View.VISIBLE
+        } else {
+            listEmpty.visibility = View.GONE
+        }
     }
 
     override fun showAlertMessage(id: Int) {
