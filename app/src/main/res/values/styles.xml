@@ -94,9 +94,11 @@
     </style>
 
     <style name="TextInputLayoutTheme.Stroke" parent="TextInputLayoutTheme">
+        <item name="errorTextColor">@color/colorPrimary</item>
         <item name="boxStrokeColor">@android:color/darker_gray</item>
         <item name="hintTextColor">@android:color/darker_gray</item>
         <item name="android:textColorHint">@android:color/black</item>
+        <item name="endIconTint">@android:color/black</item>
         <item name="android:background">@drawable/theme_text_input_layout_stroke</item>
     </style>
 

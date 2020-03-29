@@ -1,23 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     android:id="@+id/rlShoppingCart"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/ivShoppingCart"
         android:layout_width="wrap_content"
-        android:onClick="onClick"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:contentDescription="@string/image"
+        android:onClick="onClick"
         android:src="@drawable/ic_shopping_cart_24dp" />
 
     <TextView
         android:id="@+id/tvShoppingCart"
         android:layout_width="24dp"
         android:layout_height="24dp"
+        android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:background="@drawable/th_shopping_cart"
+        android:gravity="center_horizontal"
         android:text="0"
         android:textAlignment="center"
         android:textColor="@android:color/white"

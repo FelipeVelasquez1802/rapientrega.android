@@ -8,6 +8,8 @@ class MainPresenter(private val view: MainInterface.View) : MainInterface.Presen
 
     private val model = MainModel(this)
     override fun addFragment(id: Int, fragment: MainFragment) {
+        view.initialElements()
+        view.initialObjects()
         view.addFragment(id, fragment)
     }
 

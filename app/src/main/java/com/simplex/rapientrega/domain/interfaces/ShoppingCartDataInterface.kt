@@ -9,11 +9,11 @@ interface ShoppingCartDataInterface {
         fun initialElements()
         fun initialObjects()
         fun getLoginEntity(loginEntity: LoginEntity)
-        fun goMainActivity()
-        fun pay()
+        fun showDialog()
         fun showProgressBar()
         fun hideProgressBar()
         fun showMessage(id: Int)
+        fun errorAddress(message: String?)
     }
 
     interface Presenter {
@@ -34,6 +34,7 @@ interface ShoppingCartDataInterface {
         fun showProgressBar()
         fun hideProgressBar()
         fun showMessage(id: String)
+        fun errorAddress(message: String?)
     }
 
     interface Model {

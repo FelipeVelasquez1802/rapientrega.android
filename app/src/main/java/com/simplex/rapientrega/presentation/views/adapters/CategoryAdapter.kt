@@ -1,5 +1,6 @@
 package com.simplex.rapientrega.presentation.views.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import com.simplex.rapientrega.data.api.entities.StoreCategoryEntity
 import com.simplex.rapientrega.data.api.entities.StoreEntity
 import com.simplex.rapientrega.domain.tools.BASE_URL
 import com.simplex.rapientrega.domain.tools.STORES_MS
+import com.simplex.rapientrega.domain.tools.objectToString
 
 class CategoryAdapter(
     private var categories: List<StoreCategoryEntity>,
@@ -40,7 +42,11 @@ class CategoryAdapter(
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val category: StoreCategoryEntity = categories[position]
         holder.name.text = category.name
-        Glide.with(view).load("${BASE_URL}${STORES_MS}media/${category.image}").into(holder.photo)
+        val image = category.image
+        Glide.with(view).load(
+            if (image != null) "${BASE_URL}${STORES_MS}media/${category.image}"
+            else R.drawable.ic_image_black_24dp
+        ).into(holder.photo)
         holder.itemView.setOnClickListener { onItemClickListener.run { onItemClick(category.stores) } }
     }
 

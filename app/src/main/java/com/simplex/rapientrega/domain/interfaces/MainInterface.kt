@@ -4,6 +4,8 @@ import com.simplex.rapientrega.presentation.views.fragments.MainFragment
 
 interface MainInterface {
     interface View {
+        fun initialElements()
+        fun initialObjects()
         fun addFragment(id: Int, fragment: MainFragment)
         fun goShoppingCartActivity()
     }

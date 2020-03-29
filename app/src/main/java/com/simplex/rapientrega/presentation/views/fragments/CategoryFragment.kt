@@ -34,7 +34,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class CategoryFragment :
-    Fragment(),
+    BaseFragment(),
     CategoryInterface.View,
     CategoryAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters
@@ -60,18 +60,14 @@ class CategoryFragment :
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view: View = inflater.inflate(R.layout.fragment_category, container, false)
-
-        recyclerView = view.findViewById(R.id.recycler_view)
-        recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-
-        progressBar = view.findViewById(R.id.progress_circular)
-
+        super.onCreateView(inflater, container, savedInstanceState)
         presenter = CategoryPresenter(this)
-        presenter.consultCategories()
-        return view
+        presenter.initial()
+        return itemView
+    }
+
+    override fun getItemView(inflater: LayoutInflater, container: ViewGroup?): View {
+        return inflater.inflate(R.layout.fragment_category, container, false)
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -138,6 +134,13 @@ class CategoryFragment :
         fragment.arguments = args
         fragmentManager?.beginTransaction()?.add(R.id.frame_layout_main, fragment)
             ?.addToBackStack(null)?.commit()
+    }
+
+    override fun initialElements() {
+        recyclerView = itemView.findViewById(R.id.recycler_view)
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        progressBar = itemView.findViewById(R.id.progress_circular)
     }
 
     override fun showCategories(categories: List<StoreCategoryEntity>?) {

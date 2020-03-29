@@ -15,8 +15,7 @@ class CategoryModel(private val presenter: CategoryInterface.Presenter) :
     CategoryInterface.Model,
     Callback<CategoryEntity> {
 
-    private val repository: RepositoryImpl =
-        RepositoryImpl()
+    private val repository: RepositoryImpl = RepositoryImpl()
 
     override fun consultCategories() {
         presenter.stateProgressBar(SHOW)

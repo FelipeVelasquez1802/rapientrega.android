@@ -4,9 +4,13 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import com.simplex.rapientrega.R
+import com.simplex.rapientrega.data.api.entities.shoppingcart.ShoppingCartEntity
 import com.simplex.rapientrega.domain.interfaces.MainInterface
 import com.simplex.rapientrega.domain.tools.HEAD
+import com.simplex.rapientrega.domain.tools.SHOPPING_CART
+import com.simplex.rapientrega.domain.tools.toListShoppingCart
 import com.simplex.rapientrega.presentation.presenters.activities.MainPresenter
 import com.simplex.rapientrega.presentation.views.fragments.*
 
@@ -24,7 +28,10 @@ class MainActivity :
     ProductDetailFragment.OnFragmentInteractionListener,
     MapFragment.OnFragmentInteractionListener {
 
+    private lateinit var shoppingCarts: List<ShoppingCartEntity>
     private lateinit var presenter: MainInterface.Presenter
+
+    private lateinit var count: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +54,19 @@ class MainActivity :
             }
             R.id.ivBack -> onBackPressed()
         }
+    }
+
+
+
+    override fun initialElements() {
+        count = findViewById(R.id.tvShoppingCart)
+    }
+
+    override fun initialObjects() {
+        val shoppingCartsString = preferences.getString(SHOPPING_CART, null)
+        shoppingCarts = toListShoppingCart(shoppingCartsString)
+        val count: Int = shoppingCarts.map { it.count }.sum()
+        this.count.text = "$count"
     }
 
     override fun addFragment(id: Int, fragment: MainFragment) {

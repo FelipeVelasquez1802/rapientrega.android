@@ -65,16 +65,20 @@ class ShoppingCartDataActivity :
         this.loginEntity = loginEntity
     }
 
-    override fun goMainActivity() {
+    private fun goMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
     }
 
-    override fun pay() {
+    private fun pay() {
         val editor = preferences.edit()
         editor.remove(SHOPPING_CART)
         editor.apply()
+    }
+
+    override fun showDialog() {
+        dialogConfirmPay.show()
     }
 
     override fun showProgressBar() {
@@ -89,13 +93,27 @@ class ShoppingCartDataActivity :
         createToast(id)
     }
 
+    override fun errorAddress(message: String?) {
+        address.error = message
+    }
+
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.ivBack -> onBackPressed()
             R.id.btUbication -> {
             }
             R.id.btPay -> {
-                dialogConfirmPay.show()
+                val city = cities[this.city.selectedItemPosition]
+                val paymentKey = paymentKey[payment.selectedItemPosition]
+                presenter.buildPay(
+                    city,
+                    address.editText?.text.toString(),
+                    shoppingCarts,
+                    loginEntity.profile.id,
+                    1.21232131,
+                    1.2321321312,
+                    paymentKey
+                )
             }
         }
     }
@@ -107,17 +125,8 @@ class ShoppingCartDataActivity :
             .setNegativeButton(R.string.no, null)
             .setPositiveButton(R.string.yes) { _, _ ->
                 run {
-                    val city = cities[this.city.selectedItemPosition]
-                    val paymentKey = paymentKey[payment.selectedItemPosition]
-                    presenter.buildPay(
-                        city,
-                        address.editText?.text.toString(),
-                        shoppingCarts,
-                        loginEntity.profile.id,
-                        1.21232131,
-                        1.2321321312,
-                        paymentKey
-                    )
+                    goMainActivity()
+                    pay()
                 }
             }
         dialogConfirmPay = build.create()

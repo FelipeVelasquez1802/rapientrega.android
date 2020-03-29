@@ -6,6 +6,7 @@ import com.simplex.rapientrega.data.api.entities.shoppingcart.OrderUbicationEnti
 import com.simplex.rapientrega.data.api.entities.shoppingcart.ShoppingCartEntity
 import com.simplex.rapientrega.domain.interfaces.ShoppingCartDataInterface
 import com.simplex.rapientrega.domain.model.activities.ShoppingCartDataModel
+import com.simplex.rapientrega.domain.tools.FIELD_NOT_EMPTY
 import com.simplex.rapientrega.domain.tools.LIST_EMPTY
 
 class ShoppingCartDataPresenter(private val view: ShoppingCartDataInterface.View) :
@@ -27,6 +28,10 @@ class ShoppingCartDataPresenter(private val view: ShoppingCartDataInterface.View
         longitude: Double,
         paymentMethod: String
     ) {
+        if (address.isEmpty()) {
+            view.errorAddress(FIELD_NOT_EMPTY)
+            return
+        }
         val orderUbication = OrderUbicationEntity(latitude, longitude)
         model.buildPay(city, address, shoppingCarts, userId, orderUbication, paymentMethod)
     }
@@ -40,8 +45,7 @@ class ShoppingCartDataPresenter(private val view: ShoppingCartDataInterface.View
     }
 
     override fun pay() {
-        view.pay()
-        view.goMainActivity()
+        view.showDialog()
     }
 
     override fun showProgressBar() {
@@ -59,5 +63,9 @@ class ShoppingCartDataPresenter(private val view: ShoppingCartDataInterface.View
                 else -> R.string.error
             }
         )
+    }
+
+    override fun errorAddress(message: String?) {
+        view.errorAddress(message)
     }
 }
