@@ -37,7 +37,10 @@
             android:layout_marginBottom="0dp"
             android:layout_toStartOf="@id/tvQualification"
             android:layout_toLeftOf="@id/tvQualification"
-            android:padding="5dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
             android:text="@string/category"
             android:textColor="@android:color/black" />
 
@@ -55,7 +58,7 @@
             android:id="@+id/linear_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvQualification"
+            android:layout_below="@id/tvDescription"
             android:orientation="horizontal">
 
             <TextView

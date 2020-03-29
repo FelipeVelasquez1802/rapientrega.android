@@ -5,8 +5,9 @@ import com.simplex.rapientrega.domain.model.fragments.StoreModel
 
 class StorePresenter(private val view: StoreInterface.View) : StoreInterface.Presenter {
     private val model: StoreInterface.Model = StoreModel(this)
-
-    override fun consultProviders() {
-        model.consultProviders()
+    override fun initial() {
+        view.initialObjects()
+        view.initialElements()
+        view.showListEmpty()
     }
 }

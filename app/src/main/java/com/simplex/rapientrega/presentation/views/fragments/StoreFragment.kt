@@ -6,15 +6,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.simplex.rapientrega.R
 import com.simplex.rapientrega.data.api.entities.StoreEntity
 import com.simplex.rapientrega.domain.interfaces.StoreInterface
-import com.simplex.rapientrega.presentation.presenters.fragments.StorePresenter
 import com.simplex.rapientrega.domain.tools.STORES
 import com.simplex.rapientrega.domain.tools.STORE_ID
+import com.simplex.rapientrega.presentation.presenters.fragments.StorePresenter
 import com.simplex.rapientrega.presentation.views.adapters.StoreAdapter
 
 // TODO: Rename parameter arguments, choose names that match
@@ -31,7 +32,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class StoreFragment :
-    Fragment(),
+    BaseFragment(),
     StoreInterface.View,
     StoreAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters
@@ -41,8 +42,10 @@ class StoreFragment :
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: StoreAdapter
+    private lateinit var listEmpty: TextView
 
     private lateinit var presenter: StoreInterface.Presenter
+    private lateinit var stores: List<StoreEntity>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,21 +59,14 @@ class StoreFragment :
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view: View = inflater.inflate(R.layout.fragment_store, container, false)
-        initialElements(view)
+        super.onCreateView(inflater, container, savedInstanceState)
         presenter = StorePresenter(this)
-        presenter.consultProviders()
-        return view
+        presenter.initial()
+        return itemView
     }
 
-    private fun initialElements(view: View) {
-        val stores: List<StoreEntity> = arguments?.getSerializable(STORES) as List<StoreEntity>
-        recyclerView = view.findViewById(R.id.recycler_view)
-        recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = StoreAdapter(stores, this)
-        recyclerView.adapter = adapter
+    override fun getItemView(inflater: LayoutInflater, container: ViewGroup?): View {
+        return inflater.inflate(R.layout.fragment_store, container, false)
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -135,5 +131,26 @@ class StoreFragment :
         fragment.arguments = args
         fragmentManager?.beginTransaction()?.add(R.id.frame_layout_main, fragment)
             ?.addToBackStack(null)?.commit()
+    }
+
+    override fun initialObjects() {
+        stores = arguments?.getSerializable(STORES) as List<StoreEntity>
+    }
+
+    override fun initialElements() {
+        recyclerView = itemView.findViewById(R.id.recycler_view)
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        adapter = StoreAdapter(stores, this)
+        recyclerView.adapter = adapter
+        listEmpty = itemView.findViewById(R.id.tvListEmpty)
+    }
+
+    override fun showListEmpty() {
+        if (stores.isEmpty()) {
+            listEmpty.visibility = View.VISIBLE
+        } else {
+            listEmpty.visibility = View.GONE
+        }
     }
 }
