@@ -24,7 +24,7 @@
 
         <TextView
             android:id="@+id/tvName"
-            style="@style/TextViewTheme.Title"
+            style="@style/TextViewTheme.H1"
             android:layout_marginBottom="0dp"
             android:padding="5dp"
             android:text="@string/name"

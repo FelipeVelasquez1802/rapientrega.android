@@ -16,7 +16,7 @@
 
         <TextView
             android:id="@+id/tvName"
-            style="@style/TextViewTheme.Title"
+            style="@style/TextViewTheme.H1"
             android:text="@string/name"
             android:textAlignment="center"
             android:textColor="@color/colorPrimaryDark"
@@ -31,7 +31,7 @@
 
         <TextView
             android:id="@+id/tvDescription"
-            style="@style/TextViewTheme.paragraph"
+            style="@style/TextViewTheme.H3"
             android:layout_below="@id/tvPrice"
             android:text="@string/description"
             android:textColor="@android:color/black" />

@@ -6,29 +6,26 @@
 
     <Button
         android:id="@+id/btLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/th_button_less"
-        android:text="-"
+        style="@style/ButtonTheme.Less"
+        android:enabled="false"
         android:onClick="onClick"
+        android:text="@string/less"
         android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/tvCount"
-        style="@style/TextViewTheme.Title"
+        style="@style/TextViewTheme.H1"
         android:layout_width="wrap_content"
-        android:text="1"
+        android:gravity="center_horizontal"
+        android:text="@string/value_initial"
         android:textAlignment="center"
-        android:textColor="@color/colorPrimary"
-        android:gravity="center_horizontal" />
+        android:textColor="@color/colorPrimary" />
 
     <Button
         android:id="@+id/btMore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/th_button_more"
-        android:text="+"
+        style="@style/ButtonTheme.More"
         android:onClick="onClick"
+        android:text="@string/more"
         android:textColor="@android:color/white" />
 
 </LinearLayout>

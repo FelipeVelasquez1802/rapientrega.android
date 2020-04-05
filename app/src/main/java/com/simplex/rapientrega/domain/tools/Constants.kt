@@ -36,6 +36,9 @@ const val PASSWORD_REPEAT = "password_confirm"
 const val IDENTIFICATION_CARD = "identification_card"
 const val CELLPHONE = "cellphone"
 
+const val ORDER_NUMBER = "Orden #"
+const val COUNT_PRODUCT = "Cantidad de productos:"
+
 // Errors
 
 const val FIELD_NOT_EMPTY = "Este campo no puede estar vacio."
@@ -44,3 +47,4 @@ const val NOT_EMAIL = "Este no es un correo valido."
 // Keys
 
 const val HEAD = "head"
+const val ORDER_KEY = "order_key"

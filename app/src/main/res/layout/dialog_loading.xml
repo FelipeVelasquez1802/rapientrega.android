@@ -6,7 +6,7 @@
     android:padding="10dp">
 
     <TextView
-        style="@style/TextViewTheme.Title"
+        style="@style/TextViewTheme.H1"
         android:text="@string/loading"
         android:textColor="@android:color/black" />
 
@@ -22,7 +22,7 @@
             android:theme="@style/progressBarPrimaryColor" />
 
         <TextView
-            style="@style/TextViewTheme.Title"
+            style="@style/TextViewTheme.H1"
             android:text="@string/please_wait"
             android:textColor="@android:color/black" />
 

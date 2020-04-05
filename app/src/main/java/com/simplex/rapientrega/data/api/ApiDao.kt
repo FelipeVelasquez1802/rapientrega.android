@@ -1,6 +1,7 @@
 package com.simplex.rapientrega.data.api
 
 import com.simplex.rapientrega.data.api.entities.*
+import com.simplex.rapientrega.data.api.entities.orders.GeneralOrderEntity
 import com.simplex.rapientrega.data.api.entities.shoppingcart.PayEntity
 import com.simplex.rapientrega.data.api.entities.shoppingcart.PayResponseEntity
 import retrofit2.Call
@@ -27,4 +28,9 @@ interface ApiDao {
     @Headers("Content-Type: application/json")
     @POST("orders-ms/api/order/create")
     fun payProducts(@Body payEntity: PayEntity): Call<PayResponseEntity>
+
+    @FormUrlEncoded
+//    @Headers("Content-Type: application/json")
+    @POST("orders-ms/api/order/orders_by_user_id")
+    fun orders(@Field("user_id") userId: Int): Call<GeneralOrderEntity>
 }

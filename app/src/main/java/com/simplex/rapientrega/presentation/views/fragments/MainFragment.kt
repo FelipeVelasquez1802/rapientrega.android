@@ -135,12 +135,8 @@ class MainFragment :
                 viewPagerItem(1)
                 true
             }
-            R.id.item_map -> {
-                viewPagerItem(2)
-                true
-            }
             R.id.item_profile -> {
-                viewPagerItem(3)
+                viewPagerItem(2)
                 true
             }
             else -> {
@@ -170,9 +166,6 @@ class MainFragment :
                 bottomNavigationViewItem(R.id.item_shopping_basket)
             }
             2 -> {
-                bottomNavigationViewItem(R.id.item_map)
-            }
-            3 -> {
                 bottomNavigationViewItem(R.id.item_profile)
             }
             else -> {

@@ -7,16 +7,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.simplex.rapientrega.R
-import com.simplex.rapientrega.data.api.entities.OrderEntity
+import com.simplex.rapientrega.data.api.entities.ProfileEntity
+import com.simplex.rapientrega.data.api.entities.orders.OrderEntity
 import com.simplex.rapientrega.domain.interfaces.OrderInterface
-import com.simplex.rapientrega.presentation.presenters.fragments.OrderPresenter
 import com.simplex.rapientrega.domain.tools.KEY
-import com.simplex.rapientrega.domain.tools.ORDER
+import com.simplex.rapientrega.domain.tools.ORDER_KEY
+import com.simplex.rapientrega.domain.tools.USER
+import com.simplex.rapientrega.presentation.presenters.fragments.OrderPresenter
 import com.simplex.rapientrega.presentation.views.adapters.OrderAdapter
 
 // TODO: Rename parameter arguments, choose names that match
@@ -33,13 +34,16 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class OrderFragment :
-    Fragment(),
+    BaseFragment(),
     OrderInterface.View,
     OrderAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
+
+    private var orders: ArrayList<OrderEntity> = ArrayList()
+
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: OrderAdapter
     private lateinit var presenter: OrderInterface.Presenter
@@ -57,19 +61,15 @@ class OrderFragment :
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view: View = inflater.inflate(R.layout.fragment_order, container, false)
-        initialElements(view)
-        return view
+        super.onCreateView(inflater, container, savedInstanceState)
+        presenter = OrderPresenter(this)
+        presenter.initial()
+//        presenter.consultOrders(preferences.getString(ORDER, null))
+        return itemView
     }
 
-    private fun initialElements(view: View) {
-        preferences = view.context.getSharedPreferences(KEY, 0)
-        recyclerView = view.findViewById(R.id.recycler_view)
-        recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        presenter = OrderPresenter(this)
-        presenter.consultOrders(preferences.getString(ORDER, null))
+    override fun getItemView(inflater: LayoutInflater, container: ViewGroup?): View {
+        return inflater.inflate(R.layout.fragment_order, container, false)
     }
 
 
@@ -131,11 +131,51 @@ class OrderFragment :
     }
 
     override fun onItemClick(order: OrderEntity) {
-        Toast.makeText(context, "Order: " + order.date, Toast.LENGTH_LONG).show()
+        val fragment = OrderDetailFragment()
+        val args = Bundle()
+        args.putSerializable(ORDER_KEY, order)
+        fragment.arguments = args
+        fragmentManager?.beginTransaction()?.add(R.id.frame_layout_main, fragment)
+            ?.addToBackStack(null)?.commit()
     }
 
-    override fun putOrders(orders: List<OrderEntity>) {
+    override fun initialElements() {
+        preferences = itemView.context.getSharedPreferences(KEY, 0)
+        recyclerView = itemView.findViewById(R.id.recycler_view)
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+    }
+
+    override fun initialObjects() {
         adapter = OrderAdapter(orders, this)
         recyclerView.adapter = adapter
+        val string = preferences.getString(USER, null)
+        presenter.convertUser(string)
     }
+
+    override fun showOrders(orders: List<OrderEntity>) {
+        this.orders.addAll(orders)
+        adapter.notifyDataSetChanged()
+    }
+
+    override fun showLoading() {
+        dialogLoading.show()
+    }
+
+    override fun hideLoading() {
+        dialogLoading.hide()
+    }
+
+    override fun showError(message: String) {
+        showToast(message)
+    }
+
+    override fun getUser(profile: ProfileEntity) {
+        presenter.consultOrders(profile.id)
+    }
+
+//    override fun putOrders(orders: List<OrderEntity>) {
+//        adapter = OrderAdapter(orders, this)
+//        recyclerView.adapter = adapter
+//    }
 }

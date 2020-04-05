@@ -19,9 +19,6 @@ class MyPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm!!) {
                 OrderFragment.newInstance()
             }
             2 -> {
-                MapFragment.newInstance()
-            }
-            3 -> {
                 ProfileFragment.newInstance()
             }
             else -> {
@@ -31,7 +28,7 @@ class MyPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm!!) {
     }
 
     override fun getCount(): Int {
-        return 4
+        return 3
     }
 
 }

@@ -76,7 +76,6 @@ class ProductDetailFragment :
         // Inflate the layout for this fragment
         super.onCreateView(inflater, container, savedInstanceState)
         preferences = itemView.context.getSharedPreferences(KEY, 0)
-        initialObjects()
         presenter = ProductDetailPresenter(this)
         presenter.initial()
         return itemView
@@ -86,28 +85,30 @@ class ProductDetailFragment :
         return inflater.inflate(R.layout.fragment_product_detail, container, false)
     }
 
-    private fun initialObjects() {
+    override fun initialElements() {
+        image = itemView.findViewById(R.id.ivPhoto)
+        name = itemView.findViewById(R.id.tvName)
+        carouselView = itemView.findViewById(R.id.carouselView)
+        description = itemView.findViewById(R.id.tvDescription)
+        pay = itemView.findViewById(R.id.btAddShoppingCart)
+        count = itemView.findViewById(R.id.tvCount)
+        left = itemView.findViewById(R.id.btLeft)
+        right = itemView.findViewById(R.id.btMore)
     }
 
-    override fun initialElements() {
+    override fun initialObjects() {
         product = arguments?.getSerializable(PRODUCT) as ProductEntity
-        image = itemView.findViewById(R.id.ivPhoto)
+    }
+
+    override fun loadProduct() {
         Glide.with(itemView).load(
             if (product.image == null) R.drawable.ic_image_black_24dp
             else product.imageAbsolute()
         ).into(image)
-        name = itemView.findViewById(R.id.tvName)
-        name.text = product.name
-        carouselView = itemView.findViewById(R.id.carouselView)
         val size = product.images.size
         carouselView.pageCount = if (size > 0) size else 1
-        description = itemView.findViewById(R.id.tvDescription)
+        name.text = product.name
         description.text = product.description
-        pay = itemView.findViewById(R.id.btAddShoppingCart)
-        count = itemView.findViewById(R.id.tvCount)
-        left = itemView.findViewById(R.id.btLeft)
-        left.isEnabled = false
-        right = itemView.findViewById(R.id.btMore)
     }
 
     override fun subtract(count: String, flag: Boolean) {
@@ -118,6 +119,11 @@ class ProductDetailFragment :
     override fun add(count: String, flag: Boolean) {
         this.count.text = count
         left.isEnabled = flag
+    }
+
+    override fun updateCountShoppingCart(value: String) {
+        val count: TextView? = activity?.findViewById(R.id.tvShoppingCart)
+        if (count != null) count.text = value
     }
 
     // TODO: Rename method, update argument and hook method into UI event

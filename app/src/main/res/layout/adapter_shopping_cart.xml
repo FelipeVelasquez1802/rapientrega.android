@@ -19,7 +19,7 @@
 
     <TextView
         android:id="@+id/tvName"
-        style="@style/TextViewTheme.Title"
+        style="@style/TextViewTheme.H1"
         android:layout_toStartOf="@id/ivDelete"
         android:layout_toLeftOf="@id/ivDelete"
         android:layout_toEndOf="@id/ivPhoto"

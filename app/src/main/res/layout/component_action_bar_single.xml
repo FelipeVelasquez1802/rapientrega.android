@@ -15,7 +15,7 @@
         android:src="@drawable/ic_back_24dp" />
 
     <TextView
-        style="@style/TextViewTheme.Title"
+        style="@style/TextViewTheme.H1"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@id/ivBack"
         android:layout_toRightOf="@id/ivBack"

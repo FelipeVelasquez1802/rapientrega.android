@@ -60,14 +60,28 @@
         <item name="android:paddingRight">10dp</item>
     </style>
 
-    <style name="TextViewTheme.Title">
+    <style name="TextViewTheme.H1">
         <item name="android:textSize">24sp</item>
     </style>
 
-    <style name="TextViewTheme.paragraph">
+    <style name="TextViewTheme.H2">
+        <item name="android:textSize">20sp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+    </style>
+
+    <style name="TextViewTheme.H3">
         <item name="android:textSize">18sp</item>
         <item name="android:paddingTop">10dp</item>
         <item name="android:paddingBottom">10dp</item>
+    </style>
+
+    <style name="TextViewTheme.H4">
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
     </style>
 
     <!--  Style TextInputLayout  -->
@@ -140,6 +154,26 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/theme_button_stroke</item>
+    </style>
+
+    <style name="ButtonTheme.Less" parent="ButtonTheme">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:layout_marginRight">0dp</item>
+        <item name="android:layout_marginLeft">0dp</item>
+        <item name="android:background">@drawable/theme_button_less</item>
+    </style>
+
+    <style name="ButtonTheme.More" parent="ButtonTheme">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:layout_marginRight">0dp</item>
+        <item name="android:layout_marginLeft">0dp</item>
+        <item name="android:background">@drawable/theme_button_more</item>
     </style>
 
     <style name="CustomButtonThemeBack" parent="android:Widget.Button">

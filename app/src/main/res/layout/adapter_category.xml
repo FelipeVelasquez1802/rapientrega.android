@@ -21,7 +21,7 @@
 
     <TextView
         android:id="@+id/tvName"
-        style="@style/TextViewTheme.Title"
+        style="@style/TextViewTheme.H1"
         android:layout_alignBottom="@id/ivPhoto"
         android:gravity="end"
         android:text="@string/name" />

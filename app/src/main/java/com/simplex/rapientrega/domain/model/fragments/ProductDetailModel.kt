@@ -13,8 +13,7 @@ class ProductDetailModel(private val presenter: ProductDetailInterface.Presenter
         product: ProductEntity, count: Int, list: List<ShoppingCartEntity>
     ): List<ShoppingCartEntity> {
         val listNew = list.dropWhile { it.product.id == product.id }
-        val shoppingCartEntity =
-            ShoppingCartEntity()
+        val shoppingCartEntity = ShoppingCartEntity()
         shoppingCartEntity.product = product
         shoppingCartEntity.count = count
         return listNew.plus(shoppingCartEntity)
@@ -22,7 +21,14 @@ class ProductDetailModel(private val presenter: ProductDetailInterface.Presenter
 
     override fun addProductToCar(product: ProductEntity, count: Int, list: String?) {
         val listProduct = toListProduct(list)
-        presenter.addShoppingCart(objectToString(searchProduct(product, count, listProduct)))
+        val shoppingCarts = searchProduct(product, count, listProduct)
+        countProduct(shoppingCarts)
+        presenter.addShoppingCart(objectToString(shoppingCarts))
+    }
+
+    private fun countProduct(shoppingCarts: List<ShoppingCartEntity>) {
+        val count = shoppingCarts.map { it.count }.sum()
+        presenter.updateCountShoppingCart(count)
     }
 
     override fun left(count: Int) {

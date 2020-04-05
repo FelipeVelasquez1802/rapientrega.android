@@ -18,7 +18,7 @@
 
         <TextView
             android:id="@+id/tvName"
-            style="@style/TextViewTheme.Title"
+            style="@style/TextViewTheme.H1"
             android:text="@string/name"
             android:textAlignment="center" />
     </RelativeLayout>

@@ -27,4 +27,9 @@ class ProductEntity : BaseEntity() {
     @SerializedName("cellphone")
     @Expose
     lateinit var cellphone: String
+
+    @SerializedName("quantity")
+    @Expose
+    var quantity: Int = 0
+
 }

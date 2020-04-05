@@ -2,27 +2,62 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/th_panel"
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/tvTitle"
+        style="@style/TextViewTheme.H1"
+        android:text="@string/order_number"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/tvSeparator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/tvTitle"
+        android:layout_marginHorizontal="20dp"
+        android:background="@android:color/black" />
+
+    <TextView
         android:id="@+id/tvDate"
-        style="@style/TextViewTheme.Title"
+        style="@style/TextViewTheme.H2"
+        android:layout_below="@id/tvSeparator"
         android:text="@string/date"
         android:textColor="@color/colorPrimaryDark" />
 
     <TextView
-        style="@style/TextViewTheme.paragraph"
-        android:layout_width="wrap_content"
+        android:id="@+id/tvProductCount"
+        style="@style/TextViewTheme.H4"
         android:layout_below="@id/tvDate"
+        android:text="@string/product_count"
+        android:textColor="@android:color/black" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/tvTitle"
+        android:layout_alignLeft="@id/tvTitle"
+        android:layout_alignTop="@id/tvTotal"
+        android:contentDescription="@string/image"
+        android:src="@drawable/ic_map_black_24dp" />
+
+    <TextView
+        style="@style/TextViewTheme.H3"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/tvProductCount"
+        android:layout_toStartOf="@id/tvTotal"
         android:layout_toLeftOf="@id/tvTotal"
         android:text="@string/total"
         android:textColor="@android:color/black" />
 
     <TextView
         android:id="@+id/tvTotal"
-        style="@style/TextViewTheme.paragraph"
+        style="@style/TextViewTheme.H3"
         android:layout_width="wrap_content"
-        android:layout_below="@id/tvDate"
+        android:layout_below="@id/tvProductCount"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:text="@string/total"
         android:textColor="@android:color/black" />

@@ -81,6 +81,12 @@
     <string name="you_sure_pay">¿Estas seguro de generar la compra?</string>
     <string name="loading">Cargando...</string>
     <string name="please_wait">Por favor espera.</string>
+    <string name="less">-</string>
+    <string name="more">+</string>
+    <string name="value_initial">1</string>
+    <string name="order_number">Order #1</string>
+    <string name="product_count">Cantidad de productos:</string>
+    <string name="count">Cant.</string>
     <string-array name="cities">
         <item>Villavicencio</item>
     </string-array>

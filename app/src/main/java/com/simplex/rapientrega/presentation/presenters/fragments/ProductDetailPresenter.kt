@@ -1,6 +1,5 @@
 package com.simplex.rapientrega.presentation.presenters.fragments
 
-import android.view.View
 import com.simplex.rapientrega.data.api.entities.ProductEntity
 import com.simplex.rapientrega.domain.interfaces.ProductDetailInterface
 import com.simplex.rapientrega.domain.model.fragments.ProductDetailModel
@@ -19,8 +18,10 @@ class ProductDetailPresenter(private val view: ProductDetailInterface.View) :
     }
 
     override fun initial() {
-        this.view.initialElements()
-        this.view.addListener()
+        view.initialObjects()
+        view.initialElements()
+        view.loadProduct()
+        view.addListener()
     }
 
     override fun left(count: String) {
@@ -41,5 +42,9 @@ class ProductDetailPresenter(private val view: ProductDetailInterface.View) :
 
     override fun add(count: Int) {
         view.add("$count", true)
+    }
+
+    override fun updateCountShoppingCart(count: Int) {
+        view.updateCountShoppingCart("$count")
     }
 }

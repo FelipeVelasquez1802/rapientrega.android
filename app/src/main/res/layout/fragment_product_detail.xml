@@ -29,7 +29,7 @@
 
             <TextView
                 android:id="@+id/tvName"
-                style="@style/TextViewTheme.Title"
+                style="@style/TextViewTheme.H1"
                 android:layout_toEndOf="@id/ivPhoto"
                 android:layout_toRightOf="@id/ivPhoto"
                 android:gravity="center_horizontal"
@@ -59,7 +59,7 @@
             android:orientation="vertical">
 
             <TextView
-                style="@style/TextViewTheme.Title"
+                style="@style/TextViewTheme.H1"
                 android:text="@string/description"
                 android:textColor="@android:color/black" />
 

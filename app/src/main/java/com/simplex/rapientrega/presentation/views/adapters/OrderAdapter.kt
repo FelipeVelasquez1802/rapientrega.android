@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.simplex.rapientrega.R
-import com.simplex.rapientrega.data.api.entities.OrderEntity
+import com.simplex.rapientrega.data.api.entities.orders.OrderEntity
 import com.simplex.rapientrega.domain.tools.FORMAT_PRICE
 
 class OrderAdapter(
@@ -18,8 +18,10 @@ class OrderAdapter(
     private lateinit var view: View
 
     class OrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var date: TextView = itemView.findViewById(R.id.tvDate)
-        var total: TextView = itemView.findViewById(R.id.tvTotal)
+        val title: TextView = itemView.findViewById(R.id.tvTitle)
+        val productCount: TextView = itemView.findViewById(R.id.tvProductCount)
+        val date: TextView = itemView.findViewById(R.id.tvDate)
+        val total: TextView = itemView.findViewById(R.id.tvTotal)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderViewHolder {
@@ -31,8 +33,10 @@ class OrderAdapter(
 
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
         val order: OrderEntity = orders[position]
-        holder.date.text = order.date.toString()
-        holder.total.text = FORMAT_PRICE.format(order.totalPrice())
+        holder.title.text = order.idString()
+        holder.productCount.text = order.countProduct()
+//        holder.date.text = order.date.toString()
+        holder.total.text = FORMAT_PRICE.format(order.totalPayment)
         holder.itemView.setOnClickListener { onItemClickListener.run { onItemClick(order) } }
     }
 
