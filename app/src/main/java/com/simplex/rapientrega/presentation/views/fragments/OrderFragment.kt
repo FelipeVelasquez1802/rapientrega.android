@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -47,7 +48,7 @@ class OrderFragment :
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: OrderAdapter
     private lateinit var presenter: OrderInterface.Presenter
-    private lateinit var preferences: SharedPreferences
+    private lateinit var listEmpty: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -139,11 +140,18 @@ class OrderFragment :
             ?.addToBackStack(null)?.commit()
     }
 
+    override fun goMap() {
+        val fragment = MapFragment()
+        fragmentManager?.beginTransaction()?.add(R.id.frame_layout_main, fragment)
+            ?.addToBackStack(null)?.commit()
+    }
+
     override fun initialElements() {
         preferences = itemView.context.getSharedPreferences(KEY, 0)
         recyclerView = itemView.findViewById(R.id.recycler_view)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(context)
+        listEmpty = itemView.findViewById(R.id.tvListEmpty)
     }
 
     override fun initialObjects() {
@@ -174,8 +182,12 @@ class OrderFragment :
         presenter.consultOrders(profile.id)
     }
 
-//    override fun putOrders(orders: List<OrderEntity>) {
-//        adapter = OrderAdapter(orders, this)
-//        recyclerView.adapter = adapter
-//    }
+    override fun showListEmpty() {
+        listEmpty.visibility = View.VISIBLE
+    }
+
+    override fun hideListEmpty() {
+        listEmpty.visibility = View.GONE
+    }
+
 }

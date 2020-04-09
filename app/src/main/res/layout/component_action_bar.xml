@@ -21,10 +21,24 @@
     <TextView
         style="@style/TextViewTheme.H1"
         android:layout_centerVertical="true"
+        android:layout_toStartOf="@id/ivUpdate"
+        android:layout_toLeftOf="@id/ivUpdate"
         android:layout_toEndOf="@id/ivBack"
         android:layout_toRightOf="@id/ivBack"
         android:padding="5dp"
         android:text="@string/app_name" />
+
+    <ImageView
+        android:id="@+id/ivUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginEnd="10dp"
+        android:onClick="onClick"
+        android:layout_marginRight="10dp"
+        android:layout_toStartOf="@id/includeShoppingCart"
+        android:layout_toLeftOf="@id/includeShoppingCart"
+        android:src="@drawable/ic_update_white_24dp" />
 
     <include
         android:id="@+id/includeShoppingCart"

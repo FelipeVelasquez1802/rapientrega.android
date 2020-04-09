@@ -57,7 +57,6 @@ class ProductDetailFragment :
     private lateinit var right: Button
 
     private lateinit var product: ProductEntity
-    private lateinit var preferences: SharedPreferences
 
     private lateinit var presenter: ProductDetailInterface.Presenter
 

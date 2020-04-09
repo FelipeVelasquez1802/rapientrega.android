@@ -43,7 +43,12 @@ class OrderModel(private val presenter: OrderInterface.Presenter) :
             presenter.showError(ERROR)
             return
         }
-        presenter.showOrders(generalOrder.orders)
+        val orders = generalOrder.orders
+        if (orders.isEmpty()) {
+            presenter.showListEmpty()
+            return
+        }
+        presenter.showOrders(orders)
     }
 
 }

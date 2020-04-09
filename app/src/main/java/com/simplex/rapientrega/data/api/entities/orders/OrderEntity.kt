@@ -48,7 +48,10 @@ class OrderEntity(
     val paymentMethod: String,
     @SerializedName("delivery_transport")
     @Expose
-    val deliveryTransport: String
+    val deliveryTransport: String,
+    @SerializedName("state")
+    @Expose
+    val state: String
 ) : Serializable {
     fun idString(): String {
         return "$ORDER_NUMBER $id"

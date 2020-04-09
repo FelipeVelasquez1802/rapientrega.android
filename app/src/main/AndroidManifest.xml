@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -16,12 +17,20 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/api_key_google_maps" />
+
         <activity
             android:name=".presentation.views.activities.ShoppingCartDataActivity"
-            android:parentActivityName=".presentation.views.activities.ShoppingCartActivity"></activity>
+            android:parentActivityName=".presentation.views.activities.ShoppingCartActivity">
+
+        </activity>
         <activity
             android:name=".presentation.views.activities.ShoppingCartActivity"
-            android:parentActivityName=".presentation.views.activities.MainActivity"></activity>
+            android:parentActivityName=".presentation.views.activities.MainActivity">
+
+        </activity>
         <activity android:name=".presentation.views.activities.RestorePasswordActivity" />
         <activity android:name=".presentation.views.activities.RegisterActivity" />
         <activity android:name=".presentation.views.activities.LoginActivity">

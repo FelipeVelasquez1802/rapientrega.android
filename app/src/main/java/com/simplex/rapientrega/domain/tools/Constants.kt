@@ -48,3 +48,4 @@ const val NOT_EMAIL = "Este no es un correo valido."
 
 const val HEAD = "head"
 const val ORDER_KEY = "order_key"
+const val CITY_USER = "city_user"

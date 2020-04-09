@@ -4,6 +4,7 @@ import com.simplex.rapientrega.data.api.entities.*
 import com.simplex.rapientrega.data.api.entities.orders.GeneralOrderEntity
 import com.simplex.rapientrega.data.api.entities.shoppingcart.PayEntity
 import com.simplex.rapientrega.data.api.entities.shoppingcart.PayResponseEntity
+import com.simplex.rapientrega.data.api.entities.stores.StoreBodyEntity
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -21,6 +22,9 @@ interface ApiDao {
 
     @GET("stores-ms/api/stores/")
     fun stores(): Call<CategoryEntity>
+
+    @POST("stores-ms/api/stores/city/")
+    fun storesPost(@Body storeBodyEntity: StoreBodyEntity): Call<CategoryEntity>
 
     @GET("stores-ms/api/products/")
     fun products(): Call<ProductKeyEntity>

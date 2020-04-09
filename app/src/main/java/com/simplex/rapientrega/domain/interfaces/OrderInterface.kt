@@ -12,6 +12,8 @@ interface OrderInterface {
         fun hideLoading()
         fun showError(message: String)
         fun getUser(profile: ProfileEntity)
+        fun showListEmpty()
+        fun hideListEmpty()
     }
 
     interface Presenter {
@@ -23,6 +25,8 @@ interface OrderInterface {
         fun showError(message: String)
         fun convertUser(string: String?)
         fun getUser(profile: ProfileEntity)
+        fun showListEmpty()
+        fun hideListEmpty()
     }
 
     interface Model {

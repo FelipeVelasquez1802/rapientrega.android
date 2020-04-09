@@ -15,10 +15,11 @@ class OrderPresenter(private val view: OrderInterface.View) : OrderInterface.Pre
     }
 
     override fun consultOrders(userId: Int) {
-        model.consultOrders(userId)
+//        model.consultOrders(userId)
     }
 
     override fun showOrders(orders: List<OrderEntity>) {
+        view.hideListEmpty()
         view.showOrders(orders)
     }
 
@@ -41,6 +42,14 @@ class OrderPresenter(private val view: OrderInterface.View) : OrderInterface.Pre
 
     override fun getUser(profile: ProfileEntity) {
         view.getUser(profile)
+    }
+
+    override fun showListEmpty() {
+        view.showListEmpty()
+    }
+
+    override fun hideListEmpty() {
+        view.hideListEmpty()
     }
 
 //    override fun consultOrders(string: String?) {

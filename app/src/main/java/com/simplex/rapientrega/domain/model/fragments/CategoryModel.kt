@@ -1,6 +1,8 @@
 package com.simplex.rapientrega.domain.model.fragments
 
 import com.simplex.rapientrega.data.api.entities.CategoryEntity
+import com.simplex.rapientrega.data.api.entities.stores.StoreBodyEntity
+import com.simplex.rapientrega.data.api.entities.stores.UbicationEntity
 import com.simplex.rapientrega.data.api.repositories.RepositoryImpl
 import com.simplex.rapientrega.domain.interfaces.CategoryInterface
 import com.simplex.rapientrega.domain.tools.ERROR
@@ -17,9 +19,10 @@ class CategoryModel(private val presenter: CategoryInterface.Presenter) :
 
     private val repository: RepositoryImpl = RepositoryImpl()
 
-    override fun consultCategories() {
+    override fun consultCategories(city: String, ubicationEntity: UbicationEntity) {
         presenter.stateProgressBar(SHOW)
-        repository.service().stores().enqueue(this)
+        val bodyEntity = StoreBodyEntity(city, ubicationEntity)
+        repository.service().storesPost(bodyEntity).enqueue(this)
     }
 
     override fun onFailure(call: Call<CategoryEntity>, t: Throwable) {
