@@ -26,15 +26,14 @@ interface ApiDao {
     @POST("stores-ms/api/stores/city/")
     fun storesPost(@Body storeBodyEntity: StoreBodyEntity): Call<CategoryEntity>
 
-    @GET("stores-ms/api/products/")
-    fun products(): Call<ProductKeyEntity>
+    @GET("stores-ms/api/products/store/{store_id}")
+    fun products(@Path("store_id") storeId: Int): Call<ProductKeyEntity>
 
     @Headers("Content-Type: application/json")
     @POST("orders-ms/api/order/create")
     fun payProducts(@Body payEntity: PayEntity): Call<PayResponseEntity>
 
     @FormUrlEncoded
-//    @Headers("Content-Type: application/json")
     @POST("orders-ms/api/order/orders_by_user_id")
     fun orders(@Field("user_id") userId: Int): Call<GeneralOrderEntity>
 }

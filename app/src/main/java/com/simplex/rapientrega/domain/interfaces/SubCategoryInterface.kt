@@ -9,6 +9,8 @@ interface SubCategoryInterface {
         fun showSubCategories(subcategories: List<ProductCategoriesEntity>)
         fun showAlertMessage(id: Int)
         fun stateProgressBar(id: Int)
+        fun showListEmpty()
+        fun hideListEmpty()
     }
 
     interface Presenter {
@@ -17,6 +19,8 @@ interface SubCategoryInterface {
         fun consultSubCategories(storeId: Int)
         fun showAlertMessage(id: String)
         fun stateProgressBar(id: String)
+        fun showListEmpty()
+        fun hideListEmpty()
     }
 
     interface Model {

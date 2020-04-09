@@ -163,15 +163,19 @@ class SubCategoryFragment :
     override fun showSubCategories(subcategories: List<ProductCategoriesEntity>) {
         this.subcategories.addAll(subcategories)
         adapter.notifyDataSetChanged()
-        showListEmpty()
     }
 
-    private fun showListEmpty() {
-        if (subcategories.isEmpty()) {
-            listEmpty.visibility = View.VISIBLE
-        } else {
-            listEmpty.visibility = View.GONE
-        }
+    override fun showListEmpty() {
+        listEmpty.visibility = View.VISIBLE
+//        if (subcategories.isEmpty()) {
+//            listEmpty.visibility = View.VISIBLE
+//        } else {
+//            listEmpty.visibility = View.GONE
+//        }
+    }
+
+    override fun hideListEmpty() {
+        listEmpty.visibility = View.GONE
     }
 
     override fun showAlertMessage(id: Int) {

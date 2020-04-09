@@ -41,4 +41,12 @@ class SubCategoryPresenter(private val view: SubCategoryInterface.View) :
             HIDE -> view.stateProgressBar(View.GONE)
         }
     }
+
+    override fun showListEmpty() {
+        view.showListEmpty()
+    }
+
+    override fun hideListEmpty() {
+        view.hideListEmpty()
+    }
 }
