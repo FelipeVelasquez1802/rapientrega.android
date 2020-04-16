@@ -36,7 +36,7 @@ const val PASSWORD_REPEAT = "password_confirm"
 const val IDENTIFICATION_CARD = "identification_card"
 const val CELLPHONE = "cellphone"
 
-const val ORDER_NUMBER = "Orden #"
+const val ORDER_NUMBER = "Pedido #"
 const val COUNT_PRODUCT = "Cantidad de productos:"
 
 // Errors
@@ -49,3 +49,4 @@ const val NOT_EMAIL = "Este no es un correo valido."
 const val HEAD = "head"
 const val ORDER_KEY = "order_key"
 const val CITY_USER = "city_user"
+const val UBICATION_INITIAL = "ubication_initial"

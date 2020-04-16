@@ -1,9 +1,11 @@
 package com.simplex.rapientrega.domain.model.fragments
 
+import android.util.Log
 import com.simplex.rapientrega.data.api.entities.orders.GeneralOrderEntity
 import com.simplex.rapientrega.data.api.repositories.RepositoryImpl
 import com.simplex.rapientrega.domain.interfaces.OrderInterface
 import com.simplex.rapientrega.domain.tools.ERROR
+import com.simplex.rapientrega.domain.tools.objectToString
 import com.simplex.rapientrega.domain.tools.toLoginEntity
 import retrofit2.Call
 import retrofit2.Callback

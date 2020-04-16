@@ -8,6 +8,10 @@ class ProductEntity : BaseEntity() {
     @Expose
     var productCategoryId: Int = 0
 
+    @SerializedName("store_id")
+    @Expose
+    var storeId: Int = 0
+
     @SerializedName("description")
     @Expose
     lateinit var description: String

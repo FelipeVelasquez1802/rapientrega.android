@@ -9,6 +9,15 @@
         android:id="@+id/includeShoppingCart"
         layout="@layout/component_action_bar" />
 
+    <TextView
+        android:id="@+id/tvMessage"
+        style="@style/TextViewTheme.H1"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="@string/not_permissions"
+        android:textColor="@android:color/black"
+        android:visibility="gone" />
+
     <FrameLayout
         android:id="@+id/frame_layout_main"
         android:layout_width="match_parent"

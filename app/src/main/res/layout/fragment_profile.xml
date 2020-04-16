@@ -32,20 +32,20 @@
                     android:gravity="center_horizontal"
                     android:text="@string/username"
                     android:textAlignment="center"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@color/colorPrimaryDark" />
 
                 <TextView
                     android:id="@+id/tvEmail"
-                    style="@style/TextViewTheme"
-                    android:drawableStart="@drawable/ic_email_black_24dp"
-                    android:drawableLeft="@drawable/ic_email_black_24dp"
+                    style="@style/TextViewTheme.H4"
+                    android:drawableStart="@drawable/ic_email_primary_dark_24dp"
+                    android:drawableLeft="@drawable/ic_email_primary_dark_24dp"
                     android:text="@string/email"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/darker_gray" />
 
                 <TextView
                     style="@style/TextViewTheme"
-                    android:drawableStart="@drawable/ic_place_black_24dp"
-                    android:drawableLeft="@drawable/ic_place_black_24dp"
+                    android:drawableStart="@drawable/ic_location_on_primary_dark_24dp"
+                    android:drawableLeft="@drawable/ic_location_on_primary_dark_24dp"
                     android:text="@string/address"
                     android:textColor="@android:color/darker_gray" />
 

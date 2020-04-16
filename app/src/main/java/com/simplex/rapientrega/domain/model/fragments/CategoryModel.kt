@@ -1,14 +1,12 @@
 package com.simplex.rapientrega.domain.model.fragments
 
+import android.util.Log
 import com.simplex.rapientrega.data.api.entities.CategoryEntity
 import com.simplex.rapientrega.data.api.entities.stores.StoreBodyEntity
 import com.simplex.rapientrega.data.api.entities.stores.UbicationEntity
 import com.simplex.rapientrega.data.api.repositories.RepositoryImpl
 import com.simplex.rapientrega.domain.interfaces.CategoryInterface
-import com.simplex.rapientrega.domain.tools.ERROR
-import com.simplex.rapientrega.domain.tools.HIDE
-import com.simplex.rapientrega.domain.tools.LIST_EMPTY
-import com.simplex.rapientrega.domain.tools.SHOW
+import com.simplex.rapientrega.domain.tools.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,13 +28,15 @@ class CategoryModel(private val presenter: CategoryInterface.Presenter) :
         presenter.stateProgressBar(HIDE)
     }
 
-    override fun onResponse(
-        call: Call<CategoryEntity>, response: Response<CategoryEntity>
-    ) {
-        if (response.isSuccessful) {
-            val storeCategory: CategoryEntity? = response.body()
-            presenter.showCategories(storeCategory?.storesCategories)
-        } else presenter.showAlertError(LIST_EMPTY)
+    override fun onResponse(call: Call<CategoryEntity>, response: Response<CategoryEntity>) {
         presenter.stateProgressBar(HIDE)
+        val category: CategoryEntity? = response.body()
+        if (!response.isSuccessful || category == null || category.storesCategories.isEmpty()) {
+            presenter.showAlertError(LIST_EMPTY)
+            presenter.showListEmpty()
+            return
+        }
+        val storeCategory = category.storesCategories
+        presenter.showCategories(storeCategory)
     }
 }

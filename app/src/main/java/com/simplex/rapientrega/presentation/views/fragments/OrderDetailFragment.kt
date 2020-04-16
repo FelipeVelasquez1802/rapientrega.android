@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.simplex.rapientrega.R
 import com.simplex.rapientrega.data.api.entities.orders.OrderEntity
 import com.simplex.rapientrega.domain.interfaces.OrderDetailInterface
+import com.simplex.rapientrega.domain.tools.FORMAT_PRICE
 import com.simplex.rapientrega.domain.tools.ORDER_KEY
 import com.simplex.rapientrega.presentation.presenters.fragments.OrderDetailPresenter
 import com.simplex.rapientrega.presentation.views.adapters.OrderDetailAdapter
@@ -82,7 +83,8 @@ class OrderDetailFragment :
 
     override fun initialObjects() {
         order = arguments?.getSerializable(ORDER_KEY) as OrderEntity
-        adapter = OrderDetailAdapter(order.store, order.products)
+        adapter =
+            OrderDetailAdapter(order.store, order.products, FORMAT_PRICE.format(order.totalPayment))
     }
 
     override fun initialElements() {

@@ -15,7 +15,7 @@ class OrderPresenter(private val view: OrderInterface.View) : OrderInterface.Pre
     }
 
     override fun consultOrders(userId: Int) {
-//        model.consultOrders(userId)
+        model.consultOrders(userId)
     }
 
     override fun showOrders(orders: List<OrderEntity>) {

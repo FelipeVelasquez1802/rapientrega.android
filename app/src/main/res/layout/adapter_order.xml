@@ -12,7 +12,8 @@
         android:layout_toStartOf="@id/tvState"
         android:layout_toLeftOf="@id/tvState"
         android:text="@string/order_number"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvState"
@@ -64,7 +65,8 @@
         android:layout_toStartOf="@id/tvTotal"
         android:layout_toLeftOf="@id/tvTotal"
         android:text="@string/total"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvTotal"

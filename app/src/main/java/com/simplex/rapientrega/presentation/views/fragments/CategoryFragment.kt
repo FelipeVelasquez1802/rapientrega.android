@@ -1,22 +1,15 @@
 package com.simplex.rapientrega.presentation.views.fragments
 
-import android.Manifest
 import android.app.AlertDialog
 import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings
-import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
-import androidx.core.app.ActivityCompat
+import android.widget.ProgressBar
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,6 +19,8 @@ import com.simplex.rapientrega.data.api.entities.StoreEntity
 import com.simplex.rapientrega.domain.interfaces.CategoryInterface
 import com.simplex.rapientrega.domain.tools.CITY_USER
 import com.simplex.rapientrega.domain.tools.STORES
+import com.simplex.rapientrega.domain.tools.UBICATION_INITIAL
+import com.simplex.rapientrega.domain.tools.toUbicationEntity
 import com.simplex.rapientrega.presentation.presenters.fragments.CategoryPresenter
 import com.simplex.rapientrega.presentation.views.adapters.CategoryAdapter
 import java.io.Serializable
@@ -48,9 +43,7 @@ private const val CODE_LOCATION = 1
 class CategoryFragment :
     BaseFragment(),
     CategoryInterface.View,
-    CategoryAdapter.OnItemClickListener,
-    LocationListener,
-    View.OnClickListener {
+    CategoryAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -62,14 +55,8 @@ class CategoryFragment :
     private lateinit var dialogLocation: AlertDialog
     private lateinit var dialogCity: AlertDialog
     private lateinit var listEmpty: TextView
-    private lateinit var update: ImageView
 
     private lateinit var presenter: CategoryInterface.Presenter
-    private lateinit var locationManager: LocationManager
-    private var isSearch: Boolean = true
-    private var latitude: Double = 0.0
-    private var longitude: Double = 0.0
-    private lateinit var cities: List<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -165,89 +152,12 @@ class CategoryFragment :
         recyclerView.layoutManager = LinearLayoutManager(context)
         progressBar = itemView.findViewById(R.id.progress_circular)
         listEmpty = itemView.findViewById(R.id.tvListEmpty)
-        update = requireActivity().findViewById(R.id.ivUpdate)
-        createDialogLocation()
-        createDialogCity()
     }
 
     override fun initialObjects() {
-        cities = resources.getStringArray(R.array.cities).toList()
-        locationManager =
-            itemView.context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
     }
 
     override fun addListeners() {
-        update.setOnClickListener(this)
-    }
-
-    override fun havePermissions() {
-        if (checkPermission()) {
-            requestPermissions(
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), CODE_LOCATION
-            )
-            return
-        }
-        if (!isLocationEnabled()) {
-            presenter.showDialogLocation()
-            return
-        }
-        locationManager.requestLocationUpdates(
-            LocationManager.GPS_PROVIDER, 0, 0f, this
-        )
-
-    }
-
-    override fun showDialogLocation() {
-        dialogLocation.show()
-    }
-
-    override fun hideDialogLocation() {
-        dialogLocation.hide()
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
-    ) {
-        when (requestCode) {
-            CODE_LOCATION -> {
-                when (grantResults[0]) {
-                    0 -> presenter.havePermissions()
-                }
-            }
-        }
-        presenter.showListEmpty()
-    }
-
-    override fun onLocationChanged(location: Location?) {
-        if (location == null) {
-            presenter.showListEmpty()
-            return
-        }
-        this.latitude = location.latitude
-        this.longitude = location.longitude
-        if (isSearch) {
-            presenter.verifyCity(preferences)
-            isSearch = false
-        }
-    }
-
-    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
-    }
-
-    override fun onProviderEnabled(provider: String?) {
-    }
-
-    override fun onProviderDisabled(provider: String?) {
-    }
-
-    private fun checkPermission(): Boolean {
-        return ActivityCompat.checkSelfPermission(
-            itemView.context,
-            Manifest.permission.ACCESS_COARSE_LOCATION
-        ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-            itemView.context,
-            Manifest.permission.ACCESS_FINE_LOCATION
-        ) != PackageManager.PERMISSION_GRANTED
     }
 
     override fun showCategories(categories: List<StoreCategoryEntity>?) {
@@ -281,63 +191,12 @@ class CategoryFragment :
         dialogCity.show()
     }
 
-    private fun createCity(city: String) {
-        val editor = preferences.edit()
-        editor.putString(CITY_USER, city)
-        editor.apply()
-    }
+    override fun searchUbication() {
+        val city = preferences.getString(CITY_USER, null)
+        val ubication = preferences.getString(UBICATION_INITIAL, null)
 
-    override fun getCity(city: String) {
-        presenter.consultCategories(city, latitude, longitude)
-    }
-
-    private fun isLocationEnabled(): Boolean {
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-    }
-
-    private fun createDialogLocation() {
-        val builder =
-            AlertDialog.Builder(ContextThemeWrapper(itemView.context, R.style.AlertDialogTheme))
-        builder.setTitle(getString(R.string.app_name))
-            .setMessage(getString(R.string.active_the_location))
-            .setPositiveButton(R.string.yes) { _, _ ->
-                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                startActivityForResult(intent, CODE_LOCATION)
-            }.setNegativeButton(R.string.no) { _, _ -> showListEmpty() }
-        dialogLocation = builder.create()
-    }
-
-    private fun createDialogCity() {
-        val builder =
-            AlertDialog.Builder(ContextThemeWrapper(itemView.context, R.style.AlertDialogTheme))
-        val view = LayoutInflater.from(itemView.context).inflate(R.layout.dialog_city, null)
-        val city: Spinner = view.findViewById(R.id.spCity)
-        builder.setTitle(getString(R.string.app_name))
-            .setPositiveButton(R.string.yes) { _, _ ->
-                val cityString = cities[city.selectedItemPosition]
-                createCity(cityString)
-                presenter.verifyCity(preferences)
-            }
-            .setNegativeButton(R.string.no) { _, _ -> presenter.showListEmpty() }
-        builder.setView(view)
-        dialogCity = builder.create()
-        dialogCity.setCancelable(false)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == CODE_LOCATION) {
-            presenter.havePermissions()
-        }
-    }
-
-    override fun onClick(v: View?) {
-        when (v?.id) {
-            R.id.ivUpdate -> {
-                isSearch = true
-                presenter.havePermissions()
-            }
-        }
+        val ubicationEntity = toUbicationEntity(ubication)
+        presenter.consultCategories(city, ubicationEntity)
     }
 
 }

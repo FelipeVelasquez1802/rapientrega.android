@@ -5,6 +5,7 @@ import com.simplex.rapientrega.data.api.entities.LoginEntity
 import com.simplex.rapientrega.data.api.entities.OrderEntity
 import com.simplex.rapientrega.data.api.entities.RegisterErrorEntity
 import com.simplex.rapientrega.data.api.entities.shoppingcart.ShoppingCartEntity
+import com.simplex.rapientrega.data.api.entities.stores.UbicationEntity
 
 fun objectToString(any: Any): String {
     return GSON.toJson(any)
@@ -39,5 +40,10 @@ fun toRegisterError(string: String?): RegisterErrorEntity? {
     return if (string != null) Gson().fromJson(
         string, RegisterErrorEntity::class.java
     )
+    else null
+}
+
+fun toUbicationEntity(string: String?): UbicationEntity? {
+    return if (string != null) GSON.fromJson(string, UbicationEntity::class.java)
     else null
 }

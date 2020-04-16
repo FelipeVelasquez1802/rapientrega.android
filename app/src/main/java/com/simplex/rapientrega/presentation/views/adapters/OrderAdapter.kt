@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.simplex.rapientrega.R
 import com.simplex.rapientrega.data.api.entities.orders.OrderEntity
 import com.simplex.rapientrega.domain.tools.FORMAT_PRICE
-import com.simplex.rapientrega.presentation.views.fragments.MapFragment
 
 const val UNASSIGNED = "unassigned"
 const val IN_PROGRESS = "in_progress"

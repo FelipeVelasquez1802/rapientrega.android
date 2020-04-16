@@ -84,7 +84,7 @@
     <string name="less">-</string>
     <string name="more">+</string>
     <string name="value_initial">1</string>
-    <string name="order_number">Order #1</string>
+    <string name="order_number">Pedido #1</string>
     <string name="product_count">Cantidad de productos:</string>
     <string name="count">Cant.</string>
     <string name="personal_date">Datos personales</string>
@@ -96,9 +96,9 @@
     <string name="canceled_by_user">Cancelado por el usuario</string>
     <string name="canceled_by_not_deliveryman">Cancelada porque no se encontró un repartidor disponible</string>
     <string name="completed">Finalizado</string>
-    <string name="api_key_google_maps">AIzaSyB-3rrxZqHF7dY3o8d77gJPOI5GiFclN7Y</string>
     <string name="active_the_location">¿Quiere activar la ubicación de su celular?</string>
     <string name="select_city">Seleccione su ciudad actual</string>
+    <string name="not_permissions">Debes aceptar los permisos y la ubicación</string>
     <string-array name="cities">
         <item>Villavicencio</item>
     </string-array>
@@ -108,4 +108,5 @@
     <string-array name="types_cash_key">
         <item>cash</item>
     </string-array>
+    <string name="title_activity_maps">Map</string>
 </resources>

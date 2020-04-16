@@ -1,7 +1,7 @@
 package com.simplex.rapientrega.presentation.views.fragments
 
 import android.content.Context
-import android.content.SharedPreferences
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,6 +19,7 @@ import com.simplex.rapientrega.domain.tools.KEY
 import com.simplex.rapientrega.domain.tools.ORDER_KEY
 import com.simplex.rapientrega.domain.tools.USER
 import com.simplex.rapientrega.presentation.presenters.fragments.OrderPresenter
+import com.simplex.rapientrega.presentation.views.activities.MapsActivity
 import com.simplex.rapientrega.presentation.views.adapters.OrderAdapter
 
 // TODO: Rename parameter arguments, choose names that match
@@ -65,7 +66,6 @@ class OrderFragment :
         super.onCreateView(inflater, container, savedInstanceState)
         presenter = OrderPresenter(this)
         presenter.initial()
-//        presenter.consultOrders(preferences.getString(ORDER, null))
         return itemView
     }
 
@@ -141,9 +141,11 @@ class OrderFragment :
     }
 
     override fun goMap() {
-        val fragment = MapFragment()
-        fragmentManager?.beginTransaction()?.add(R.id.frame_layout_main, fragment)
-            ?.addToBackStack(null)?.commit()
+//        val fragment = MapFragment()
+//        fragmentManager?.beginTransaction()?.add(R.id.frame_layout_main, fragment)
+//            ?.addToBackStack(null)?.commit()
+        val intent = Intent(context, MapsActivity::class.java)
+        startActivity(intent)
     }
 
     override fun initialElements() {
